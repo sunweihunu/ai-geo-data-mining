@@ -1,0 +1,1949 @@
+===== SLIDE 1 =====
+孙伟 
+sunwei29@mail.sysu.edu.cn
+地理科学与规划学院
+2026.09
+第
+二
+讲 编程环境和语言
+机器学习与地学应用
+===== SLIDE 2 =====
+主要内容
+Linux
+简介
+Shell / Bash
+基本命令
+几个使用
+Linux
+场景
+Git
+Visual Studio Code 
+(
+VS Code)
+简介
+隔离环境
+UV
+Anaconda
+简介
+Matlab
+和
+Python
+的对比
+Matlab
+调用
+Python
+Python
+调用
+Matlab
+小结
+===== SLIDE 3 =====
+6
+.  
+隔离环境
+===== SLIDE 4 =====
+4
+隔离环境的应用场景举例
+场景
+1
+：
+tensorflow
+(
+tf
+)
+是一个十分流行的
+python
+机器学习库，你现在手里有两个
+tf
+项目，其中项目
+A
+需要使用 
+python2.7 + f1.2 
+，项目
+B
+需要使用 
+python2.7 + tf1.6 
+．这两个项目你得同时进行，怎么办？
+不隔离环境的办法：
+需要运行项目
+A
+时，将
+python2.7
+中的
+tf1.6
+卸载掉，安装
+tf1.2
+；
+需要运行项目
+B
+时，将
+python2.7
+中的
+tf1.2
+卸载掉，安装
+tf1.6
+。
+如果是单个模块还好，但是
+tf
+的不同版本又依赖于
+python
+中的其他已安装模块，而且
+tf1.2
+和
+tf1.6
+对依赖模块有不同的版本要求，那么转换一次得卸载安装好几个模块？
+===== SLIDE 5 =====
+5
+隔离环境的应用场景举例
+场景
+2
+：
+课题组里几个同门共用一台服务器，每个人拥有一个系统账户，其中只有一个人拥有
+root
+权限，里面每个人都需要使用
+python
+跑程序，而且每个人对
+python
+版本以及
+python
+模块的版本都有不同需求，很多人又没有
+root
+权限，如何解决？
+不隔离环境的办法：
+每个人都开一个
+root
+权限
+多人共用一个
+root
+帐号。
+===== SLIDE 6 =====
+6
+Python
+隔离环境的关键术语
+命令或概念
+解释
+pip
+是首选的安装程序。从
+Python 3.4
+开始，它默认包含在
+Python
+二进制安装程序中。
+虚拟环境
+ 是一种半隔离的 
+Python 
+环境，允许为特定的应用安装各自的包，而不是安装到整个系统。
+venv
+是创建虚拟环境的标准工具，从 
+Python 3.3 
+开始成为 
+Python 
+的组成部分。 从 
+Python 3.4 
+开始，它会默认安装 
+pip 
+到所创建的全部虚拟环境。
+virtualenv
+venv
+的第三方替代（及其前身）。 它允许在 
+Python 3.4 
+之前版本中使用虚拟环境，那些版本或是完全不提供 
+venv
+，或是不会自动安装 
+pip 
+到所创建的虚拟环境。
+Python Package Index
+是一个开源许可的软件包公共存储库，可供所有 
+Python 
+用户使用
+https://docs.python.org/zh-cn/3/installing/index.html
+===== SLIDE 7 =====
+7
+构建隔离环境的方法
+1
+方法
+优点
+缺点
+pyenv
+管理多个
+Python
+版本
+容易切换
+Python
+版本
+支持插件扩展
+不提供虚拟环境管理功能
+只适用于
+Python
+版本管理，不能隔离其他依赖项
+Python 3.6
+后不推荐使用
+venv
+Python
+标准库一部分
+轻量级、简单易用
+隔离
+Py
+环境和依赖项
+支持 
+Python 3.3+
+Pipenv
+集成虚拟环境和包管理
+自动锁定依赖项的版本
+支持环境变量管理
+引入了更多概念和复杂性
+有些项目可能不兼容
+Virtualenv
+创建独立
+Python
+环境
+管理多个
+Python
+版本
+灵活性高
+需要手动安装和配置
+没有自动化的包管理功能
+支持 
+Python 2.7 
+和  
+Python 3.3+
+===== SLIDE 8 =====
+8
+构建隔离环境的方法
+2
+方法
+优点
+缺点
+Conda
+可以创建虚拟环境并管理
+Python
+和非
+Python
+包
+跨平台
+自带包管理工具
+安装的软件包相对较大
+与
+pip
+库不完全兼容
+可能会出现环境变量冲突的问题
+UV
+新兴的 
+Python 
+包安装和依赖管理工具
+速度快
+有的安装需要科学上网
+Poetry 
+针对具体 
+Python 
+项目，能精确管理“这个项目需要哪些包，什么版本范围”
+生成 
+lock 
+文件保证任何人安装结果完全一致。
+先用 
+Conda
+创建并激活环境，解决 
+Python 
+版本和系统库的问题；然后在环境里安装 
+Poetry
+；来精确安装和管理这个 
+Python 
+项目的所有依赖包。
+===== SLIDE 9 =====
+9
+构建隔离环境的方法
+3
+方法
+优点
+缺点
+Docker
+可以打包应用程序和依赖项为独立的容器
+运行环境隔离性好
+可以在不同平台上运行
+需要学习和了解
+Docker
+的使用
+资源消耗较大，对于小规模项目可能显得过于复杂
+VS Code 
+通过界面智能提示或选择
+和
+Conda
+、
+UV
+、
+pip
+或其他方法结合（
+跨平台）
+必须安装
+VScode
+Agent
+由
+Agent
+来创建、激活和关闭环境
+模型智能决定完成程度；
+提示词要写清楚用户需求
+===== SLIDE 10 =====
+10
+隔离环境方法的选择
+原则：
+需要根据项目的具体需求和背景选择。
+具体情况
+：
+如果只需要隔离
+Python
+版本
+，
+pyenv
+、
+venv
+和
+Virtualenv
+是常见且简单的选择；
+如果同时用
+Python 2 
+和 
+3
+建环境
+，使用
+virtualenv
+如果只在
+Python 3.3+
+建环境
+，使用 
+python3 -m 
+venv
+如果除了隔离
+Python
+还需要管理包依赖关系
+，
+Pipenv
+和
+Conda
+提供了更多的功能；
+如果需要隔离整个应用程序及其依赖项，并跨平台、操作系统运行
+，
+Docker
+可能是更好的选择。
+===== SLIDE 11 =====
+11
+Python3.3
+及以上建立隔离环境
+功能
+例子
+备注
+查看虚拟环境
+系统下搜索或查看子文件夹名
+创建新环境
+python -m 
+venv
+环境名
+python3 -m 
+venv
+环境名
+环境名自定义
+激活该环境
+Ubuntu: source bin/activate
+Window:
+bin/activate
+在虚拟环境文件夹下
+查看安装包
+pip3 list
+用列表安装包
+pip install -r requirements.txt
+导出安装包列表
+pip freeze &gt; requirements.txt 
+退出该环境
+deactivate
+删除该环境
+系统下删除虚拟环境文件夹
+以后不用了
+参考 
+https://docs.python.org/zh-cn/3/library/venv.html
+软件包的具体安装说明；
+===== SLIDE 12 =====
+12
+部署虚拟环境
+在服务器或其他电脑上迁移或部署步骤
+：
+开发完成后，使用 
+pip freeze &gt; requirements.txt 
+命令将项目的库依赖导出，作为代码的一部分
+将代码上传到服务器
+或其他电脑
+在服务器
+或其他电脑
+上创建一个虚拟环境
+激活虚拟环境，执行 
+pip install -r requirements.txt
+，安装项目依赖
+===== SLIDE 13 =====
+7
+. 
+UV 
+简介
+===== SLIDE 14 =====
+14
+什么是
+UV
+？
+新兴的 
+Python 
+包安装和依赖管理工具，
+其用 
+Rust 
+编写的高效实现，在速度和资源占用方面显著优于传统的 
+pip 
+和 
+virtualenv
+。
+支持快速创建虚拟环境，并行下载和编译依赖包。
+提供项目初始化和依赖锁定，性能上更具优势。
+源代码：
+https://github.com/astral-sh/uv
+官方文档：
+docs.astral.sh/
+uv
+安装
+python
+：
+https://docs.astral.sh/uv/guides/install-python/
+===== SLIDE 15 =====
+15
+构建隔离环境的方法
+3
+命令
+含义
+pip install 
+uv
+安装
+UV 
+uv
+ --version
+检查当前安装的 
+uv
+版本
+uv
+venv
+xxxname
+创建虚拟环境 
+xxxname
+xxxname
+\Scripts\activate
+激活虚拟环境 
+xxxname
+deactivate
+停用虚拟环境
+uv
+init
+初始化项目
+, 
+生成
+pyproject.toml
+uv
+ run example
+.py
+运行代码
+uv
+ help
+查看帮助
+===== SLIDE 16 =====
+16
+构建隔离环境的方法
+3
+命令
+含义
+uv
+ add -r requirements.txt
+把 
+requirements.txt 
+里的所有依赖添加到 
+pyproject.toml
+，并生成
+/
+更新 
+uv.lock
+，自动安装依赖
+uv
+ add pandas 
+airtest
+添加一个或多个依赖
+uv
+ remove requests
+移除依赖包
+uv
+ pip list
+查看已安装的包
+uv
+ pip freeze &gt; requirements.txt
+生成 
+requirements.txt
+===== SLIDE 17 =====
+8
+. Anaconda
+简介
+===== SLIDE 18 =====
+18
+什么是
+Anaconda
+？
+Conda
+：
+一个跨平台开源的包管理和环境管理系统。
+Anaconda
+一个用于科学计算的开源软件包发行版，包括
+conda
+，
+ Anaconda Navigator
+和大量科学计算包。
+Miniconda
+：
+Anaconda
+的精简版。
+===== SLIDE 19 =====
+19
+Anaconda
+的主要运行方式
+软件
+功能
+备注
+Anaconda 
+Navigato
+r
+可以启动应用程序，管理
+conda
+环境和
+python
+模块包
+桌面用户界面
+Anaconda prompt
+anaconda
+的命令行终端
+命令行界面
+1
+Anaconda 
+powershell
+ prompt
+Windows
+下较新的命令行终端
+命令行界面
+2
+VScode
+包含命令行终端
+命令行界面
+3
+===== SLIDE 20 =====
+20
+Anaconda
+关联的主要软件
+软件
+功能
+备注
+Jupyter
+ notebook
+基于网页的交互式程序编辑工具
+适合
+初学者
+Jupyter
+ Lab
+Jupyter
+的拓展，提供更好用户体验
+pycharm
+python
+语言的一种集成开发环境
+python
+Spyder
+一个集成的
+python
+开发环境
+python
+Glue
+用于探索相关数据集内部和之间的关系
+Python
+库
+python
+Qt Console
+可执行
+IPython
+的仿终端图形界面程序可以直接显示代码生成的图形，实现多行代码输入执行，内置许多功能和函数
+python
+Datalore
+一个面向机器学习的云端开发环境
+python
+R Studio
+R
+语言的集成开发环境
+R
+语言
+Orange
+交互式数据可视化软件
+===== SLIDE 21 =====
+21
+Anaconda
+的特点
+强大的包管理
+： 安装、更新、卸载工具包；在安装工具包时，自动安装相应的依赖包。
+强大的环境管理
+：可以在同一台机器上创建几个相互独立的虚拟环境；可以隔离不同项目所需要的不同版本的工具包；不同的环境之间可以快速切换。
+开源和跨平台
+： 
+64 and 32 bit 
+Windows
+, 
+macOS
+, and 64 
+Linux
+ on the 
+Intel
+ and 
+AMD
+ x86, x86-64 CPU, AWS Graviton 2 / ARM 64, IBM Z and IBM Power CPU 
+架构
+.
+===== SLIDE 22 =====
+22
+Anaconda
+的特点
+支持多种开源编程语言
+：
+Python 
+、
+R
+和其他语言
+两种操作方式
+：
+图形化界面： 
+Navigator:
+命令行操作
+：
+Anaconda Prompt
+和
+Conda
+集成了多个软件包：
+包括 
+J
+upyterLab
+、
+Jupyter
+ Notebook
+、
+Spyder
+、
+PyCharm
+、
+VSCode
+、
+Glueviz
+、
+Orange 3 App
+、
+RStudio
+、
+Anaconda Prompt (Windows only)
+、
+Anaconda PowerShell (Windows only)
+多版本：
+个人免费版和多个商业版
+===== SLIDE 23 =====
+23
+Anaconda
+和
+Python
+关系
+Python
+的问题
+Python
+有大量标准库和第三方库
+
+库之间关系高度复杂。
+Python
+有
+2.0
+和
+3.0
+以及其他多个版本。
+2.0
+和
+3.0
+不兼容。
+对
+Python
+用户，
+Anaconda
+用于科学计算的
+Python
+发行版，
+预安装了
+NumPy
+、
+Matplotlib
+等成熟的开源包
+Navigator
+预安装了图形界面的科学计算工具
+Conda
+用环境管理，快速切换不同的
+Python
+版本
+Conda
+智能安装和管理
+Python
+各种库的依赖关系。
+在一台电脑上管理多个 Python的版本更容易，并提供了大量高度优化的，常用的数据科学库可帮助您更快入门
+===== SLIDE 24 =====
+24
+下载和使用
+Anaconda
+？
+Anaconda 
+官网
+：
+https://www.anaconda.com/
+清华镜像
+: 
+https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/
+官网帮助文件：
+https://docs.anaconda.com/
+官网个人版帮助：
+https://docs.anaconda.com/anaconda/
+Conda
+官网帮助
+https://conda.io/projects/conda/en/latest/user-guide/getting-started.html
+===== SLIDE 25 =====
+25
+中山大学镜像 
+‌访问地址
+‌：
+https://mirror.sysu.edu.cn
+，校园网速度更佳。
+‌服务定位
+‌：提供开源软件镜像下载，促进学术研究与软件开发。
+‌
+维护团队
+‌：由中山大学网络与信息中心支持创办，
+matrix 
+开发团队协助维护，使用 
+tunasync
+进行数据同步。‌‌
+中大镜像地址（
+Anaconda
+，
+miniconda
+和
+Ubuntu
+）
+https://mirror.sysu.edu.cn/anaconda/
+https://mirror.sysu.edu.cn/anaconda/miniconda/
+https://mirror.sysu.edu.cn/ubuntu/
+===== SLIDE 26 =====
+26
+Conda
+常用命令：
+虚拟环境管理
+功能
+例子
+备注
+查看当前信息
+conda
+info
+查看虚拟环境
+conda
+ info --
+envs
+conda
+ info -e
+创建新环境
+conda
+ create -n ENVNAME
+conda
+ create -
+-name
+ ENVNAME
+环境名自定义
+创建新环境且安装
+python 3.6
+conda
+ create --name ENVNAME python=3.6 
+激活该环境
+conda
+ activate ENVNAME
+查看当前环境安装包
+conda
+list
+退出该环境
+conda
+ deactivate
+删除该环境
+conda
+ remove --name ENVNAME --all
+以后不用了
+===== SLIDE 27 =====
+27
+Conda
+常用命令：包管理
+功能
+例子
+备注
+查询某安装包
+conda
+search xxx
+Xxx
+为搜索关键字
+安装
+当前环境下的的某安装包
+conda
+ install PKGNAME
+PKGNAME
+是安装包名
+卸载
+当前环境下的某安装包
+conda
+ uninstall PKGNAME
+更新
+当前环境下的某安装包
+conda
+ update 
+PKGNAME
+===== SLIDE 28 =====
+28
+Conda
+常用命令：包管理
+功能
+例子
+备注
+安装
+当前环境下的某版本的安装包
+conda
+ install PKGNAME==3.1.4
+3.1.4
+是版本号
+卸载
+某环境下的安装包
+conda
+ uninstall PKGNAME --name ENVNAME
+ENVNAME
+是环境名
+更新
+某环境下的所有安装包
+conda
+ update --all --name ENVNAME
+在下载源地址中添加清华大学开源软件镜像站
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+加快下载速度
+===== SLIDE 29 =====
+29
+随堂任务
+1 
+建立一个虚拟环境
+目的：用
+conda
+安装一个虚拟环境
+操作
+：
+1
+）打开
+Anaconda prompt
+2
+）新建一个环境
+(
+如 
+py
+)
+3
+）激活该环境
+4
+）查看所安装的软件包列表
+5
+）退出该环境
+6
+）查看当前系统还有哪些虚拟环境
+===== SLIDE 30 =====
+30
+随堂任务
+2 
+将
+Conda
+源改成清华镜像
+目的：用清华镜像源和
+conda
+安装
+python 3.7
+的环境
+操作
+：
+1
+）访问和查看清华镜像的
+Anaconda 
+镜像使用帮助
+https://mirror.tuna.tsinghua.edu.cn/help/anaconda/
+2A
+）
+ conda config --add channels https:// 
+XXX 
+命令把对应的频道加入 
+2B) 
+或者先执行 
+conda
+ config --set 
+show_channel_urls
+ yes 
+生成
+.
+condarc
+文件之后再修改
+3
+）新建一个安装 
+python 3.7
+的环境
+py37
+4
+）查看该环境下所安装的软件包列表
+===== SLIDE 31 =====
+9. 
+Matlab
+和
+Python
+的对比
+===== SLIDE 32 =====
+32
+程序语言的比较
+发展历史
+主要功能
+（计算、通用？工具箱
+/
+包、官方
+/
+第三方）
+书写形式
+（单行、多行；注释、缩进、关键词）
+数据结构
+（常量、变量、整数、浮点、字符串、数组、矩阵、混合）
+流程控制
+（顺序、选择、分支、循环）
+函数
+（定义、使用、局部和全局变量、
+函数库
+）
+对象
+（属性、方法）
+===== SLIDE 33 =====
+33
+区别：
+Matlab
+历史
+20
+世纪
+70
+年代
+，美国新墨西哥大学计算机科学系主任
+Moler
+为减轻学生编程负担，用
+FORTRAN
+编写了最早的
+MATLAB
+1981
+年
+，
+IBM
+推出
+PC, 
+ Little
+和
+Steve 
+Bangert
+用
+C
+重写了
+Matlab
+，加入
+M
+文件，工具箱和画图功能。
+1984
+年
+Little
+、
+Moler
+、
+Bangert
+合作成立
+MathWorks
+公司，把
+MATLAB
+推向市场
+2003
+年
+开始，
+Matlab
+每年
+2
+个版本更新
+Cleve 
+Moler
+Jack Little
+===== SLIDE 34 =====
+34
+区别：
+Python 
+历史
+1989
+年
+， 荷兰人 
+Guido van Rossum 
+开发
+Python
+2000
+年
+10
+月
+，
+Python 2
+发布，稳定版本
+ 2.7
+。
+2001
+年
+，
+Python 
+软件基金会 
+(PSF) 
+成立
+2008
+年
+12
+月
+，
+Python 3
+发布，不完全兼容
+Python2 
+2020
+年
+11
+月
+，
+ Guido 
+加入微软
+===== SLIDE 35 =====
+35
+区别：主要功能
+Matlab
+Python
+性质
+跨平台、商业软件
+解释性语言
+跨平台、开源和自由软件
+基于字节码的解释性语言
+设计目的
+科学计算
+通用编程语言
+数据对象
+一切皆矩阵
+一切皆对象
+数据操作
+矩阵操作
+(
+内置
+)
+Numpy
+数据分析
+数据读取（内置）、信号处理、小波分析、最优化
+Scipy
+，
+p
+andas
+机器学习
+统计工具箱
+scikit-learn
+深度学习
+深度学习，文字处理，
+图像处理工具箱
+TensorFlow
+，
+keras
+，
+pytorch
+画图
+各种常见图形
+(
+内置函数
+)
+Matplotlib Seaborn
+扩展
+各种工具箱统一的数据格式，详细文档
+各个包是不同团队独立开发
+, 
+难以做到格式统一
+.
+扩展使用
+安装官方或第三方工具箱
+导入第三方的包来扩展功能
+===== SLIDE 36 =====
+36
+区别：格式
+Matlab
+Python
+逻辑行
+和物理行
+用分号“
+;
+”隔开和不输出
+disp
+(‘hello’);
+disp
+(‘yes’)
+用分号“
+;
+”隔开
+print “
+no
+” ; 
+disp
+(‘yes’)
+缩进
+无要求，但是要程序有逻辑，清晰最好有缩进，尤其是同一层次用相同的缩进数目。
+Ctrl + I
+智能缩进
+用缩进表示程序逻辑，要求同一层次的代码必须有相同的缩进空白数目，否则报错。
+注释
+%
+#
+续行
+…
+\
+标识符
+大小写敏感
+大小写敏感
+字母和下划线开始
+特殊表达
+规范
+很多灵活表达
+===== SLIDE 37 =====
+37
+区别：基本数据结构
+Matlab
+Python
+数据类型
+数字、字符串、矩阵、
+Cell
+；不怎么关心
+数字、字符串、列表、元祖、字典、集合 ；必须注意 
+type(a)
+数字
+是 
+1×1 
+的矩阵。 
+size(data) 
+来查看数据的形状。
+数字是标量，不具有形状，是 
+0 
+维度的数值。
+Len(
+数字）报错
+字符串
+使用单引号或者双引号表示。用 
+() 
+索引操作，且第一索引位置从 
+1 
+开始。
+使用单引号或者双引号表示。使用 
+[] 
+索引和切片操作
+混合型
+Cell
+（
+混合长度但相同类型的矩阵）
+列表，元组（
+混合长度类型的数组
+/
+矩阵）
+数组
+矩阵的点操作
+Numpy
+库的
+array
+类
+矩阵
+默认是矩阵操作，遵循线性代数
+Numpy
+库的
+array
+类
+, matrix
+类
+===== SLIDE 38 =====
+38
+区别：高级数据结构
+Matlab
+Python
+结构体对象
+结构体 
+struct
+patient.name  = 'John Doe';
+patient.billing
+  = 127.00;
+patient.test
+  = [79, 75, 73; 180, 178, 177.5; 220, 210, 205];
+字典
+dic
+:
+通过
+key
+访问无序的数据
+ab = 
+{ 'Swaroop' :'swaroopch@byteofpython.info',
+'Larry' : 'larry@wall.org',
+'Matsumoto' : 'matz@ruby-lang.org',
+'Spammer' : 'spammer@hotmail.com'}
+不等长字符串数组
+元胞数组
+cell 
+mylist
+={‘
+apple’,’mango’,’carrot’,’banana
+’}
+列表
+list
+：通过索引号访问变量
+mylist
+=[‘
+apple’,’mango’,’carrot’,’banana
+’]
+常量字符串
+不区分变量和常量
+元组：通过索引号访问常量
+zoo =  ('wolf', '
+eleph
+', 'pen')
+索引
+开始：
+1
+；结束：
+end
+正序开始：
+0
+；倒序开始：
+-1
+切片
+(1:10) 
+前闭后闭
+
+1
+到
+10
+[1:10] 
+前闭后开
+1
+到
+9
+===== SLIDE 39 =====
+39
+区别：运算符
+Matlab
+Python%
+运算符
++
+，
+-
+，*，
+/,^	 
++,-,*,/,**
+逻辑运算
+&gt;,&lt;,&gt;=,&lt;=,==
+，
+~=
+&gt;,&lt;,&gt;=,&lt;=,==,!=
+布尔运算
+&amp;
+，
+&amp;&amp; |
+，
+||  ~	
+and or not
+整除
+/
+直接取得准确结果
+如，
+5/3
+结果是
+1.6667	
+/
+两边是整数时候为整除
+5/3
+结果是
+1
+其他运算
+mod(a/b)
+int(a/b)
+round(a/b)
+%
+注释符 
+%% 
+分段符
+ \ 
+：连接本行与下一行符号
+/ 
+：除法
+//
+：强行整除
+%
+：取余
+位元运算
+^: 
+位元运算的
+xor
+&amp; (and)
+以及 
+| (
+or)
+===== SLIDE 40 =====
+40
+区别 ：循环和控制语句
+Matlab
+Python
+for
+循环 
+for number  = 1:n
+     循环语句
+e
+nd
+for  number in range(1,n) :
+   循环语句
+1
+    循环语句
+2
+while
+循环
+while  condition
+    循环语句
+end
+while :
+    循环语句
+1
+    循环语句
+2
+跳出
+循环
+break 
+跳出整个循环
+continue  
+跳出该次循环
+break 
+跳出整个循环
+continue  
+跳出该次循环
+条件语句
+if condition
+elseif  condition
+else
+end
+if  condition :
+elif
+  condition:
+else:
+===== SLIDE 41 =====
+41
+区别 ：函数使用
+Matlab
+Python
+函数
+定义
+function  [output]=name(paras)
+     函数语句
+;
+     output=???;
+end	
+def name(paras):
+     函数语句
+     output=???
+ return output
+函数使用
+name(paras)
+name paras
+name(paras)
+paras.name
+()
+帮助语句
+help xxx
+help(
+xxxx
+)
+===== SLIDE 42 =====
+42
+随堂练习：运行对应例子分析区别
+Matlab
+Python
+数组
+a=1:5
+a(1:2)
+a
+A = range(5)
+print(A[1:2])
+print(list(A))
+矩阵和
+list
+x=[1,2,3]
+y=[4,5,6]
+z=x+y
+x=[1,2,3]
+y=[4,5,6]
+z=x+y
+循环
+for 
+i
+=1:
+5 
+disp
+(
+i
+)
+disp
+('end')
+end
+for 
+i
+ in range(5): 
+       print 
+i
+print ‘end’
+===== SLIDE 43 =====
+43
+随堂练习
+了解
+Python
+的列表
+目的：比较
+Python
+中的
+range
+和
+list
+函数。
+range
+返回的结果是一个整数序列的对象，而不是列表。
+操作
+：可以用
+Matlab
+重写这些操作：
+a=range(5)     # 
+默认从 
+0 
+开始
+, 
+在 
+5 
+以内
+, 
+到不了 
+5
+print(list(a)) # [0, 1, 2, 3, 4]
+a=range(1,5) # 
+给出起点
+, 
+终点
+(
+到不了的
+)
+print(list(a)) # [1, 2, 3, 4]
+a=range(1,11,2) #  
+给出起点
+, 
+终点
+(
+到不了的
+), 
+步长
+(
+正整数
+,
+负整数
+)
+print(list(a)) # [1, 3, 5, 7, 9]
+a=range(2,2468,2) # 
+最大下标这样获得
+:
+len
+(a)-1
+print(a[0],a[1],a[2],a[
+len
+(a)-1]) #  2 4 6 2466
+a=range(100,80,-2) # 
+前大后小的
+,
+步长应该是负数
+print(list(a)) # [100, 98, 96, 94, 92, 90, 88, 86, 84, 82]
+===== SLIDE 44 =====
+44
+MATLAB®
+NumPy
+基本数据类型是双精度浮点数的多维数组。大多数表达式采用这样的数组并且也返回这样的数据类型
+基本类型是多维数组
+(array)
+。在所有维度
+(
+包括
+2D)
+上对这些数组的操作都是元素级的操作。
+操作这些数组的
+2-D
+实例的方式像线性代数中的矩阵运算一样。
+线性代数需要使用特定函数
+（矩阵乘法可在
+3.5
+及以上中使用
+@
+）
+a(1)
+元素的初始位置。
+序列的初始元素
+a[0]
+为做线性代数而创建的。基本矩阵操作的语法很好也很简洁
+（
+数组操作的语法比
+NumPy
+更紧凑
+）
+NumPy
+是
+Python
+的附加组件
+。设计了独特操作，如
+处理矩阵的堆叠操作。
+数组具有按值传递的语义，采用延迟的
+“
+写时复制
+”(copy-on-write)
+模式，以防止在实际需要时创建副本。使用切片操作是复制数组的部分。
+在
+NumPy
+数组，在
+NumPy
+数组中按引用传递语义。切片操作是数组的视图。
+数组和矩阵：
+Matlab
+和
+Numpy
+比较
+===== SLIDE 45 =====
+45
+比较：常用工具箱或包的官网
+Matlab
+mathworks
+.
+com
+ww2.mathworks.cn
+Python
+www.python.org
+www.numpy.org
+matplotlib.org
+tensorflow.google.cn
+===== SLIDE 46 =====
+10 
+Matlab
+调用
+Python
+===== SLIDE 47 =====
+47
+MATLAB 
+中使用 
+Python 
+库
+从 
+MATLAB 
+访问 
+Python 
+模块 
+- 
+入门
+如何创建和使用 
+MATLAB 
+中的 
+Python 
+对象。
+配置系统以使用 
+Python
+如何验证已安装支持的 
+Python 
+版本。
+调用用户定义的 
+Python 
+模块
+创建本文档中示例所使用的 
+Python 
+模块。
+理解 
+Python 
+函数参数
+Python 
+方法语法，可能对 
+MATLAB 
+用户不熟悉。
+===== SLIDE 48 =====
+48
+MATLAB 
+中使用 
+Python 
+库
+高级主题
+ ：
+应该注意的代码
+模式差异。
+进程外执行 
+Python 
+功能
+：
+执行与 
+MATLAB 
+进程分离的进程中的 
+Python 
+脚本。
+重新加载进程外 
+Python 
+解释器
+ ：
+重新加载不与 
+MATLAB 
+同进程的 
+Python 
+解释器，无需重启 
+MATLAB
+。
+===== SLIDE 49 =====
+49
+从 MATLAB 运行 Python 代码
+ 1
+直接
+运行 Python 代码
+直接从 MATLAB 调用 Python 功能
+从 MATLAB 调用 Python。
+传递数据
+传递 MATLAB 数据到 Python
+将 MATLAB 数据转换为兼容的 Python 数据类型
+。
+处理 Python 函数返回的数据
+MATLAB 自动将这些从 Python 函数返回的数据类型转换为 MATLAB 类型。
+===== SLIDE 50 =====
+50
+从 MATLAB 运行 Python 代码
+ 2
+传递数据
+访问 Python 容器类型中的元素
+一个 Python 容器通常是序列类型（ 
+list
+ 或 
+tuple
+ ）或映射类型（ 
+dict
+ ）。
+使用 MATLAB 日期时间类型与 Python
+MATLAB 支持 MATLAB 
+datetime
+ 值与 Python 
+datetime
+ 或 NumPy 
+datetime64
+ 值之间的转换。
+使用 MATLAB 持续时间类型与 Python
+MATLAB 支持 MATLAB 
+duration
+ 值与 Python 
+timedelta
+ 或 NumPy 
+timedelta64
+ 值之间的转换。
+传递 Python 函数给 Python 的 map 函数
+此示例展示了如何显示列表中每个单词的长度。
+===== SLIDE 51 =====
+51
+MATLAB 运行 Python 
+故障排除 
+1
+确定错误是 Python 还是 MATLAB 错误
+技巧判断错误是否源于 Python 或 MATLAB 代码。
+无法解析名称 py.myfunc
+使用 MATLAB 界面调试 Python 代码
+Python 支持的限制
+MATLAB 不支持 Python 特性。
+===== SLIDE 52 =====
+52
+MATLAB 运行 Python 
+故障排除 
+2
+处理 Python 异常
+MATLAB 捕获 Python 抛出的异常并将它们转换为 
+matlab.exception.PyException
+ 对象。
+故障排除矩阵和数值参数错误
+错误可能由包含多于一个非单维输入数组引起。
+元素列表或元组转换错误
+如何使用字符串和数字转换器理 
+list
+ 和 
+tuple
+ 类型。
+===== SLIDE 53 =====
+53
+Call Python from MATLAB
+命令
+含义
+解释器
+环境
+pyenv
+Change default environment of Python interpreter
+PythonEnvironment
+Python environment information
+运行
+Python
+代码
+pyrun
+Run Python statements from MATLAB
+ (Since R2021b)
+pyrunfile
+Run Python script file from MATLAB
+ (Since R2021b)
+关键字
+参数
+pyargs
+Create keyword arguments for Python function
+异常
+捕获
+matlab.exception.PyException
+Capture error information for Python exception
+===== SLIDE 54 =====
+11 
+Python
+中调用
+Matlab
+===== SLIDE 55 =====
+55
+Python
+调用 
+MATLAB:
+一般问题
+开始使用 MATLAB Engine API for Python
+MATLAB Engine API for Python 提供了一个名为 
+matlab
+ 的 Python 包，允许您从 Python 调用 MATLAB 函数。
+启动和停止 Python 的 MATLAB 引擎
+选项
+：
+用于启动 Python 的 MATLAB 引擎。
+从 Python 调用 MATLAB 函数
+如何从 MATLAB 函数返回输出参数。如何从函数中读取多个输出。当 MATLAB 函数不返回输出参数时应该做什么。
+获取 MATLAB 函数的 Python 帮助
+Python 中可以访问所有 MATLAB 函数的支持文档。
+===== SLIDE 56 =====
+56
+Python
+调用 
+MATLAB: 
+一般问题
+会话管理
+连接 Python 到运行的 MATLAB 会话
+如何将 Python 的 MATLAB Engine 连接到已在本地机器上运行的共享 MATLAB 会话。
+使用 MATLAB 工作空间
+使用 Python 中的 MATLAB Engine Workspace
+此示例展示了如何在 Python 中向 MATLAB 引擎工作空间添加变量。
+。
+===== SLIDE 57 =====
+57
+数据交换与映射
+ 2.1
+使用 MATLAB 数组在 Python 中
+如何在 Python 中创建 MATLAB 数组并将其作为输入参数传递给 MATLAB 
+sqrt
+ 函数。
+MATLAB 数组作为 Python 变量
+Python 模块 
+matlab
+ 提供了表示 MATLAB 数值类型的数组类，以便将 MATLAB 数组作为 Python 变量传递，从而在 Python 和 MATLAB 之间传递 MATLAB 数组。
+将数据从 Python 传递到 MATLAB
+将 Python 数据作为输入参数传递给 MATLAB 函数时，Python 引擎 API 会将数据转换为等效的 MATLAB 数据类型。
+===== SLIDE 58 =====
+58
+数据交换与映射
+ 2.2
+处理从 MATLAB 返回到 Python 的数据
+ MATLAB 函数返回输出参数时，MATLAB Engine API for Python 将数据转换为等效的 Python 数据类型。
+使用 Python 中的 MATLAB 句柄对象
+此示例展示了如何从 MATLAB 句柄类创建对象并在 Python 中调用其方法。
+默认的数值类型在 MATLAB 和 Python 中
+MATLAB 默认将所有数值存储为双精度浮点数。
+使用 Python 中的 MATLAB 词典
+您可以将 Python 
+dict
+ 转换为 MATLAB 字典，并将 MATLAB 字典转换为 Python 
+dict
+ 。
+===== SLIDE 59 =====
+59
+Python
+调用 
+MATLAB 
+函数
+从 Python 调用用户脚本和函数
+从 Python 调用 MATLAB 脚本来计算三角形面积。
+对 Python 中的 MATLAB 数据进行排序和绘图
+在 Python 中将患者数据排序成吸烟者和非吸烟者列表，并使用 MATLAB 绘制患者的血压读数。
+从 Python 异步调用 MATLAB 函数
+从 Python 异步调用 MATLAB 
+sqrt
+ 函数并在稍后获取平方根。
+重定向标准输出和错误到 Python
+将 MATLAB 函数的标准输出和标准错误重定向Python 对象。
+===== SLIDE 60 =====
+60
+Python
+调用 
+MATLAB
+故障排除
+MATLAB Engine API for Python 的局限性
+MATLAB Engine API for Python 不支持这些功能。
+排查 MATLAB 错误于 Python
+当 MATLAB 函数引发错误时，MATLAB Engine for Python 会停止该函数并捕获 MATLAB 抛出的异常
+。
+===== SLIDE 61 =====
+61
+Call MATLAB from Python
+命令
+含义
+Python
+Functions
+matlab.engine.start_matlab
+Start MATLAB Engine for Python
+matlab.engine.find_matlab
+Find shared MATLAB sessions to connect to MATLAB Engine for Python
+matlab.engine.connect_matlab
+Connect shared MATLAB session to MATLAB Engine for Python
+MATLAB 
+Functions
+matlab.engine.shareEngine
+Convert running MATLAB session to shared session
+matlab.engine.engineName
+Return name of shared MATLAB session
+matlab.engine.isEngineShared
+Determine if MATLAB session is shared
+Python 
+Classes
+matlab.engine.MatlabEngine
+Python object using MATLAB as computational engine within Python session
+matlab.engine.FutureResult
+Results of asynchronous call to MATLAB function stored in Python object
+===== SLIDE 62 =====
+62
+随堂练习：运行对应例子分析区别
+Matlab
+Python
+x = 0 : 0.2 : 8.0;
+y1 = sin(x);
+y2 = cos(x);
+figure(3);
+plot(x, y1, '
+rx
+-');hold on
+plot(x, y2, '
+bo
+-’)
+hold off
+title('Function', '
+fontsize
+', 20);
+legend({'sin', 'cos'}, '
+fontsize
+', 15);
+text(1.6, 0.5, 'y &gt; 0', '
+fontsize
+', 18);grid on
+xlabel
+('x', '
+fontsize
+', 18);
+ylabel
+('y', '
+fontsize
+', 18);
+xlim
+([0 6.3]);
+ylim
+([-1.2 1.2]);
+# -*- coding: utf-8 -*-
+import 
+numpy
+ as np
+import 
+matplotlib.pyplot
+ as 
+plt
+x = 
+np.arange
+(0.0, 8.0, 0.2)
+y1 = 
+np.sin
+(x)
+y2 = 
+np.cos
+(x)
+plt.figure
+(3)
+plt.plot
+(x, y1, '
+rx
+-')
+plt.plot
+(x, y2, '
+bo
+-')
+plt.title
+('Function', 
+fontsize
+=20)
+plt.legend
+(['sin', 'cos'], 
+fontsize
+=15)
+plt.text
+(1.6, 0.5, 'y &gt; 0', 
+fontsize
+=18)
+plt.grid
+()
+plt.xlabel
+('x', 
+fontsize
+=18)
+plt.ylabel
+('y', 
+fontsize
+=18)
+plt.xlim
+(0, 6.3)
+plt.ylim
+(-1.2, 1.2)
+plt.show
+()
+===== SLIDE 63 =====
+12. 
+小结
+===== SLIDE 64 =====
+思考
+Anaconda
+的使用方式？
+Conda
+的常用命令？
+Matlab
+和
+Python
+的区别？
+Matlab
+和
+Python
+的冒号使用？
+Python
+列表的切片操作？
+Matlab
+矩阵、
+Python
+列表和
+Numpy
+的
+array
+类操作对比？
+Matlab
+常用的工具箱
+?
+Python
+常用的软件包？

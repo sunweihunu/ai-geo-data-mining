@@ -1,0 +1,72 @@
+site_name: 人工智能与地理数据挖掘
+site_description: 《人工智能与地理数据挖掘》课程在线书稿
+site_url: https://sunweihunu.github.io/ai-geo-data-mining/
+repo_url: https://github.com/sunweihunu/ai-geo-data-mining
+repo_name: 课程仓库
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: zh
+  font: false
+  palette:
+    - scheme: default
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: 切换至深色模式
+    - scheme: slate
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: 切换至浅色模式
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.path
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+
+nav:
+  - 首页: index.md
+  - 章节内容:
+      - 第01章 绪论: ch01.md
+      - 第02章 编程环境与语言: ch02.md
+      - 第03章 数据预处理与可视化: ch03.md
+      - 第04章 聚类分析: ch04.md
+      - 第05章 降维: ch05.md
+      - 第06章 线性模型: ch06.md
+      - 第07章 k最近邻（kNN）模型: ch07.md
+      - 第08章 决策树: ch08.md
+      - 第09章 人工神经网络: ch09.md
+      - 第10章 支持向量机: ch10.md
+      - 第11章 深度学习: ch11.md
+  - 代码与数据: https://github.com/sunweihunu/ai-geo-data-mining/tree/main/code
+
+markdown_extensions:
+  - abbr
+  - attr_list
+  - md_in_html
+  - def_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - tables
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search

@@ -1,0 +1,1231 @@
+===== SLIDE 1 =====
+机器学习与地学应用
+孙伟 
+sunwei29@mail.sysu.edu.cn
+地理科学与规划学院
+2026.10
+第
+三
+讲 数据预处理与可视化
+===== SLIDE 2 =====
+主要内容
+数据预处理简介
+数据清洗
+数据集成
+数据缩减
+数据变换
+图形画法及举例
+小结
+===== SLIDE 3 =====
+数据预处理简介
+===== SLIDE 4 =====
+数据预处理的定义和目的
+数据预处理
+是指在
+数据挖掘的主要处理
+以前，
+先对原始数据进行必要的清理、集成、转换、离散和归约等一系列的处理工作
+，以
+达到挖掘算法进行知识获取所要求的最低规范和标准
+。
+数据预处理是
+数据分析、数据挖掘
+等工作的
+前期准备
+，用以
+确定数据挖掘的类型，提高挖掘质量
+。
+===== SLIDE 5 =====
+前因
+1
+：
+数据质量
+：由于现实生产和实际生活以及科学研究的
+多样性、不确定性、复杂性
+等
+
+采集到的原始数据比较散乱，
+不符合挖掘算法进行知识获取所要求的规范和标准
+前因
+2
+：
+数据污染：
+一种由人们故意的或偶然的行为造成的对原始数据的完整性和真实性的损害
+,
+是对真实数据的扭曲。
+后果
+：原始数据主要具有以下特征
+：不完整性、含噪声、杂乱性（不一致性）
+为什么需要数据预处理？
+===== SLIDE 6 =====
+6
+特性
+含义
+产生的原因
+不完整
+有些数据属性的值
+丢失
+的情况，还有可能
+缺失
+必需的数据。
+系统设计缺陷或者使用过程中的人为因素所造成的
+：如输入时认为不重要；理解错误，或者设备故障导致删除，历史记录或修改的数据可能被忽略等等
+含噪声
+数据具有不正确的属性值，包含
+错误
+或存在偏离期望的
+离群值
+。
+收集数据的设备故障，数据输入或数据传输中可能出现错误
+等等；命名约定或数据代码不一致，或输入字段的格式不一致；
+存在大量的模糊或随机信息
+杂乱
+/
+不一致
+系统间数据存在较大的
+不一致性
+原始数据是从各个实际应用系统中获取的，由于各
+应用系统的数据缺乏统一标准的定义
+，数据结构也有较大的差异
+数据的
+重复
+和信息的
+冗余
+合并来自不同的应用系统中的数据
+原始数据的特征
+===== SLIDE 7 =====
+7
+任务
+含义
+产生的原因
+数据清洗
+Cleaning
+填补遗漏的数据值、平滑有噪声数据、识别或除去异常值
+，以及解决不一致问题
+数据集成
+Integration
+将不同数据库中的数据
+集成
+入一个数据仓库中存储。有时还需
+数据清理
+以消除数据冗余
+数据
+缩减
+Reduction
+在不影响挖掘结果的前提下，通过
+数值聚集、删除冗余特性
+的办法压缩数据，提高挖掘模式的质量，降低时间复杂度
+数据变换
+Transfor-mation
+将数据转换成适合于挖掘的形式，如将属性数据按比例缩放，使之落入一个比较小的特定区间（对那些基于距离的挖掘算法尤为重要）。具体方法包括
+平滑处理、聚集处理、数据泛化处理、规格化、属性构造
+数据预处理的主要任务
+===== SLIDE 8 =====
+数据
+清洗
+/
+清理
+：填写缺失值， 平滑噪声数据 、识别或删除离群， 并解决不一致问题等
+数据集成
+：
+整合多个数据库， 多维数据集或文件等
+数据缩减
+/
+归约
+：
+降维、减少样本量、数据压缩等
+数据转换：
+规范化、离散化、生成概念层次结构等
+数据预处理的主要任务
+===== SLIDE 9 =====
+9
+数据预处理主要任务的图例
+数据缩减
+/
+归约
+数据变换
+数据集成
+数据清理
+查漏补缺
+加法
+乘
+/
+除法
+减法
+===== SLIDE 10 =====
+10
+数据预处理的过程
+===== SLIDE 11 =====
+数据清洗
+===== SLIDE 12 =====
+不完整的
+： 缺少属性值， 缺乏某些属性值， 或只包含总数据
+风速
+=
+“”
+(
+丟失的数据）
+含嘈杂的矂音， 错误或离群数据
+ 降雨量
+= -10
+(
+错 误
+)
+不一致的代码或不符的名称
+年龄
+= “42” 
+和 生日
+= "03/07/1997"
+曾经评级 
+1,2,3 
+现在评级 
+"A, B, C"
+数据清洗的原因
+===== SLIDE 13 =====
+忽略数据点
+： 
+当
+类标签缺少时
+通常这么做 （ 监督式学习中训练集缺乏类标签）
+ 当每个属性
+缺少值比例比较大
+时， 效果非常差
+手动填写
+： 工作量大
+自动填写
+：
+使用属性的
+相邻值
+填充空缺值
+使用属性的
+平均值
+填充空缺值
+最有可能的值
+： 基于诸如贝叶斯公式或决策树推理（
+这是什么问题？
+）
+（
+1
+）如何处理缺少数据？
+===== SLIDE 14 =====
+箱形
+/
+盒状图检测离群数据：删除离群点
+（
+2
+）如何处理噪声数据？
+各个分位数的百分比是？
+===== SLIDE 15 =====
+不一致的代码或不符的名称
+年龄
+= “42” 
+和 生日
+= "03/07/1997"
+曾经评级 
+1,2,3 
+现在评级 
+"A, B, C"
+• 
+方法
+计算推理
+
+循环
++
+属性关系判断
+局部替换
+
+小
+循环
++
+数据替换
+全局替换
+
+大循环
++
+数据替换
+（
+3
+）如何处理不一致数据？
+===== SLIDE 16 =====
+数据集成
+===== SLIDE 17 =====
+将来自多个数据源的数据组合成一个连贯的数据源
+数据集成
+===== SLIDE 18 =====
+18
+形式
+含义
+举例
+/
+备注
+模式集成
+根据相同属性，整合来自不同来源的元数据（数据点
+/
+对象）
+相同
+ID
+的数据不同属性进行合并
+实体识别
+识别来自多个数据源的同一真实世界的实体
+中文名和英文名表达的同一实体
+数据冲突检测和解决
+• 
+对于同一个真实世界的实体， 来自不同源的属性值
+• 
+可能的原因： 不同的表述， 不同的尺度， 
+公制与英制单位不同，实际上是同一属性
+数据集成的三种形式
+===== SLIDE 19 =====
+整合多个数据库经常发生数据冗余
+ Object identification
+： 相同的属性或对象可能有不同的名字在不同的数据库中
+.Derivable data
+： 一个属性可能是 “派生”
+的另一个表中的属性，
+数据集成的处理方法
+：
+同一数据对象的可以拥有不同属性
+通过
+相关性分析或协方差分析
+可以检测到冗余的属性（
+连续变量
+）或者
+卡方检验
+（
+离散变量
+）
+将来自多个数据源的冗余属性用其一代替即可 
+数据集成如何处理？
+===== SLIDE 20 =====
+数据缩减
+/
+归约
+===== SLIDE 21 =====
+数据
+缩减
+的原因
+由于数据仓库可以存储
+TB
+的数据， 因此在一个完整的数据集上运行时， 复杂的数据分析可能需要一个很长的时间
+
+需要
+降低时间复杂度
+过多数据会造成信息收集困难，导致模型复杂程度增高
+
+需要
+降低
+空间
+复杂度
+数据
+缩减
+的形式
+：
+降维
+（减少属性
+/
+特征）
+减少样本量
+（减少数据对象
+/
+降数据）
+数据压缩
+：数据重新编码
+数据缩减
+===== SLIDE 22 =====
+降维的原因
+数据稀疏， 维度高
+高维用基于规则的分类方法
+采用浅层模型， 但是训练集属性较多，样本较少
+需要可视化
+降维的处理方法
+：
+主成份分析（属性的组合代替原属性；线性变换等价于坐标旋转，求解椭球体主轴问题）
+因子分析
+降维
+===== SLIDE 23 =====
+简单随机抽样
+(
+Simple Random Sampling)
+相等的概率选择
+不放回抽样
+(
+Sampling without replacement)
+：一旦对象被选中， 将其删除
+有放回抽样
+(
+Sampling with replacement)
+：选择对象不会被删除
+分层抽样
+每组抽相同个数
+用于偏斜数据
+减少样本量的处理方法
+===== SLIDE 24 =====
+数据转换
+===== SLIDE 25 =====
+典型的
+处理方法
+规范化
+： 按比例缩放到一个具体区间
+(
+一般
+0
+到
+1
+之间
+)
+离散化
+：连续型数据（浮点数）的离散成类别（整数）
+特征构造
+：旧特征换成新特征
+数据转换的处理方法规范化
+===== SLIDE 26 =====
+原因：属性数量级对模型的影响
+定义：
+函数映射：指给定的属性值更换了一个新表示方法， 每个旧值与新的值可以被识别。
+处理方法
+规范化
+： 按比例缩放到一个具体区间
+(
+一般
+0
+到
+1
+之间
+)
+最小 
+- 
+最大规范化  
+v’=
+(v-min)/(max-min)*(
+new
+max
+-new
+min
+)+
+new
+min
+Z
+得分正常化 
+v’=
+(v-v
+均值
+)/v
+标准差
+小数定标规范化 
+v’=
+v
+/ 10
+j  
+公式
+1)
+和
+2)
+存在的问题？
+数据转换的处理方法
+1
+：规范化
+===== SLIDE 27 =====
+非监督离散化
+• 
+等宽法：
+根据属性的值域来划分， 使每个区间的宽度相等
+• 
+等频法：
+根据取值出现的频数来划分， 将属性的值域划分成个小区间并且要求落在每个区间的样本数目相等
+• 
+聚类：
+利用聚类将数据划分到不同的离散类别
+数据转换的处理方法
+2
+：离散化
+===== SLIDE 28 =====
+原因
+当数据质量不高、特征信息不明显
+
+新特征
+当既有连续数据，又有离散数据时
+
+哑编码
+方法：
+单调变换（如对数变换、 指数变换等）
+比例特征（
+x1/x2
+）
+线性组合（
+a
+1
+x
+1
++a
+2
+ x
+2
+）
+时间数据类型：季节
+/
+星期
+时间序列：小波分析
+/
+信号处理
+数据转换的处理方法
+3
+：特征构造
+===== SLIDE 29 =====
+Matlab
+图形画法及举例
+===== SLIDE 30 =====
+Matlab
+基本二维画图
+Matlab
+基本三维画图
+Matlab
+定制图
+Matlab
+基于地图的散点图
+Matlab
+图形画法及举例
+===== SLIDE 31 =====
+31
+命令
+图形
+备注
+plot(
+t,y,str
+)
+二维曲线图
+散点图、曲线图
+axis([
+x
+min
+x
+max
+y
+min
+y
+max
+])
+坐标轴范围
+控制画图区域
+grid on
+；
+grid off
+背景网格
+位置对比
+title(
+'
+string
+'
+)
+图名标注
+图上方写图名
+xlabel('str'); ylabel('str') 
+坐标轴标注
+横纵坐标标注
+legend(
+'
+str1
+'
+,
+'
+str2
+'
+,...)
+图例标注
+不同图形添加图例
+text(
+x,y
+,
+ '
+string
+'
+)
+文字标注
+坐标 
+(
+x,y
+) 
+写文字
+figure;
+subplot(m,n,p)
+多图
+新图；多个子图
+plotyy
+(
+t
+1
+,
+y
+1
+,
+t
+2
+,
+y
+2
+)
+双坐标轴图
+两套序列关系
+hold on; hold off
+重叠图
+经常使用
+基本二维曲线图：
+Matlab
+===== SLIDE 32 =====
+32
+命令
+图形
+备注
+loglog
+(x
+1
+,y
+1
+,...)
+对数图
+变量是对数
+semilogx
+(y)
+semilogy
+(...)
+半对数图
+stairs(
+x,y
+) 
+阶梯图
+类似柱状图
+area(
+x,y
+)
+填充绘图
+百分比
+pie(x)
+饼状图
+随时间变化的百分比
+feather(u,v)
+羽状图
+comet
+慧星状图
+二维图：
+Matlab
+===== SLIDE 33 =====
+33
+命令
+图形
+备注
+bar(
+x,y
+)
+，
+barh
+(...)
+二维条形图
+柱状图
+hist
+(
+y,x
+)
+直方图
+描述统计特征
+pareto
+(
+y,x
+)
+Pareto
+图
+排列图
+errorbar(x,y,l,u)
+误差限图
+stem(x,y)
+火柴杆图
+类似柱状图
+polar(theta,rho)
+极坐标图
+多维比较图
+compass(u,v)
+罗盘图
+spy(s)
+稀疏模式图
+二维图：
+Matlab
+===== SLIDE 34 =====
+34
+命令
+图形
+备注
+plot3(
+x,y,z
+)
+三维曲线
+类似于二维曲线
+mesh(X,Y,Z)
+曲面的网格图 
+由矩阵  
+X,Y,Z  
+所确定的曲面的网格图
+[X,Y]=
+meshgrid
+(
+x,y
+)
+网格生成函数 
+配合
+mesh
+使用
+surf(X,Y,Z)
+着色
+表面
+图
+参数
+含义同
+ mesh
+sphere (n)
+单位球面
+n 
+代表网格的多少
+colormap(s)
+图形
+着色方案
+s 
+为字符串，表示所采用的色系
+常用三维图：
+Matlab
+===== SLIDE 35 =====
+35
+Matlab
+画图速查表
+http://home.ustc.edu.cn/~pjer1316/matlabplot/
+===== SLIDE 36 =====
+36
+Matlab
+渐变的
+maker
+：示例
+https://zhuanlan.zhihu.com/p/567783934
+===== SLIDE 37 =====
+37
+Matlab
+二维散点主方向直方图：示例
+https://zhuanlan.zhihu.com/p/563586000
+===== SLIDE 38 =====
+38
+https://zhuanlan.zhihu.com/p/411829577
+Matlab
+散点密度图
+(
+二维核密度
+)
+：示例
+===== SLIDE 39 =====
+39
+Matlab
+相关系数矩阵图：示例
+1
+https://zhuanlan.zhihu.com/p/560801946
+===== SLIDE 40 =====
+40
+Matlab
+相关系数矩阵图：示例
+2
+https://zhuanlan.zhihu.com/p/560801946
+===== SLIDE 41 =====
+41
+https://mp.weixin.qq.com/s/gQm-n1nYhSNbz_4Vlz6Vzw
+Matlab
+填充图：示例
+===== SLIDE 42 =====
+42
+https://zhuanlan.zhihu.com/p/548265243
+Matlab
+极坐标堆叠柱状图：示例
+===== SLIDE 43 =====
+43
+Matlab
+截断坐标轴：示例
+1
+https://mp.weixin.qq.com/s/oN0Dckn1k4Y5lha2iYH2Ng
+===== SLIDE 44 =====
+44
+Matlab
+截断坐标轴：示例
+2
+https://mp.weixin.qq.com/s/oN0Dckn1k4Y5lha2iYH2Ng
+===== SLIDE 45 =====
+45
+https://mp.weixin.qq.com/s/42XnXHyA3-OZVplQAMTAiA
+Matlab
+修饰的
+ggtheme
+风格：示例
+===== SLIDE 46 =====
+46
+Matlab
+的
+gg
+plot2
+工具箱：
+gramm
+https://github.com/piermorel/gramm
+===== SLIDE 47 =====
+47
+Matlab
+的配色
+https://zhuanlan.zhihu.com/p/444970597
+===== SLIDE 48 =====
+48
+Matlab
+中国地图绘制：示例
+https://mp.weixin.qq.com/s/-vrWYBGtgtS3MoXL1fDgSw
+===== SLIDE 49 =====
+49
+Matlab
+基于地图的散点图：示例
+1
+在
+详见提供的
+map1.m
+===== SLIDE 50 =====
+50
+Matlab
+基于地图的散点图：示例
+2
+详见提供的
+map
+2
+.m
+===== SLIDE 51 =====
+51
+Matlab
+基于地图的散点图：示例
+3
+详见提供的
+map
+3
+.m
+===== SLIDE 52 =====
+52
+Matlab
+基于地图的散点图：示例
+4
+比官网还要详细的地图绘制教程
+https://mp.weixin.qq.com/s?__biz=Mzg4MTcwODk5Ng==&amp;mid=2247485140&amp;idx=1&amp;sn=7ffe614acab02df59d013f74bd5b19c3&amp;chksm=cf609c7ff8171569a0e5057b9893de6d7ee9b11bc99def77a54234a36b787a8214b3ee14a41a
+===== SLIDE 53 =====
+53
+中大自地
+15
+级本科生的知乎专栏“基于
+MATLAB
+的地理数据处理”
+https://www.zhihu.com/column/c_1500863916602871808
+Matlab
+基于地图的数据处理：示例
+===== SLIDE 54 =====
+Python
+图形画法及举例
+===== SLIDE 55 =====
+55
+包
+功能
+备注
+ggplot
+基于
+R
+的绘图系统
+ggplot2
+R
+的
+ggplot2
+绘图模仿
+matplotlib 
+二维绘图库
+：点线、散点、样式、坐标系、数学之心、等高线、热力图、饼图、
+分图显示、
+scatter 3D
+、
+wireframe 3D
+、
+surface 3D
+、
+contour 3D
+、经济柱形图、人口柱形图、股票图
+Matlab
+绘图模仿
+seaborn 
+用于制作有吸引力且信息丰富的统计图形的库
+封装了
+matplotlib
+pandas
+最初被作为金融数据分析工具而开发出来，为时间序列分析提供了很好的支持。 名称来自于面板数据（
+panel data）
+和
+python
+数据分析（
+data analysis）。
+封装了
+matplotlib
+的画图和
+numpy
+的计算
+pandas profiling
+生成具有可视化功能的统计分析报告，以进行快速数据分析
+Python
+绘图包举例
+===== SLIDE 56 =====
+56
+包
+功能
+备注
+altair
+基于
+Vega Lite
+的声明性统计可视化
+bokeh 
+用于
+Python
+的交互式
+Web
+绘图
+Chartify 
+ Bokeh
+包装，使数据科学家更容易创建图表
+diagram 
+使用
+UTF8
+字符的文本模式图
+glumpy 
+ OpenGL
+科学可视化库
+holoviews 
+来自注释数据的复杂和声明性可视化
+ipychart 
+ Jupyter Notebook
+中使用
+Chart.js
+mayai 
+用
+Python
+进行交互式科学数据可视化和
+3D
+绘图
+Python
+绘图包举例
+===== SLIDE 57 =====
+57
+包
+功能
+备注
+missingno
+提供灵活的数据可视化工具集，允许基于
+matplotlib
+快速直观地总结数据集的完整性
+plotly 
+基于
+plotly.js
+的交互式网络可视化
+PyQtGraph 
+交互式实时
+2D/3D/
+图像打印和科学
+/
+工程小部件。
+PyVista –
+通过可视化工具包（
+VTK
+）的流线型界面进行
+3D
+绘图和网格分析
+toyplot
+儿童级别的
+Python
+绘图工具包，具有成人级别的目标
+three.py 
+基于
+PyOpenGL
+的易于使用的
+3D
+库。灵感来自
+Three.js
+veusz 
+ Python
+多平台
+GUI
+绘图工具和图形库
+VisPy 
+基于
+OpenGL
+的高性能科学可视化
+vtk 
+ 3D
+计算机图形、图像处理和可视化，包括
+Python
+界面
+pyechars
+基于
+Echarts
+库的
+Python
+绘图库
+Python
+绘图包举例
+===== SLIDE 58 =====
+Python
+的地理数据绘图
+气象绘图加强版
+： 
+折线图、散点图、柱状图、坐标名、刻度、轴
+等值线、
+Colorbar
+、框线的添加
+多样
+Colorbar
+、三维地图
+白化（裁剪）杂谈、底图的添加
+地理桑基图（
+sankey
+）、子图坐标系统
+3D
+图形迁移
+图例、缓冲区、辅助线型
+网址
+：
+https://mp.weixin.qq.com/s/TSHselOjueB4eH8uWdFk9w
+===== SLIDE 59 =====
+59
+http://bbs.06climate.com/forum.php?mod=viewthread&amp;tid=92816&amp;extra=page%3D1
+Python
+基于地图的插值图：示例
+1
+===== SLIDE 60 =====
+60
+Python
+基于地图的插值图：示例
+2
+https://mp.weixin.qq.com/s?__biz=MzIxODQxODQ4NQ==&amp;mid=2247484043&amp;idx=1&amp;sn=893bca82e4b7105df7470f1f8b2ec5d6&amp;chksm=97eb9ed1a09c17c77e4f85f454f12991fd6a25597c3a9f66ec97d90df103e0afb060961f8269
+===== SLIDE 61 =====
+61
+Python
+基于地图的插值图：示例
+3
+https://mp.weixin.qq.com/s?__biz=MzIxODQxODQ4NQ==&amp;mid=2247484024&amp;idx=1&amp;sn=6fe0d87f0f8bbbf086a0cf66db8ad34b&amp;chksm=97eb9e22a09c17344b5a00c3862bd341670fede4635a67a16477e163081ee64fd7ae136cee88
+===== SLIDE 62 =====
+62
+https://www.jianshu.com/p/2083fac7f2ce
+Python
+基于地图的散点图：示例
+1
+===== SLIDE 63 =====
+63
+————————————————
+https://mp.weixin.qq.com/s?__biz=MzIxODQxODQ4NQ==&amp;mid=2247483990&amp;idx=1&amp;sn=d87aa08d6d03ee2af2e79a852b5d45da&amp;chksm=97eb9e0ca09c171aff07a1fca448de87ae004786372353f5fc9e4033126cbd928d2e6e38ff3f
+Python
+基于地图的散点图：示例
+2
+===== SLIDE 64 =====
+64
+https://mp.weixin.qq.com/s?__biz=MzIxODQxODQ4NQ==&amp;mid=2247484527&amp;idx=1&amp;sn=4e9d637a301a06582c098134a7b157f6&amp;chksm=97eb9835a09c11233d939ff488215876112d67d7cbc73f384a5d3240db3abd4e6b3ea66de8ce
+Python
+基于地图的散点图：示例
+3
+===== SLIDE 65 =====
+65
+Python
+的叠加图：示例
+https://mp.weixin.qq.com/s?__biz=MzIxODQxODQ4NQ==&amp;mid=2247484428&amp;idx=1&amp;sn=367e238067f8b8c49471ffba0d906415&amp;chksm=97eb9856a09c1140691e04037aab31424b0f7c81ccf51147e954ed9bc52a5eab4374826a357a
+===== SLIDE 66 =====
+66
+Python
+的投影图：示例
+https://mp.weixin.qq.com/s?__biz=MzIxODQxODQ4NQ==&amp;mid=2247484373&amp;idx=1&amp;sn=b4636757fdf11505d1d7c323dcae6156&amp;chksm=97eb9f8fa09c16999483751560ba74ca29bcff39ead54b9accb0f7db2c593cfcf9ed807d4656
+===== SLIDE 67 =====
+练习
+===== SLIDE 68 =====
+68
+练习：了解数据预处理和可视化
+目的：生成一个随机表格数据，进行预处理和可视化
+。
+生成数据
+：
+Data1
+：
+100×1
+列，
+1
+到
+10000
+整数，不重复，
+站点
+S1
+Data2
+：
+100×4
+列，
+站点
+S2
+（与
+S1
+范围相同，但重新随机生成，故存在差异），
+温度
+T
+（
+-10
+，
+45
+）；
+降雨
+P
+（
+0
+，
+1000
+）；
+虚拟变量
+Y
+（
+10*T+P
+）；
+数据污染
+：
+ Data2
+的
+T
+列
+20
+行，
+P
+列
+40
+行，
+Y
+列
+60
+行分别设定为
+NaN
+数据清洗
+：找到空缺位置，使用属性的相邻值填充
+T
+和
+P
+列空缺值，计算
+Y
+列空缺值
+===== SLIDE 69 =====
+69
+练习：了解数据预处理和可视化
+数据集成
+：将
+Data1
+和
+Data2
+按照相同站点合并成
+Data 3
+数据缩减
+:  
+计算
+Data3
+的
+T
+列、
+P
+列分别与
+Y
+列的相关系数；将
+Data3
+放回抽样
+40
+个样本成
+Data4
+数据变换
+：将
+Data3
+的
+T
+、
+P
+列、
+Y
+列按照最小 
+- 
+最大规范化转换成
+Data5
+（范围在
+0
+到
+1
+之间）
+可视化
+：画出和比较
+Data3
+和
+Data4
+的四列分布图（
+2×2
+）和按照
+S
+列排序以后的序列图（
+2×2
+）；画出
+Data5
+的
+3
+列分布图（
+3×1
+）； 
+===== SLIDE 70 =====
+小结
+===== SLIDE 71 =====
+思考
+为什么需要数据预处理？
+数据预处理的主要任务？
+Matlab
+画二维和三维图的基本命令？
+Python
+画二维和三维图的基本命令
+R
+语言画图？
+===== SLIDE 72 =====
+72
+Matlab
+画图参考网站
+官方画图示例
+https://ww2.mathworks.cn/products/matlab/plot-gallery.html
+https://ww2.mathworks.cn/matlabcentral/profile/authors/3166380
+第三方介绍
+MATLAB | MATLAB
+不会画图？官方团队来教你！
+===== SLIDE 73 =====
+73
+Matlab
+画图参考网站
+有哪些好用的绘图软件推荐？
+https://www.zhihu.com/question/39417414/answer/2695071131
+基于
+MATLAB
+的地理数据处理
+https://www.zhihu.com/column/c_1500863916602871808
+G
+ramm
+ (
+完整数据可视化工具箱
+, ggplot2/R-like) 
+https://ww2.mathworks.cn/matlabcentral/fileexchange/54465-gramm-complete-data-visualization-toolbox-ggplot2-r-like
+Matlab
+案例代码解析
+https://www.zhihu.com/column/c_1491138434131083264
+你在科研中用什么软件作图？
+https://www.zhihu.com/question/268877581/answer/2277678667
+===== SLIDE 74 =====
+74
+Python
+参考网站
+matplotlib 
+官网 
+https://matplotlib.org/
+气象绘图加强版
+https://mp.weixin.qq.com/s/TSHselOjueB4eH8uWdFk9w
+Cartopy
+气象领域
+Python
+制图的必学库
+https://www.heywhale.com/mw/project/5f1a4df794d484002d2db14a
+Cartopy
+官网
+https://scitools.org.uk/cartopy/docs/latest/
