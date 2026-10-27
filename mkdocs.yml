@@ -70,3 +70,10 @@ extra_javascript:
 
 plugins:
   - search
+  - git-revision-date-localized:
+      enable_creation_date: false
+      fallback_to_build_date: true
+      type: datetime
+      locale: zh
+
+copyright: © 2026 孙伟 · 中山大学地理科学与规划学院 · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank" rel="license">CC BY-NC-ND 4.0</a>
