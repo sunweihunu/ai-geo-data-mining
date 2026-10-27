@@ -1,8 +1,18 @@
 # 人工智能与地理数据挖掘 · 课程网站
 
+**作者**：孙伟 · 中山大学地理科学与规划学院
+
 《人工智能与地理数据挖掘》课程在线书稿，使用 [MkDocs](https://www.mkdocs.org/) + [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 构建，由 GitHub Actions 自动发布到 GitHub Pages。
 
 **在线阅读**：<https://sunweihunu.github.io/ai-geo-data-mining/>
+
+## 版权
+
+© 2026 孙伟 · 中山大学地理科学与规划学院。本作品采用 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh) 许可协议：
+
+- **署名（BY）**：使用时须保留作者署名及原始出处；
+- **非商业（NC）**：不得用于任何商业目的；
+- **禁止演绎（ND）**：不得修改、转换或基于本作品再创作。
 
 ## 仓库结构
 
