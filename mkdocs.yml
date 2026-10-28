@@ -46,6 +46,10 @@ nav:
       - 第09章 人工神经网络: ch09.md
       - 第10章 支持向量机: ch10.md
       - 第11章 深度学习: ch11.md
+      - 第21章 地学应用一：水文篇: ch21.md
+      - 第22章 地学应用二：气象篇: ch22.md
+      - 第23章 地学应用三：土地篇: ch23.md
+      - 第24章 地学应用四：地球系统篇: ch24.md
   - 代码与数据: https://github.com/sunweihunu/ai-geo-data-mining/tree/main/code
 
 markdown_extensions:
