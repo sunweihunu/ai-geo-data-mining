@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """第21章 地学应用一：水文篇 插图生成脚本（共 14 张，图 21-1 ~ 图 21-14）"""
+import os
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -13,7 +14,9 @@ plt.rcParams["figure.dpi"] = 150
 plt.rcParams["savefig.dpi"] = 150
 plt.rcParams["savefig.bbox"] = "tight"
 
-OUT = r"C:\20260905\项目 人工智能与地理数据挖掘\书稿\figs\ch21"
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "..", "..", "docs", "figs", "ch21")
+os.makedirs(OUT, exist_ok=True)
 rng = np.random.default_rng(42)
 
 C_BLUE = "#1f77b4"
@@ -410,7 +413,7 @@ def fig21_09():
     ax.annotate("峰现时间提前", xy=(16.4, 48), xytext=(27, 55), fontsize=9.5,
                 color=C_ORANGE,
                 arrowprops=dict(arrowstyle="-|>", color=C_ORANGE, lw=1.3))
-    ax.text(1.5, 82, "城市化：不透水地面增加、雨水排水系统完善、\n"
+    ax.text(27.0, 68, "城市化：不透水地面增加、雨水排水系统完善、\n"
                      "热岛 / 雨岛效应使降水增多，\n"
                      "入渗率下降、地下径流与枯水径流减小", fontsize=8.6,
             color="#333333", linespacing=1.6,

@@ -8,6 +8,7 @@
 - 运行方式（本机 python 为商店占位符，用 uv）：
   uv run --no-project --with matplotlib --with numpy python tmp_fig9/gen_figures.py
 """
+import os
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -23,7 +24,9 @@ plt.rcParams["savefig.bbox"] = "tight"
 plt.rcParams["axes.grid"] = True
 plt.rcParams["grid.alpha"] = 0.3
 
-OUT = r"C:\20260905\项目 人工智能与地理数据挖掘\书稿\figs\ch09"
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.abspath(os.path.join(HERE, "..", "..", "书稿", "figs", "ch09"))
+os.makedirs(OUT, exist_ok=True)
 rng = np.random.default_rng(42)
 
 C_BLUE = "#1f77b4"
@@ -46,7 +49,7 @@ def node(ax, x, y, r=0.16, fc="#eaf2fb", ec="#4a6fa5", lw=1.2, z=3):
 def fig9_01():
     fig, ax = plt.subplots(figsize=(9.5, 4.6))
     ax.set_xlim(0, 13)
-    ax.set_ylim(0, 8)
+    ax.set_ylim(0, 9)
     ax.axis("off")
     ax.set_aspect("equal")
 
@@ -62,7 +65,7 @@ def fig9_01():
         ax.plot([x + 0.45, x + 0.45], [y - 0.12, y + 0.12], color=C_RED, lw=2.2)
 
     ax.text(0.9, 3.55, "其他神经元\n（突触前）", ha="center", fontsize=9.5, color=C_RED)
-    ax.text(2.35, 7.35, "树突：接收输入信号", fontsize=10, color=C_RED)
+    ax.text(2.05, 7.58, "树突：接收输入信号", fontsize=10, color=C_RED)
 
     # 细胞体
     soma = Ellipse((5.2, 5.6), 2.4, 1.75, facecolor="#e8f5e9",
@@ -71,7 +74,7 @@ def fig9_01():
     ax.text(5.2, 5.6, "细胞体\n（神经元）", ha="center", va="center",
             fontsize=10.5, color=C_GREEN)
     ax.annotate("电位超过阈值\n→ 神经元被激活",
-                xy=(5.2, 6.55), xytext=(4.4, 7.6), fontsize=9.5, color=C_GREEN,
+                xy=(5.2, 6.55), xytext=(4.8, 7.62), fontsize=9.5, color=C_GREEN,
                 ha="center", arrowprops=dict(arrowstyle="->", color=C_GREEN))
 
     # 轴突
@@ -84,7 +87,7 @@ def fig9_01():
         ax.plot([9.55, 10.25], [5.6, ey], color=C_BLUE, lw=1.3)
         ax.plot([10.25, 10.25], [ey - 0.14, ey + 0.14], color=C_PURPLE, lw=2.4)
         node(ax, ex, ey, r=0.30, fc="#f3e5f5", ec=C_PURPLE)
-    ax.text(10.15, 7.6, "突触：兴奋时释放化学物质\n（神经递质），改变下一神经元的电位",
+    ax.text(10.15, 7.58, "突触：兴奋时释放化学物质\n（神经递质），改变下一神经元的电位",
             fontsize=9.5, color=C_PURPLE, ha="center")
     ax.text(11.6, 5.6, "下一神经元\n（突触后）", ha="center", fontsize=9.5, color=C_PURPLE)
 
@@ -200,7 +203,7 @@ def fig9_03():
     ax.plot([], [], color=C_BLUE, lw=2.2, label="连线：权重 $w>0$")
     ax.plot([], [], color=C_RED, lw=2.2, label="连线：权重 $w<0$")
     ax.legend(loc="upper center", ncol=2, frameon=False, fontsize=9.5)
-    ax.text(5.0, 8.35, "连线越粗表示 |权重| 越大：网络的输出主要由强连接通路决定",
+    ax.text(5.0, 7.8, "连线越粗表示 |权重| 越大：网络的输出主要由强连接通路决定",
             ha="center", fontsize=9.5, color=C_GRAY)
     ax.set_title("一个 4-5-7-3 的多层前馈神经网络（全连接示意）", fontsize=12)
     fig.savefig(f"{OUT}/fig9_03_ann_structure.png")
@@ -558,7 +561,7 @@ def fig9_10():
 # ----------------------------------------------------------------
 def fig9_11():
     fig, ax = plt.subplots(figsize=(10, 5.8))
-    ax.set_xlim(0, 10); ax.set_ylim(-0.4, 6.6)
+    ax.set_xlim(0, 10); ax.set_ylim(-0.2, 6.6)
     ax.axis("off"); ax.grid(False)
 
     ys_in = [4.4, 3.6, 2.8]
@@ -594,10 +597,10 @@ def fig9_11():
             fontsize=11, ha="center", color=C_BLUE)
 
     # 反向大箭头（下）
-    ax.annotate("", xy=(1.6, 0.35), xytext=(7.6, 0.35),
+    ax.annotate("", xy=(1.6, 0.28), xytext=(7.6, 0.28),
                 arrowprops=dict(arrowstyle="-|>", color=C_RED, lw=3.2,
                                 linestyle=(0, (5, 3))))
-    ax.text(4.6, 0.02, "② 反向传播：由输出层逐层回传误差，算出每个参数的梯度",
+    ax.text(4.6, 0.0, "② 反向传播：由输出层逐层回传误差，算出每个参数的梯度",
             fontsize=11, ha="center", color=C_RED, va="top")
 
     ax.set_title("误差反向传播算法：先从前往后算输出，再从后往前传误差", fontsize=12.5)
@@ -729,11 +732,11 @@ def fig9_13():
     ax.axvline(best, color=C_GREEN, ls="--", lw=1.8)
     ax.plot(best, valid.min(), "o", color=C_GREEN, ms=9)
     ax.annotate(f"早停点（第 {best} 轮）：验证误差最小",
-                xy=(best, valid.min()), xytext=(best - 26, 0.42),
+                xy=(best, valid.min()), xytext=(best - 24, 0.46),
                 fontsize=10, color=C_GREEN,
                 arrowprops=dict(arrowstyle="->", color=C_GREEN))
     ax.annotate("继续训练：训练误差仍下降，\n验证误差却上升 → 过拟合",
-                xy=(50, valid[ep == 50][0]), xytext=(33, 0.20),
+                xy=(50, valid[ep == 50][0]), xytext=(40, 0.38),
                 fontsize=10, color=C_RED,
                 arrowprops=dict(arrowstyle="->", color=C_RED))
     ax.set_xlabel("训练轮数（epoch）")

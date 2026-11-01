@@ -7,8 +7,10 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Rectangle, FancyArrowPatch, Circle
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 import matplotlib.gridspec as gridspec
+from pathlib import Path
 
-OUT = r"C:\20260905\项目 人工智能与地理数据挖掘\书稿\figs\ch03"
+OUT = Path(__file__).resolve().parent.parent / "书稿" / "figs" / "ch03"
+OUT.mkdir(parents=True, exist_ok=True)
 
 plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei"]
 plt.rcParams["axes.unicode_minus"] = False
@@ -26,7 +28,7 @@ rng = np.random.default_rng(42)
 
 
 def save(fig, name):
-    fig.savefig(f"{OUT}\\{name}", bbox_inches="tight")
+    fig.savefig(OUT / name, bbox_inches="tight")
     plt.close(fig)
     print("saved:", name)
 
@@ -37,7 +39,7 @@ def fig3_01_four_tasks():
     (a, b), (c, d) = axes
 
     # (a) 清洗 = 查漏补缺：一行数据格，缺值/错值 → 补好
-    a.set_xlim(0, 10); a.set_ylim(0, 4); a.axis("off")
+    a.set_xlim(0, 10); a.set_ylim(0, 4.25); a.axis("off")
     vals = [28, 30, None, 27, "31", 29, None, 26, 28, 30]   # None=缺失, "31"=错误
     for j, v in enumerate(vals):
         if v is None:
@@ -57,13 +59,15 @@ def fig3_01_four_tasks():
             a.text(j + 0.45, 1.05, str(v), ha="center", va="center", fontsize=9, color=C_GREEN, fontweight="bold")
         else:
             a.text(j + 0.45, 1.05, str(v), ha="center", va="center", fontsize=9)
-    a.annotate("", xy=(4.6, 0.9), xytext=(4.6, 2.3),
+    a.text(4.5, 2.18, "原始数据", ha="center", va="center", fontsize=9.5, color=C_GRAY)
+    a.text(4.5, 0.28, "清洗后数据", ha="center", va="center", fontsize=9.5, color=C_GREEN)
+    a.annotate("", xy=(4.6, 1.6), xytext=(4.6, 2.45),
                arrowprops=dict(arrowstyle="-|>", color=C_GRAY, lw=2))
     a.set_title("(a) 数据清洗 = 查漏补缺：填补缺失、纠正错误、去除离群", fontsize=11)
 
     # (b) 集成 = 加法：多个数据源 → 一个数据集
     b.set_xlim(0, 10); b.set_ylim(0, 4); b.axis("off")
-    srcs = [(0.2, 2.8, C_BLUE, "数据库 A"), (0.2, 0.5, C_ORANGE, "数据库 B"), (3.6, 1.6, C_GREEN, "文件 C")]
+    srcs = [(0.2, 2.8, C_BLUE, "数据库 A"), (0.2, 0.5, C_ORANGE, "数据库 B"), (3.6, 2.0, C_GREEN, "文件 C")]
     for x, y, col, lab in srcs:
         b.add_patch(FancyBboxPatch((x, y), 2.2, 1.0, boxstyle="round,pad=0.08",
                                    fc="white", ec=col, lw=1.8))
@@ -86,7 +90,7 @@ def fig3_01_four_tasks():
                                   fc="white" if bad else "#dceefb",
                                   ec=C_GRAY if bad else C_BLUE, lw=0.8,
                                   hatch="xx" if bad else None))
-    c.annotate("", xy=(6.3, 1.9), xytext=(5.8, 1.9),
+    c.annotate("", xy=(6.0, 1.9), xytext=(5.5, 1.9),
                arrowprops=dict(arrowstyle="-|>", color=C_GRAY, lw=2))
     keep = np.array([[3.2 - i * 0.42 for i in range(5)]] * 7)
     for i in range(5):
@@ -135,12 +139,12 @@ def fig3_02_process():
     arr = dict(arrowstyle="-|>", color=C_GRAY, lw=1.8)
     for x0, x1 in [(1.65, 2.05), (3.75, 4.05), (5.75, 6.05), (7.75, 8.05), (9.75, 10.05)]:
         ax.annotate("", xy=(x1, 3.5), xytext=(x0, 3.5), arrowprops=arr)
-    ax.annotate("", xy=(9.7, 1.1), xytext=(10.6, 2.95), arrowprops=arr)
-    ax.annotate("", xy=(8.6, 1.1), xytext=(10.0, 1.1), arrowprops=arr)
+    ax.annotate("", xy=(8.5, 1.6), xytext=(10.95, 3.0), arrowprops=arr)
+    ax.annotate("", xy=(8.5, 1.1), xytext=(10.95, 1.1), arrowprops=arr)
     # 反馈回路
     fb = dict(arrowstyle="-|>", color=C_RED, lw=1.8, connectionstyle="arc3,rad=-0.35", ls="--")
     ax.annotate("", xy=(2.9, 4.35), xytext=(8.5, 1.3), arrowprops=fb)
-    ax.text(5.6, 3.95, "效果不佳？回到数据检查：是不是清洗有误、某些自变量不该放进来",
+    ax.text(5.6, 4.15, "效果不佳？回到数据检查：是不是清洗有误、某些自变量不该放进来",
             ha="center", fontsize=9.5, color=C_RED)
     ax.text(6.0, 4.75, "数据预处理的一般过程（步骤顺序可调整，且往往需要循环往复）",
             ha="center", fontsize=11)
@@ -178,7 +182,7 @@ def fig3_04_boxplot():
     data = rng.normal(20, 4, 160)
     data = np.concatenate([data, [38.5, 41.2, 3.5, 1.2, 43.0]])
     fig, ax = plt.subplots(figsize=(8.6, 5.2))
-    bp = ax.boxplot(data, vert=True, widths=0.35, patch_artist=True,
+    bp = ax.boxplot(data, orientation="vertical", widths=0.35, patch_artist=True,
                     boxprops=dict(facecolor="#dceefb", edgecolor=C_BLUE, lw=1.6),
                     medianprops=dict(color=C_RED, lw=2),
                     whiskerprops=dict(color=C_BLUE, lw=1.6),
@@ -193,7 +197,7 @@ def fig3_04_boxplot():
         ax.plot([1.18], [v], "o", ms=4, color="k")
     ax.annotate("上须 = Q3 + 1.5×IQR", xy=(1.18, q3 + 1.5 * iqr), xytext=(1.55, q3 + 1.5 * iqr + 3),
                 fontsize=9.5, arrowprops=dict(arrowstyle="->", color=C_GRAY))
-    ax.annotate("离群点（可疑噪声/极端值）", xy=(1.0, 41.2), xytext=(1.6, 44),
+    ax.annotate("离群点（可疑噪声/极端值）", xy=(1.0, 41.2), xytext=(1.6, 42.5),
                 fontsize=10, color=C_RED, arrowprops=dict(arrowstyle="->", color=C_RED))
     ax.annotate("下须 = Q1 − 1.5×IQR", xy=(1.18, q1 - 1.5 * iqr), xytext=(1.55, q1 - 1.5 * iqr - 4),
                 fontsize=9.5, arrowprops=dict(arrowstyle="->", color=C_GRAY))
@@ -295,32 +299,47 @@ def fig3_08_new_data_overflow():
 
     def two_axis(ax, omin, omax, points, title, note, note_col):
         ax.axis("off")
-        ax.set_xlim(-0.35, 1.45); ax.set_ylim(-0.15, 1.3)
+        ax.set_xlim(-0.42, 1.55); ax.set_ylim(-0.18, 1.36)
+        axis_left, axis_right = 0.0, 1.28
+        axis_y_top, axis_y_bottom = 1.0, 0.15
         # 原始轴
-        ax.annotate("", xy=(1.35, 1.0), xytext=(-0.05, 1.0),
+        ax.annotate("", xy=(axis_right, axis_y_top), xytext=(-0.05, axis_y_top),
                     arrowprops=dict(arrowstyle="-|>", color=C_GRAY, lw=1.6))
-        for x0, lab in [(0.0, str(omin)), (1.3, str(omax))]:
-            ax.text(x0, 1.08, lab, ha="center", fontsize=10, color=C_GRAY)
+        ax.text(axis_left, 1.08, str(omin), ha="center", fontsize=10, color=C_GRAY)
+        ax.text(1.0, 1.08, str(omax), ha="center", fontsize=10, color=C_GRAY)
         ax.text(-0.3, 0.86, "原始取值", fontsize=9.5, color=C_GRAY)
         # 变换后轴
-        ax.annotate("", xy=(1.35, 0.15), xytext=(-0.05, 0.15),
+        ax.annotate("", xy=(axis_right, axis_y_bottom), xytext=(-0.05, axis_y_bottom),
                     arrowprops=dict(arrowstyle="-|>", color=C_GRAY, lw=1.6))
-        for x0, lab in [(0.0, "0"), (1.3, "1")]:
-            ax.text(x0, 0.23, lab, ha="center", fontsize=10, color=C_GRAY)
+        ax.text(axis_left, 0.23, "0", ha="center", fontsize=10, color=C_GRAY)
+        ax.text(1.0, 0.23, "1", ha="center", fontsize=10, color=C_GRAY)
         ax.text(-0.3, 0.02, "变换后", fontsize=9.5, color=C_GRAY)
-        for ox, nv, col, lab in points:
+        for index, (ox, nv, col, lab) in enumerate(points):
             fx = (ox - omin) / (omax - omin)
             fy = nv
-            ax.plot([fx], [1.0], "o", ms=7, color=C_BLUE)
-            ax.plot([fy], [0.15], "o", ms=7, color=col)
-            ax.annotate("", xy=(fy, 0.15), xytext=(fx, 1.0),
+            ax.plot([fx], [axis_y_top], "o", ms=7, color=C_BLUE, clip_on=False)
+            ax.plot([fy], [axis_y_bottom], "o", ms=7, color=col, clip_on=False)
+            ax.annotate("", xy=(fy, axis_y_bottom), xytext=(fx, axis_y_top),
                         arrowprops=dict(arrowstyle="->", color=col, lw=1.4,
                                         connectionstyle="arc3,rad=0.25"))
-            ax.text(fx, 1.08, str(ox), ha="center", fontsize=10, color=C_BLUE)
-            ax.text(fy, 0.23, f"{nv:.2f}", ha="center", fontsize=10, color=col)
-            ax.text((fx + fy) / 2, 0.6, lab, ha="center", fontsize=9.5, color=col)
+            top_dx = 0.11 if fx < 0.12 else (-0.08 if fx > 1.02 else 0.0)
+            bottom_dx = 0.1 if fy < 0.12 else (-0.08 if fy > 1.02 else 0.0)
+            if ox == 50:
+                top_dx -= 0.14
+                bottom_dx -= 0.14
+            elif omin == 0 and ox == 110:
+                top_dx -= 0.18
+                bottom_dx -= 0.18
+            top_y = 1.17 if index == 1 else 1.12
+            bottom_y = 0.30 if index == 1 else 0.25
+            ax.text(fx + top_dx, top_y, str(ox), ha="center", fontsize=10, color=C_BLUE)
+            ax.text(fy + bottom_dx, bottom_y, f"{nv:.2f}", ha="center", fontsize=10, color=col)
+            label_dx = -0.14 if ox == 50 else (-0.18 if omin == 0 and ox == 110 else 0)
+            label_x = np.clip((fx + fy) / 2 + label_dx, 0.12, 1.02)
+            label_y = 0.52 if omin == 0 and ox == 50 else 0.6
+            ax.text(label_x, label_y, lab, ha="center", fontsize=9.5, color=col)
         ax.set_title(title, fontsize=11)
-        ax.text(0.55, -0.12, note, ha="center", fontsize=10, color=note_col)
+        ax.text(0.62, -0.12, note, ha="center", fontsize=10, color=note_col)
 
     two_axis(axes[0], 1, 100,
              [(50, 0.495, C_GREEN, "旧数据 50"),
@@ -411,7 +430,7 @@ def fig3_11_season_week():
     axes[0].set_ylabel("借车量（千次）")
     axes[0].set_title("(a) 星期因素：工作日与周末的用量明显不同")
     axes[0].grid(alpha=0.3, axis="y")
-    axes[0].text(3.0, 9.6, "用哑变量区分“工作日/周末”", ha="center", fontsize=9.5, color=C_GRAY)
+    axes[0].text(3.0, 10.0, "用哑变量区分“工作日/周末”", ha="center", fontsize=9.5, color=C_GRAY)
     ss = ["春", "夏", "秋", "冬"]
     cnt2 = np.array([7.6, 8.8, 8.1, 4.2]) + rng.normal(0, 0.15, 4)
     axes[1].bar(ss, cnt2, color=[C_GREEN, C_RED, C_ORANGE, C_BLUE], alpha=0.85, edgecolor="white")
@@ -594,7 +613,8 @@ def fig3_16_case_result():
 
     fig.suptitle("案例结果：Data3 四列分布（左）与 Data5 最小-最大规范化后的分布（右）",
                  fontsize=12)
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.subplots_adjust(left=0.06, right=0.98, bottom=0.08, top=0.88,
+                        wspace=0.3, hspace=0.75)
     save(fig, "fig3_16_case_result.png")
 
 

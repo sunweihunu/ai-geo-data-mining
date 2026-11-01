@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """第六章 线性模型 插图生成脚本"""
+import os
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -15,7 +16,9 @@ plt.rcParams["savefig.bbox"] = "tight"
 plt.rcParams["axes.grid"] = True
 plt.rcParams["grid.alpha"] = 0.3
 
-OUT = r"C:\20260905\项目 人工智能与地理数据挖掘\书稿\figs\ch06"
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.abspath(os.path.join(HERE, "..", "..", "书稿", "figs", "ch06"))
+os.makedirs(OUT, exist_ok=True)
 rng = np.random.default_rng(42)
 
 C_BLUE = "#1f77b4"
@@ -363,7 +366,8 @@ def fig6_10():
     axin = ax.inset_axes([0.60, 0.06, 0.37, 0.34])
     axin.hist(up1_pca, bins=18, color=C_BLUE, alpha=0.6)
     axin.hist(up2_pca, bins=18, color=C_ORANGE, alpha=0.6)
-    axin.set_title("投影到 PCA 方向：重叠较多", fontsize=8, color=C_GREEN)
+    axin.text(0.5, -0.18, "投影到 PCA 方向：重叠较多", transform=axin.transAxes,
+              ha="center", va="top", fontsize=8, color=C_GREEN, clip_on=False)
     axin.set_xticks([]); axin.set_yticks([])
     axin2 = ax.inset_axes([0.60, 0.46, 0.37, 0.34])
     axin2.hist(up1_lda, bins=18, color=C_BLUE, alpha=0.6)

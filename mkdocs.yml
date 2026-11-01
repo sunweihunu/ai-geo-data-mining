@@ -26,6 +26,7 @@ theme:
     - navigation.tabs
     - navigation.top
     - navigation.path
+    - navigation.indexes
     - toc.follow
     - search.suggest
     - search.highlight
@@ -46,11 +47,175 @@ nav:
       - 第09章 人工神经网络: ch09.md
       - 第10章 支持向量机: ch10.md
       - 第11章 深度学习: ch11.md
+      - 第12章 深度学习扩展：Transformer与MATLAB模型库: ch12.md
+      - 第13章 文本分析扩展：NLP模型在MATLAB中的实现: ch13.md
+      - 第14章 大语言模型: ch14.md
+      - 第15章 MATLAB LLM工具箱指南与地学应用: ch15.md
       - 第21章 地学应用一：水文篇: ch21.md
       - 第22章 地学应用二：气象篇: ch22.md
       - 第23章 地学应用三：土地篇: ch23.md
       - 第24章 地学应用四：地球系统篇: ch24.md
-  - 代码与数据: https://github.com/sunweihunu/ai-geo-data-mining/tree/main/code
+  - 课程PPT:
+      - 总览: ppt/index.md
+      - 第01章 绪论: ppt/ch01.md
+      - 第02章 编程环境与语言: ppt/ch02.md
+      - 第03章 数据预处理与可视化: ppt/ch03.md
+      - 第04章 聚类分析: ppt/ch04.md
+      - 第05章 降维: ppt/ch05.md
+      - 第06章 线性模型: ppt/ch06.md
+      - 第07章 k最近邻（kNN）模型: ppt/ch07.md
+      - 第08章 决策树: ppt/ch08.md
+      - 第09章 人工神经网络: ppt/ch09.md
+      - 第10章 支持向量机: ppt/ch10.md
+      - 第11章 深度学习: ppt/ch11.md
+      - 第12章 深度学习扩展：Transformer与MATLAB模型库: ppt/ch12.md
+      - 第13章 文本分析扩展：NLP模型在MATLAB中的实现: ppt/ch13.md
+      - 第14章 大语言模型: ppt/ch14.md
+      - 第15章 MATLAB LLM工具箱指南与地学应用: ppt/ch15.md
+      - 第21章 地学应用一：水文篇: ppt/ch21.md
+      - 第22章 地学应用二：气象篇: ppt/ch22.md
+      - 第23章 地学应用三：土地篇: ppt/ch23.md
+      - 第24章 地学应用四：地球系统篇: ppt/ch24.md
+  - 参考代码:
+      - 总览: refcode/index.md
+      - 第04章 聚类分析: refcode/ch04.md
+      - 第05章 降维: refcode/ch05.md
+      - 第06章 线性模型（判别分析）: refcode/ch06.md
+      - 第07章 k最近邻: refcode/ch07.md
+      - 第08章 决策树: refcode/ch08.md
+      - 第09章 人工神经网络: refcode/ch09.md
+      - 第10章 支持向量机: refcode/ch10.md
+  - MLX 实时脚本:
+      - 总览: mlx/index.md
+      # === MLX NAV BEGIN（由 tools/build_mlx.mjs 生成，勿手改） ===
+      - 降维（DR）:
+          - mlx/DR/index.md
+          - cities2003: mlx/DR/cities2003.md
+          - exp_pca1: mlx/DR/exp_pca1.md
+          - exp_pca2: mlx/DR/exp_pca2.md
+          - exp_pca3: mlx/DR/exp_pca3.md
+          - FA_01_PCA: mlx/DR/FA_01_PCA.md
+          - FA_02_2F: mlx/DR/FA_02_2F.md
+          - FA_02_3F: mlx/DR/FA_02_3F.md
+          - FA_03_COV: mlx/DR/FA_03_COV.md
+          - PCA_M01: mlx/DR/PCA_M01.md
+          - PCA_M02: mlx/DR/PCA_M02.md
+          - PCA_M03: mlx/DR/PCA_M03.md
+          - regions2004: mlx/DR/regions2004.md
+      - 判别分析（LDA）:
+          - mlx/LDA/index.md
+          - DA_2C_04_Full: mlx/LDA/DA_2C_04_Full.md
+          - DA_2C_05_MLR: mlx/LDA/DA_2C_05_MLR.md
+          - DA_3C_01: mlx/LDA/DA_3C_01.md
+          - DA_3C_02_KC: mlx/LDA/DA_3C_02_KC.md
+          - DA2C_01: mlx/LDA/DA2C_01.md
+          - DA2C_02: mlx/LDA/DA2C_02.md
+          - DA2C_03: mlx/LDA/DA2C_03.md
+          - UNDP2: mlx/LDA/UNDP2.md
+          - UNDP3: mlx/LDA/UNDP3.md
+      - k 最近邻（kNN）:
+          - mlx/kNN/index.md
+          - kNN_exp01: mlx/kNN/kNN_exp01.md
+          - kNN_exp02_KDT: mlx/kNN/kNN_exp02_KDT.md
+          - kNN_exp03: mlx/kNN/kNN_exp03.md
+          - kNN_exp04: mlx/kNN/kNN_exp04.md
+          - kNN_exp05: mlx/kNN/kNN_exp05.md
+          - kNN_exp11_Reg: mlx/kNN/kNN_exp11_Reg.md
+          - kNN_exp12_Reg: mlx/kNN/kNN_exp12_Reg.md
+          - knn_sip1: mlx/kNN/knn_sip1.md
+          - knn_sip2: mlx/kNN/knn_sip2.md
+          - knn_sip3: mlx/kNN/knn_sip3.md
+          - knn_sip4: mlx/kNN/knn_sip4.md
+          - knn_sip5_range: mlx/kNN/knn_sip5_range.md
+      - 决策树（CART）:
+          - mlx/DecisionTree_v2/index.md
+          - cart_exp01: mlx/DecisionTree_v2/cart_exp01.md
+          - cart_exp02: mlx/DecisionTree_v2/cart_exp02.md
+          - cart_exp03: mlx/DecisionTree_v2/cart_exp03.md
+          - cart_exp04: mlx/DecisionTree_v2/cart_exp04.md
+          - cart_exp05: mlx/DecisionTree_v2/cart_exp05.md
+          - cart_exp06: mlx/DecisionTree_v2/cart_exp06.md
+          - cart_exp07: mlx/DecisionTree_v2/cart_exp07.md
+          - cart_exp08: mlx/DecisionTree_v2/cart_exp08.md
+          - cart_exp09: mlx/DecisionTree_v2/cart_exp09.md
+          - cart_exp10: mlx/DecisionTree_v2/cart_exp10.md
+          - cart_exp11: mlx/DecisionTree_v2/cart_exp11.md
+      - 人工神经网络（ANN）:
+          - mlx/ANN/index.md
+          - ANN_01_Lin: mlx/ANN/ANN_01_Lin.md
+          - ANN_02_Lin: mlx/ANN/ANN_02_Lin.md
+          - ANN_03_Lin: mlx/ANN/ANN_03_Lin.md
+          - ANN_04_p: mlx/ANN/ANN_04_p.md
+          - ANN_05_p: mlx/ANN/ANN_05_p.md
+          - ANN_06_p: mlx/ANN/ANN_06_p.md
+          - ANN_07_p: mlx/ANN/ANN_07_p.md
+          - ANN_08_p: mlx/ANN/ANN_08_p.md
+          - ANN_09_p: mlx/ANN/ANN_09_p.md
+          - ANN_10_p: mlx/ANN/ANN_10_p.md
+          - ANN_11_p: mlx/ANN/ANN_11_p.md
+          - ANN_12_PCA: mlx/ANN/ANN_12_PCA.md
+          - ANN_13_p: mlx/ANN/ANN_13_p.md
+          - ANN_14_3C: mlx/ANN/ANN_14_3C.md
+          - ANN_15_LVQ: mlx/ANN/ANN_15_LVQ.md
+          - ANN_16_LVQ: mlx/ANN/ANN_16_LVQ.md
+          - ANN_17_LVQ: mlx/ANN/ANN_17_LVQ.md
+          - ANN_18_BP: mlx/ANN/ANN_18_BP.md
+          - ANN_19_BP: mlx/ANN/ANN_19_BP.md
+          - ANN_20_BP: mlx/ANN/ANN_20_BP.md
+          - ANN_21_BP: mlx/ANN/ANN_21_BP.md
+          - ANN_22_BP: mlx/ANN/ANN_22_BP.md
+          - ANN_23_C: mlx/ANN/ANN_23_C.md
+          - ANN_24_C: mlx/ANN/ANN_24_C.md
+          - ANN_25_C: mlx/ANN/ANN_25_C.md
+          - ANN_26_C: mlx/ANN/ANN_26_C.md
+          - ANN_27_C: mlx/ANN/ANN_27_C.md
+          - New_ANN_01: mlx/ANN/New_ANN_01.md
+          - New_ANN_02: mlx/ANN/New_ANN_02.md
+          - New_ANN_03: mlx/ANN/New_ANN_03.md
+          - New_ANN_04: mlx/ANN/New_ANN_04.md
+          - New_ANN_05: mlx/ANN/New_ANN_05.md
+          - New_ANN_06: mlx/ANN/New_ANN_06.md
+          - New_ANN_07: mlx/ANN/New_ANN_07.md
+          - New_ANN_08: mlx/ANN/New_ANN_08.md
+          - New_ANN_09: mlx/ANN/New_ANN_09.md
+          - New_ANN_10: mlx/ANN/New_ANN_10.md
+          - New_ANN_11: mlx/ANN/New_ANN_11.md
+          - New_ANN_12: mlx/ANN/New_ANN_12.md
+          - New_ANN_21: mlx/ANN/New_ANN_21.md
+          - New_ANN_22: mlx/ANN/New_ANN_22.md
+          - New_ANN_31: mlx/ANN/New_ANN_31.md
+          - New_ANN_32: mlx/ANN/New_ANN_32.md
+          - New_ANN_33: mlx/ANN/New_ANN_33.md
+          - UNDP2: mlx/ANN/UNDP2.md
+          - UNDP3: mlx/ANN/UNDP3.md
+      - 支持向量机（SVM）:
+          - mlx/SVM_V1/index.md
+          - mysigmoid: mlx/SVM_V1/mysigmoid.md
+          - mysigmoid2: mlx/SVM_V1/mysigmoid2.md
+          - SVM_C1: mlx/SVM_V1/SVM_C1.md
+          - SVM_C2: mlx/SVM_V1/SVM_C2.md
+          - SVM_C3: mlx/SVM_V1/SVM_C3.md
+          - SVM_C4: mlx/SVM_V1/SVM_C4.md
+          - SVM_C5: mlx/SVM_V1/SVM_C5.md
+          - SVM_C6: mlx/SVM_V1/SVM_C6.md
+          - SVM_C7: mlx/SVM_V1/SVM_C7.md
+          - SVM_C8: mlx/SVM_V1/SVM_C8.md
+          - SVM_C09: mlx/SVM_V1/SVM_C09.md
+          - SVM_C10: mlx/SVM_V1/SVM_C10.md
+          - SVM_C11: mlx/SVM_V1/SVM_C11.md
+          - SVM_C12: mlx/SVM_V1/SVM_C12.md
+          - SVM_C13: mlx/SVM_V1/SVM_C13.md
+          - SVM_C14: mlx/SVM_V1/SVM_C14.md
+          - SVM_C15: mlx/SVM_V1/SVM_C15.md
+          - SVM_Data1: mlx/SVM_V1/SVM_Data1.md
+          - SVM_R1: mlx/SVM_V1/SVM_R1.md
+          - SVM_R2: mlx/SVM_V1/SVM_R2.md
+          - SVM_R3: mlx/SVM_V1/SVM_R3.md
+          - SVM_R4: mlx/SVM_V1/SVM_R4.md
+          - SVM_R5: mlx/SVM_V1/SVM_R5.md
+          - SVM_R6: mlx/SVM_V1/SVM_R6.md
+      # === MLX NAV END ===
+  - 插图脚本: https://github.com/sunweihunu/ai-geo-data-mining/tree/main/code
 
 markdown_extensions:
   - abbr
@@ -69,7 +234,12 @@ markdown_extensions:
   - toc:
       permalink: true
 
+extra_css:
+  - stylesheets/refcode.css
+
 extra_javascript:
+  - javascripts/refcode.js
+  - javascripts/mlx.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://events.vercount.one/js
 

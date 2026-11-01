@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "..", "..", "书稿", "figs", "ch10")
+OUT = os.path.join(HERE, "..", "..", "docs", "figs", "ch10")
 os.makedirs(OUT, exist_ok=True)
 
 C_BLUE = "#1f77b4"
@@ -143,7 +143,7 @@ def fig01_margin_idea():
     a1 = np.array([-2.6, 1.05 + (-2.6) * 0.15])
     a2 = np.array([5.0, 1.05 + 5.0 * 0.15])
     ax.plot(x, 1.05 + 0.15 * x, color=C_GREEN, lw=1.8, zorder=2)
-    ax.annotate("分割线 A（间隔小）", xy=(3.4, 1.56), xytext=(1.4, 2.9),
+    ax.annotate("分割线 A（间隔小）", xy=(3.4, 1.56), xytext=(0.15, 2.9),
                 fontsize=10, color=C_GREEN,
                 arrowprops=dict(arrowstyle="->", color=C_GREEN, lw=1.0))
     # 大间隔分割线 B：两类中线方向
@@ -155,7 +155,7 @@ def fig01_margin_idea():
     new = np.array([2.1, 1.95])
     ax.scatter([new[0]], [new[1]], marker="*", s=230, c=C_RED,
                edgecolors="white", linewidths=0.6, zorder=5)
-    ax.annotate("新来的正类样本", xy=new, xytext=(2.5, 3.3), fontsize=10,
+    ax.annotate("新来的正类样本", xy=new, xytext=(3.5, 3.3), fontsize=10,
                 color=C_RED,
                 arrowprops=dict(arrowstyle="->", color=C_RED, lw=1.0))
     # 扰动箭头：受测量误差影响的样本漂移
@@ -418,7 +418,8 @@ def fig08_history():
     ]
     for yr, txt, side, col in events:
         ax.scatter([yr], [0], s=130, c=col, zorder=4, edgecolors="white", linewidths=1.2)
-        ax.annotate(str(yr), xy=(yr, 0), xytext=(yr, -0.14 * side if side < 0 else 0.07),
+        year_y = -0.14 if yr in (1964, 1992) else (0.14 if side < 0 else 0.07)
+        ax.annotate(str(yr), xy=(yr, 0), xytext=(yr, year_y),
                     ha="center", fontsize=12, fontweight="bold", color=col)
         ax.annotate(txt, xy=(yr, 0), xytext=(yr, 0.42 * side),
                     ha="center", fontsize=9.5, color="black",

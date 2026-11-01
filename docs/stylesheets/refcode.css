@@ -1,0 +1,16 @@
+/* 参考代码板块的操作按钮微调 */
+.md-typeset .refcode-actions {
+  margin: 0.6em 0;
+}
+.md-typeset .refcode-actions .md-button {
+  margin: 0 0.3em 0.3em 0;
+}
+.md-typeset .refcode-actions button.md-button {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+.md-typeset .refcode-actions .refcopy-done {
+  color: var(--md-primary-fg-color);
+  border-color: var(--md-primary-fg-color);
+}

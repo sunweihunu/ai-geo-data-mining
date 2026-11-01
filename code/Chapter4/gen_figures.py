@@ -303,13 +303,15 @@ def fig_hierarchical_demo():
                     cut=0.72, colors=leaf_colors)
     ax.set_title("层次聚类的谱系图（最短距离法）", fontsize=12)
     ax.set_ylabel("合并高度（类间距离）")
-    ax.annotate("合并法：自下而上逐层合并", xy=(0.98, 0.06), xycoords="axes fraction",
-                ha="right", fontsize=10, color=C_BLUE)
-    ax.annotate("分解法：自上而下逐层拆分", xy=(0.98, 0.94), xycoords="axes fraction",
-                ha="right", fontsize=10, color=C_ORANGE)
-    ax.annotate("在此处画线\n→ 分成 3 类", xy=(2.6, 0.72), xytext=(4.6, 1.6),
-                fontsize=10, color=C_RED,
-                arrowprops=dict(arrowstyle="->", color=C_RED))
+    ax.text(1.03, 0.18, "合并法：自下而上逐层合并", transform=ax.transAxes,
+            ha="left", va="center", fontsize=10, color=C_BLUE, clip_on=False)
+    ax.text(1.03, 0.50, "分解法：自上而下逐层拆分", transform=ax.transAxes,
+            ha="left", va="center", fontsize=10, color=C_ORANGE, clip_on=False)
+    ax.annotate("在此处画线\n→ 分成 3 类", xy=(2.6, 0.72), xycoords="data",
+                xytext=(1.03, 0.82), textcoords="axes fraction",
+                ha="left", va="center", fontsize=10, color=C_RED, clip_on=False,
+                arrowprops=dict(arrowstyle="->", color=C_RED,
+                                connectionstyle="arc3,rad=-0.15"))
     fig.tight_layout()
     save(fig, "fig4_02_hierarchical_demo.png")
 

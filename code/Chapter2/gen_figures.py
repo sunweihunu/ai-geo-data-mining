@@ -5,8 +5,10 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Rectangle, FancyArrowPatch, Circle
+from pathlib import Path
 
-OUT = r"C:\20260905\项目 人工智能与地理数据挖掘\书稿\figs\ch02"
+OUT = Path(__file__).resolve().parent.parent / "书稿" / "figs" / "ch02"
+OUT.mkdir(parents=True, exist_ok=True)
 
 plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei"]
 plt.rcParams["axes.unicode_minus"] = False
@@ -26,7 +28,7 @@ C_LPURPLE = "#c5b0d5"
 
 
 def save(fig, name):
-    fig.savefig(f"{OUT}\\{name}", bbox_inches="tight")
+    fig.savefig(OUT / name, bbox_inches="tight")
     plt.close(fig)
     print("saved:", name)
 
@@ -122,7 +124,7 @@ def fig2_02_linux_layers():
 def fig2_03_dir_tree():
     fig, ax = plt.subplots(figsize=(12, 7))
     ax.set_xlim(0, 12)
-    ax.set_ylim(0, 7.4)
+    ax.set_ylim(-0.45, 7.4)
     ax.axis("off")
 
     box(ax, 5.0, 6.3, 2.0, 0.8, "根目录  /", fc="#dbe9f6", ec=C_BLUE, fs=12, weight="bold")
@@ -145,12 +147,12 @@ def fig2_03_dir_tree():
         ("usr", "应用程序与资源"),
         ("var", "日志等经常变化的数据"),
     ]
-    xl, xr = 0.3, 6.3
+    xl, xr = 1.8, 6.3
     y_top, dy = 5.35, 0.78
     for i, (name, desc) in enumerate(left):
         y = y_top - i * dy
         box(ax, xl, y, 1.6, 0.62, "/" + name, fc="#f5f5f5", ec=C_GRAY, fs=10.5)
-        ax.text(xl + 1.75, y + 0.31, desc, fontsize=9.5, va="center", color="#303030")
+        ax.text(1.65, y + 0.31, desc, fontsize=9.5, va="center", ha="right", color="#303030")
         ax.plot([6.0, 6.0], [6.3, y + 0.31], color="#b8b8b8", lw=1)
         ax.plot([6.0, xl + 1.6], [y + 0.31, y + 0.31], color="#b8b8b8", lw=1)
     for i, (name, desc) in enumerate(right):
@@ -158,12 +160,12 @@ def fig2_03_dir_tree():
         box(ax, xr, y, 1.8, 0.62, "/" + name, fc="#f5f5f5", ec=C_GRAY, fs=10.5)
         ax.text(xr + 1.95, y + 0.31, desc, fontsize=9.5, va="center", color="#303030")
         ax.plot([6.0, 6.0], [6.3, y + 0.31], color="#b8b8b8", lw=1)
-        ax.plot([6.0, xr + 1.8], [y + 0.31, y + 0.31], color="#b8b8b8", lw=1)
+        ax.plot([6.0, xr], [y + 0.31, y + 0.31], color="#b8b8b8", lw=1)
     # home 展开示例
-    ax.plot([xl + 0.8, xl + 0.8], [y_top - 4 * dy, 0.85], color="#b8b8b8", lw=1)
-    box(ax, 0.3, 0.25, 1.6, 0.6, "sw", fc="#eaf6ea", ec=C_GREEN, fs=10.5)
-    ax.text(2.0, 0.55, "/home/sw：用户 sw 的地盘（家目录）", fontsize=9.5, va="center", color="#303030")
-    ax.plot([xl + 0.8, 1.9], [0.55, 0.55], color="#b8b8b8", lw=1)
+    box(ax, 0.3, -0.25, 1.6, 0.6, "/home/sw", fc="#eaf6ea", ec=C_GREEN, fs=10.5)
+    ax.text(0.3, 0.42, "用户 sw 的家目录", fontsize=9.5, va="bottom", color="#303030")
+    ax.plot([6.0, 6.0], [6.3, 0.05], color="#b8b8b8", lw=1)
+    ax.plot([6.0, 1.9], [0.05, 0.05], color="#b8b8b8", lw=1)
     ax.set_title("Linux 的目录结构：一棵倒挂的树，根在顶端", fontsize=14, pad=10)
     save(fig, "fig2_03_dir_tree.png")
 
@@ -239,10 +241,10 @@ def fig2_05_shell_structure():
     ax.axis("off")
 
     # 用户
-    ax.add_patch(Circle((1.3, 5.5), 0.42, fc=C_LBLUE, ec=C_BLUE, lw=1.6))
-    ax.text(1.3, 5.5, "用户", ha="center", va="center", fontsize=10.5)
+    ax.add_patch(Circle((1.3, 5.9), 0.42, fc=C_LBLUE, ec=C_BLUE, lw=1.6))
+    ax.text(1.3, 5.9, "用户", ha="center", va="center", fontsize=10.5)
     box(ax, 0.3, 4.1, 2.0, 0.85, "终端\nTerminal", fc="#f5f5f5", ec=C_GRAY, fs=11)
-    arrow(ax, 1.3, 5.05, 1.3, 5.0, style="<|-|>")
+    arrow(ax, 1.3, 5.05, 1.3, 5.46, style="<|-|>")
     # Shell
     box(ax, 3.4, 4.1, 3.1, 2.25, "", fc="#e8f0e8", ec=C_GREEN, lw=1.8)
     ax.text(4.95, 5.85, "Shell（命令解释器）", ha="center", fontsize=12, weight="bold", color=C_GREEN)
@@ -262,7 +264,7 @@ def fig2_05_shell_structure():
     # Utility
     box(ax, 7.6, 2.0, 2.6, 4.35, "", fc="#f0ebf7", ec=C_PURPLE, lw=1.8)
     ax.text(8.9, 5.95, "Utility 应用程序", ha="center", fontsize=12, weight="bold", color=C_PURPLE)
-    ax.text(8.9, 5.35, "各种管理工具与应用：\n\nMATLAB\nPython\ngcc / vim ...\n\n（经 Shell 启动运行）",
+    ax.text(8.9, 4.85, "各种管理工具与应用：\n\nMATLAB\nPython\ngcc / vim ...\n\n（经 Shell 启动运行）",
             ha="center", va="center", fontsize=9.5, color="#303030")
     arrow(ax, 6.55, 5.2, 7.55, 5.2, style="<|-|>", color=C_GRAY)
     ax.text(7.05, 5.45, "启动", fontsize=9, ha="center", color="#606060")
@@ -344,7 +346,7 @@ def fig2_07_git_model():
     arrow(ax1, 8.2, 5.55, 7.2, 3.75, color=C_GRAY)
     ax1.text(8.85, 4.7, "push\n推送", fontsize=9.5, ha="center", color="#303030")
     arrow(ax1, 5.6, 3.75, 4.2, 5.55, color=C_GRAY)
-    ax1.text(4.3, 4.7, "pull / fetch\n拉取", fontsize=9.5, ha="center", color="#303030")
+    ax1.text(3.9, 4.7, "pull / fetch\n拉取", fontsize=9.5, ha="center", color="#303030")
     ax1.text(5.0, 7.75, "本地三区 + 远程仓库", fontsize=12.5, weight="bold", ha="center")
     ax1.text(5.0, 0.9, "add 与 commit 只在本地完成，断网也能提交版本；\npush 之后别人才看得到你的修改",
              fontsize=9.5, ha="center", color="#303030")
@@ -534,10 +536,11 @@ def fig2_10_venv_concept():
     ax2.axis("off")
     box(ax2, 0.3, 0.8, 9.4, 6.6, "", fc="#fafafa", ec=C_GRAY, lw=1.5)
     ax2.text(5.0, 6.95, "同一台电脑（不隔离）", fontsize=12, weight="bold", ha="center")
-    box(ax2, 1.6, 3.0, 6.8, 2.6, "全局唯一的 Python 2.7", fc="#f7e6e6", ec=C_RED, fs=11)
+    box(ax2, 1.6, 3.0, 6.8, 2.6, "", fc="#f7e6e6", ec=C_RED, fs=11)
+    ax2.text(5.0, 4.85, "全局唯一的 Python 2.7", fontsize=11, ha="center", va="center")
     ax2.text(5.0, 5.75, "tf 1.2   ←→   tf 1.6", fontsize=13, ha="center",
              family="monospace", color=C_RED, weight="bold")
-    ax2.text(5.0, 4.15, "跑项目 A 就卸载 tf1.6 装 tf1.2\n跑项目 B 再卸载 tf1.2 装 tf1.6\n连带依赖模块来回装卸……",
+    ax2.text(5.0, 3.75, "跑项目 A 就卸载 tf1.6 装 tf1.2\n跑项目 B 再卸载 tf1.2 装 tf1.6\n连带依赖模块来回装卸……",
              fontsize=10, ha="center", va="center", color="#303030", linespacing=1.8)
     ax2.text(5.0, 1.5, "切换一次 = 卸装一大串包，极易出错", fontsize=10.5, ha="center", color=C_RED)
     ax2.text(5.0, 0.35, "多人共用服务器时更糟：人人都得动全局环境", fontsize=9.5,
@@ -659,11 +662,11 @@ def fig2_14_x_plus_y():
     ]:
         x0 = 5.0 - len(cells) * 0.75 / 2 * 1.0
         for j, v in enumerate(cells):
-            box(ax, x0 + j * 0.78, 0.25, 0.68, 0.7, str(v), rounded=False,
+            box(ax, x0 + j * 0.78, 0.05, 0.68, 0.7, str(v), rounded=False,
                 fc="white", ec=colors[j], fs=10)
-    axes[1].text(5.0, 1.15, "前 3 格来自 x，后 3 格来自 y：直接“接龙”", ha="center",
+    axes[1].text(5.0, 0.98, "前 3 格来自 x，后 3 格来自 y：直接“接龙”", ha="center",
                  fontsize=9, color="#606060")
-    axes[0].text(5.0, 1.15, "对应位置相加：1+4，2+5，3+6", ha="center",
+    axes[0].text(5.0, 0.98, "对应位置相加：1+4，2+5，3+6", ha="center",
                  fontsize=9, color="#606060")
     fig.suptitle("同一句 z = x + y，两种语言两种结果", fontsize=14)
     fig.tight_layout(rect=[0, 0, 1, 0.94])

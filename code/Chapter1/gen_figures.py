@@ -54,7 +54,7 @@ def fig1_01_ai_ml_dl():
     ax.text(5, 6.55, "人工智能（AI）", ha="center", va="center", fontsize=13, fontweight="bold", color=C_BLUE)
     ax.text(5, 5.1, "机器学习（ML）", ha="center", va="center", fontsize=12, fontweight="bold", color="#1a5c96")
     ax.text(5, 3.0, "深度学习\n（DL）", ha="center", va="center", fontsize=11, fontweight="bold", color="#a85a12")
-    ax.text(5, 0.42, "机器学习是实现人工智能的主流途径，深度学习是机器学习的一个分支",
+    ax.text(5, -0.08, "机器学习是实现人工智能的主流途径，深度学习是机器学习的一个分支",
             ha="center", va="center", fontsize=9.5, color=C_GRAY)
     _save(fig, "fig1_01_ai_ml_dl.png")
 
@@ -523,11 +523,11 @@ def fig1_13_geo_apps():
         col, row = i % 2, i // 2
         x0 = 0.4 + col * 10.0
         y0 = 10.6 - row * 3.7
-        _box(ax, x0, y0, 9.2, 3.1, "", fc="white", ec=C_GRAY, lw=1.2)
-        ax.text(x0 + 0.55, y0 + 2.45, f"{name}", fontsize=11, fontweight="bold", color="#1a5c96", va="center", ha="left")
-        ax.text(x0 + 0.55, y0 + 1.05, f"输入：{inp}", fontsize=8.8, va="center", ha="left", linespacing=1.5)
-        ax.text(x0 + 0.55, y0 + 0.42, f"模型/输出：{model}", fontsize=8.8, va="center", ha="left", color=C_ORANGE, linespacing=1.5)
-    fig.suptitle("地学中的典型预测问题：输入—模型—输出", fontsize=12.5, y=0.995)
+        _box(ax, x0, y0 - 0.15, 9.2, 3.25, "", fc="white", ec=C_GRAY, lw=1.2)
+        ax.text(x0 + 0.55, y0 + 2.45, f"{name}", fontsize=12, fontweight="bold", color="#1a5c96", va="center", ha="left")
+        ax.text(x0 + 0.55, y0 + 1.15, f"输入：{inp}", fontsize=9.8, va="center", ha="left", linespacing=1.2)
+        ax.text(x0 + 0.55, y0 + 0.35, f"模型/输出：{model}", fontsize=9.8, va="center", ha="left", color=C_ORANGE, linespacing=1.2)
+    fig.suptitle("地学中的典型预测问题：输入—模型—输出", fontsize=13.5, y=0.995)
     fig.tight_layout(rect=(0, 0, 1, 0.97))
     _save(fig, "fig1_13_geo_apps.png")
 
@@ -553,7 +553,7 @@ def fig1_14_course_map():
     _box(ax, 1.2, 0.6, 18.6, 1.5, "数据挖掘 + 应用研究：把方法用到具体地学问题，揭示规律与机理",
          fs=11.5, fc="#d9ecd3", ec=C_GREEN, bold=True)
     _arrow(ax, 3.8, 3.2, 3.8, 2.1, lw=1.4)
-    _arrow(ax, 17.0, 3.2, 17.0, 2.1, lw=1.4)
+    _arrow(ax, 14.0, 3.2, 14.0, 2.1, lw=1.4)
     _save(fig, "fig1_14_course_map.png")
 
 

@@ -3,3 +3,6 @@ __pycache__/
 site/
 _site/
 .DS_Store
+
+# 本地笔记（不入库）
+本地MkDocs使用帮助.md

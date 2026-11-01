@@ -8,7 +8,8 @@ from matplotlib.patches import Rectangle, Circle, FancyArrowPatch, FancyBboxPatc
 from matplotlib.lines import Line2D
 import os
 
-OUT = r"C:\20260905\项目 人工智能与地理数据挖掘\书稿\figs\ch11"
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "..", "..", "docs", "figs", "ch11")
 os.makedirs(OUT, exist_ok=True)
 
 plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei"]
@@ -319,7 +320,7 @@ def fig11_05_residual_block():
     ax.set_title("(b) 激活函数与深层网络的梯度衰减", fontsize=11)
     ax.grid(alpha=0.3, which="both")
     ax.legend(fontsize=9.5, loc="center left")
-    ax.annotate("20 层后仅约 $10^{-12}$", xy=(20, 0.25 ** 20), xytext=(11.5, 3e-7),
+    ax.annotate("20 层后仅约 $10^{-12}$", xy=(20, 0.25 ** 20), xytext=(12.8, 3e-7),
                 fontsize=9.5, color=C_RED,
                 arrowprops=dict(arrowstyle="->", color=C_RED, lw=1.0))
     save(fig, "fig11_05_residual_block.png")
@@ -342,11 +343,11 @@ def fig11_06_rnn_structure():
     arrow(ax, 6.6, 4.3, 8.6, 4.3, lw=1.6)
     ax.text(9.1, 4.3, "$o_t$", fontsize=13, ha="center", va="center")
     ax.text(7.55, 4.75, "$V$", fontsize=11, color=C_BLUE)
-    ax.add_patch(FancyArrowPatch((4.35, 5.35), (5.75, 5.35), arrowstyle="-|>",
+    ax.add_patch(FancyArrowPatch((3.55, 4.75), (4.95, 4.75), arrowstyle="-|>",
                                  color=C_RED, lw=1.6, mutation_scale=13,
                                  connectionstyle="arc3,rad=2.6"))
-    ax.text(5.05, 8.0, "$W$", fontsize=11, color=C_RED, ha="center")
-    ax.text(5.05, 2.0, "弧线表示 $h_t$ 依赖上一时刻的隐层状态 $h_{t-1}$，\n"
+    ax.text(4.25, 7.4, "$W$", fontsize=11, color=C_RED, ha="center")
+    ax.text(5.05, 0.8, "弧线表示 $h_t$ 依赖上一时刻的隐层状态 $h_{t-1}$，\n"
                        "即隐层节点之间（跨时刻）有连接",
             ha="center", fontsize=9.5, color="#444444")
 
@@ -463,7 +464,7 @@ def fig11_08_lstm_cell():
     gate(5.3, yG, "输入门 $i_t$", "sig")
     gate(7.1, yG, "即时状态 $\\tilde{C}_t$", "tanh")
     gate(10.6, yG, "输出门 $o_t$", "sig")
-    gate(9.0, 6.3, "", "tanh")
+    gate(8.7, 7.0, "", "tanh")
 
     ax.text(0.95, 2.0, "$h_{t-1}$", fontsize=13, ha="center", va="center")
     ax.text(0.95, 3.3, "$x_t$", fontsize=13, ha="center", va="center")
@@ -481,8 +482,8 @@ def fig11_08_lstm_cell():
     ax.plot([7.1, 6.57], [7.05, 7.3], color=C_BLUE, lw=1.2)
     arrow(ax, 6.2, 7.66, 6.2, yC - 0.42, lw=1.3, color=C_RED)
 
-    ax.plot([9.0, 9.0], [yC, 6.9], color=C_GREEN, lw=1.6)
-    arrow(ax, 9.92, 6.3, 10.9, 6.3, lw=1.3, color=C_BLUE)
+    ax.plot([8.7, 8.7], [yC, 7.64], color=C_GREEN, lw=1.6)
+    arrow(ax, 9.62, 7.0, 10.9, 6.3, lw=1.3, color=C_BLUE)
     arrow(ax, 10.6, yG + 0.64, 10.6, 6.05, lw=1.2, color=C_RED)
     ax.plot([10.6, 10.95], [6.05, 6.22], color=C_RED, lw=1.2)
     arrow(ax, 11.6, 6.3, 12.7, 6.3, lw=1.5, color=C_GRAY)
@@ -805,7 +806,7 @@ def fig11_13_relu_sigmoid():
     ax.set_xlabel("$x$", fontsize=11); ax.set_ylabel("$f'(x)$", fontsize=11)
     ax.grid(alpha=0.3); ax.legend(fontsize=9.5, loc="upper left")
     ax.set_ylim(-0.15, 1.4)
-    ax.annotate("峰值仅 0.25：深层连乘后梯度迅速消失", xy=(0, 0.25),
+    ax.annotate("峰值仅 0.25：\n深层连乘后梯度迅速消失", xy=(0, 0.25),
                 xytext=(-3.9, 0.95), fontsize=9.5, color=C_BLUE,
                 arrowprops=dict(arrowstyle="->", color=C_BLUE))
     ax.text(2.15, 1.08, "x>0 时恒为 1：\n反向传播不衰减", fontsize=9.5, color=C_RED)
@@ -878,10 +879,10 @@ def fig11_14_multilayer_cnn():
                 fontsize=8.5, color="#444444")
     ax.text(17.1, 6.75, "Softmax 分类", ha="center", fontsize=9.5)
 
-    ax.text(4.9, 7.9, "层浅：学到边缘、纹理等局部特征", ha="center", fontsize=10, color=C_BLUE)
-    ax.text(12.6, 7.9, "层深：特征更全局化（部件 → 整体）", ha="center", fontsize=10, color=C_ORANGE)
-    arrow(ax, 3.0, 7.35, 6.6, 7.35, color=C_BLUE, lw=1.2, style="<|-")
-    arrow(ax, 8.0, 7.35, 13.4, 7.35, color=C_ORANGE, lw=1.2, style="<|-")
+    ax.text(4.9, 7.0, "层浅：学到边缘、纹理等局部特征", ha="center", fontsize=10, color=C_BLUE)
+    ax.text(12.6, 7.0, "层深：特征更全局化（部件 → 整体）", ha="center", fontsize=10, color=C_ORANGE)
+    arrow(ax, 3.0, 6.45, 6.6, 6.45, color=C_BLUE, lw=1.2, style="<|-")
+    arrow(ax, 8.0, 6.45, 13.4, 6.45, color=C_ORANGE, lw=1.2, style="<|-")
     ax.text(10.0, 1.5, "“卷积 → 激活 → 池化”反复堆叠，低级特征逐层组合成高级特征，最后接全连接层与 Softmax 输出各类别概率",
             ha="center", fontsize=9.5, color="#444444")
     save(fig, "fig11_14_multilayer_cnn.png")

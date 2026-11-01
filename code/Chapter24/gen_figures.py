@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import (Rectangle, Circle, Ellipse, Polygon,
                                 FancyArrowPatch, FancyBboxPatch)
 
-OUT = r"C:\20260905\项目 人工智能与地理数据挖掘\书稿\figs\ch24"
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "..", "..", "docs", "figs", "ch24")
 os.makedirs(OUT, exist_ok=True)
 
 plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "DejaVu Sans"]
@@ -177,16 +178,16 @@ def fig24_02():
          C_GREEN, 6.4),
     ]
     for title, desc, c, x0 in tasks:
-        rbox(ax, x0, 1.55, 4.6, 2.2, "white", c, lw=1.4)
-        box(ax, x0 + 0.15, 2.85, 4.3, 0.75, c, ec="none", alpha=0.12, zorder=3)
-        tx(ax, x0 + 2.3, 3.22, title, fs=9.8, weight="bold", color=c)
-        tx(ax, x0 + 2.3, 2.25, desc, fs=9)
-        arrow(ax, x0 + 2.3, 4.4, x0 + 2.3, 3.85, color=C_GRAY)
+        rbox(ax, x0, 1.55, 5.35, 2.2, "white", c, lw=1.4)
+        box(ax, x0 + 0.15, 2.85, 5.05, 0.75, c, ec="none", alpha=0.12, zorder=3)
+        tx(ax, x0 + 2.675, 3.22, title, fs=9.8, weight="bold", color=c)
+        tx(ax, x0 + 2.675, 2.25, desc, fs=9)
+        arrow(ax, x0 + 2.675, 4.4, x0 + 2.675, 3.85, color=C_GRAY)
 
     tx(ax, 6.0, 0.85, "两类途径相互补充：机器学习独立建模，或与物理建模深度耦合",
        fs=9.5, color="#555555")
-    arrow(ax, 3.3, 1.5, 3.3, 1.15, color=C_GRAY, ls="--")
-    arrow(ax, 8.7, 1.5, 8.7, 1.15, color=C_GRAY, ls="--")
+    arrow(ax, 3.675, 1.5, 3.675, 1.15, color=C_GRAY, ls="--")
+    arrow(ax, 9.075, 1.5, 9.075, 1.15, color=C_GRAY, ls="--")
 
     save(fig, "fig24_02_challenge_tasks_ways.png")
 
@@ -274,8 +275,8 @@ def fig24_04():
     panels = [(0.25, "差异一：统计特性"), (4.75, "差异二：数量级"),
               (9.25, "差异三：标签")]
     for x0, title in panels:
-        rbox(ax, x0, 0.25, 3.9, 4.7, BG_PANEL, C_GRAY, lw=1.0, ls="--")
-        tx(ax, x0 + 1.95, 4.6, title, fs=11, weight="bold")
+        rbox(ax, x0, 0.25, 3.9, 4.0, BG_PANEL, C_GRAY, lw=1.0, ls="--")
+        tx(ax, x0 + 1.95, 4.55, title, fs=11, weight="bold")
 
     # 面板1：通道
     x0 = 0.25
@@ -361,11 +362,11 @@ def fig24_05():
         tx(ax, x0 + w / 2, y0 + h - 0.86, en, fs=7.5, style="italic",
            color="#888888")
         tx(ax, x0 + w / 2, y0 + 0.42, desc, fs=8.3)
-        centers.append((x0 + w / 2, y0 + h / 2, k))
+        centers.append((x0 + w / 2, y0 + h, k))
     # 从中心向外画短箭头（置于连线之下）
     for cx, cy, k in centers:
         arrow(ax, 6.0, 3.6, cx, cy, color="#aaaaaa", lw=1.1,
-              shrinkA=95, shrinkB=38, zorder=2, style="-|>")
+              shrinkA=95, shrinkB=0, zorder=2, style="-|>")
 
     save(fig, "fig24_05_five_challenges.png")
 
@@ -531,8 +532,10 @@ def fig24_07():
     rbox(ax, 6.6, 1.95, 4.2, 0.75, C_LPURPLE, C_PURPLE, lw=1.2)
     tx(ax, 8.7, 2.42, "高分辨率物理模式（第一性原理）", fs=9)
     tx(ax, 8.7, 2.1, "过于昂贵、无法直接运行", fs=7.5, color="#555555")
-    arrow(ax, 3.3, 2.45, 5.6, 4.45, color=C_GREEN, lw=1.4, ls="--", rad=-0.15)
-    arrow(ax, 8.7, 2.45, 6.5, 4.45, color=C_PURPLE, lw=1.4, ls="--", rad=0.15)
+    arrow(ax, 3.3, 2.45, 4.55, 5.2, color=C_GREEN, lw=1.4, ls="--", rad=-0.15,
+          shrinkB=0)
+    arrow(ax, 8.7, 2.45, 7.45, 5.2, color=C_PURPLE, lw=1.4, ls="--", rad=0.15,
+          shrinkB=0)
 
     tx(ax, 6.0, 0.75,
        "应用：植被参数不按植物功能类型硬分配，而从统计协变量集学习；"
@@ -587,13 +590,13 @@ def fig24_08():
 def fig24_09():
     fig, ax = new_ax(10.5, 5.8, (0, 13), (0, 6.4))
 
-    rbox(ax, 0.4, 4.55, 3.0, 1.3, C_LBLUE, C_BLUE, lw=1.3)
-    tx(ax, 1.9, 5.45, "物理模式输出", fs=10, weight="bold", color=C_BLUE)
-    tx(ax, 1.9, 4.95, "动态变量的模拟结果", fs=8.5)
+    rbox(ax, 0.4, 2.6, 3.0, 1.3, C_LBLUE, C_BLUE, lw=1.3)
+    tx(ax, 1.9, 3.5, "物理模式输出", fs=10, weight="bold", color=C_BLUE)
+    tx(ax, 1.9, 3.0, "动态变量的模拟结果", fs=8.5)
 
-    rbox(ax, 0.4, 2.6, 3.0, 1.3, C_LGREEN, C_GREEN, lw=1.3)
-    tx(ax, 1.9, 3.5, "观测", fs=10, weight="bold", color=C_GREEN)
-    tx(ax, 1.9, 3.0, "（假设观测无偏差）", fs=8.5)
+    rbox(ax, 0.4, 4.55, 3.0, 1.3, C_LGREEN, C_GREEN, lw=1.3)
+    tx(ax, 1.9, 5.45, "观测", fs=10, weight="bold", color=C_GREEN)
+    tx(ax, 1.9, 4.95, "（假设观测无偏差）", fs=8.5)
 
     rbox(ax, 4.4, 3.55, 2.6, 1.35, "white", C_GRAY, lw=1.2)
     tx(ax, 5.7, 4.5, "偏差", fs=10, weight="bold")
@@ -611,8 +614,8 @@ def fig24_09():
     tx(ax, 12.07, 2.5, "改进理论", fs=9.5, weight="bold", color=C_GREEN)
     tx(ax, 12.07, 2.0, "改进物理模型\n与理论本身", fs=8)
 
-    arrow(ax, 3.4, 5.0, 4.55, 4.55, color=C_BLUE, lw=1.4)
-    arrow(ax, 3.4, 3.45, 4.55, 3.9, color=C_GREEN, lw=1.4)
+    arrow(ax, 3.4, 3.45, 4.55, 3.9, color=C_BLUE, lw=1.4)
+    arrow(ax, 3.4, 5.0, 4.55, 4.55, color=C_GREEN, lw=1.4)
     arrow(ax, 7.0, 4.22, 7.95, 4.22, color=C_ORANGE, lw=1.6)
     arrow(ax, 10.7, 4.6, 11.25, 5.0, color=C_ORANGE, lw=1.5)
     arrow(ax, 10.7, 3.85, 11.25, 2.45, color=C_ORANGE, lw=1.5)

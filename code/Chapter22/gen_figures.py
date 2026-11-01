@@ -34,7 +34,8 @@ GRAY_L = "#f2f2f2"
 
 rng = np.random.default_rng(42)
 
-OUT = r"C:\20260905\项目 人工智能与地理数据挖掘\书稿\figs\ch22"
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "..", "..", "docs", "figs", "ch22")
 os.makedirs(OUT, exist_ok=True)
 
 
@@ -478,12 +479,12 @@ def fig22_09_three():
          "· 地学数据保守、不公开——\n  当前短板，大有可为"),
     ]
     for x, title, ec, fc, body in cols:
-        box(ax, x, 14, 29, 70, "", fc=fc, ec=ec, lw=1.5)
-        ax.text(x + 14.5, 76, title, ha="center", va="center", fontsize=12.5,
+        box(ax, x, 14, 29, 56, "", fc=fc, ec=ec, lw=1.5)
+        ax.text(x + 14.5, 65, title, ha="center", va="center", fontsize=12.5,
                 fontweight="bold", color=ec)
-        ax.text(x + 1.8, 66, body, ha="left", va="top", fontsize=10.0,
+        ax.text(x + 1.8, 57, body, ha="left", va="top", fontsize=10.0,
                 linespacing=1.8)
-        arrow(ax, x + 14.5, 87.5, x + 14.5, 85)
+        arrow(ax, x + 14.5, 87.5, x + 14.5, 71.5)
     save(fig, "fig22_09_three.png")
 
 
@@ -618,7 +619,7 @@ def fig22_13_integration():
           "替代集合预报"]),
     ]
     for x, title, chips in blocks:
-        box(ax, x, 6, 24, 78, "", fc=BLUE_L, ec=C_BLUE, lw=1.4)
+        box(ax, x, 25.5, 24, 58.5, "", fc=BLUE_L, ec=C_BLUE, lw=1.4)
         ax.text(x + 12, 78.5, title, ha="center", va="center", fontsize=11.5,
                 fontweight="bold", color=C_BLUE)
         y = 68

@@ -20,8 +20,12 @@
 ├── docs/            # 书稿内容（网站源文件）
 │   ├── index.md     # 首页
 │   ├── ch01.md … ch11.md   # 第 1–11 章
-│   └── figs/        # 章节插图（ch01–ch11）
+│   ├── figs/        # 章节插图（ch01–ch11）
+│   ├── ppt/         # 课程PPT（各章 PDF 原文件 + 内嵌展示页）
+│   └── refcode/     # 参考代码浏览页（自动生成，勿手改；src/ 为归一后的源文件）
 ├── code/            # 各章配套代码与数据（Chapter1–Chapter11）
+├── refcode_archives/ # 各章原始参考代码压缩包（build_refcode 的输入）
+├── tools/build_refcode.mjs # 参考代码板块一键生成脚本（node tools/build_refcode.mjs）
 ├── mkdocs.yml       # 网站配置（导航、主题、插件）
 └── .github/workflows/ci.yml   # 自动构建发布工作流
 ```

@@ -427,6 +427,7 @@ def fig5_06_max_variance():
     ax0.set_ylabel("$x_2$")
     ax0.set_xlim(-6.5, 8.5)
     ax0.set_ylim(-5.8, 6.5)
+    ax0.set_aspect("equal")
     ax0.set_title("二维散点与两个候选投影方向", fontsize=11)
 
     for k, (p, col, lab) in enumerate([
@@ -502,7 +503,7 @@ def fig5_08_fa_path_diagram():
         for i, fy in [(0, fy1), (1, fy2)]:
             a = loads[(i, j)]
             col = C_BLUE if a > 0.5 else "#b0b0b0"
-            ax.add_patch(FancyArrowPatch((fx + 0.74, fy), (xj - 0.44, yj),
+            ax.add_patch(FancyArrowPatch((fx + 0.74, fy), (xj - 0.42, yj),
                                          arrowstyle="-|>", mutation_scale=11,
                                          color=col, lw=2.2 if a > 0.5 else 0.9,
                                          alpha=0.9,
@@ -516,7 +517,7 @@ def fig5_08_fa_path_diagram():
         c = Circle((ex, yj), 0.20, fc="#fdf1ec", ec=C_ORANGE, lw=1.5)
         ax.add_patch(c)
         ax.text(ex, yj, r"$\varepsilon$", ha="center", va="center", fontsize=10, color=C_ORANGE)
-        ax.add_patch(FancyArrowPatch((ex - 0.21, yj), (xj + 0.44, yj),
+        ax.add_patch(FancyArrowPatch((ex - 0.21, yj), (xj + 0.42, yj),
                                      arrowstyle="-|>", mutation_scale=10,
                                      color=C_ORANGE, lw=1.2))
 
@@ -618,10 +619,15 @@ def fig5_10_rotation_varimax():
         ax.scatter(Lam[:, 0], Lam[:, 1], s=46, c=cols, zorder=3)
         for j in range(p):
             ax.plot([0, Lam[j, 0]], [0, Lam[j, 1]], color=cols[j], lw=1.1, alpha=0.6)
-            dx, dy = 0.06, 0.05
-            if Lam[j, 0] < 0:
-                dx = -0.30
-            ax.text(Lam[j, 0] + dx, Lam[j, 1] + dy, names[j], fontsize=8.6)
+            offsets = [(0.08, 0.08), (0.08, -0.16), (-0.08, 0.10), (-0.08, -0.16),
+                       (0.08, 0.08), (0.08, -0.16), (-0.08, 0.10), (-0.08, -0.16)]
+            dx, dy = offsets[j]
+            ax.annotate(names[j], xy=(Lam[j, 0], Lam[j, 1]),
+                        xytext=(dx, dy), textcoords="offset points",
+                        fontsize=8.6, ha="left" if dx > 0 else "right",
+                        va="bottom" if dy > 0 else "top",
+                        bbox=dict(boxstyle="round,pad=0.08", fc="white",
+                                  ec="none", alpha=0.8), zorder=4)
         ax.set_xlim(-1.15, 1.15)
         ax.set_ylim(-0.35, 1.15)
         ax.set_aspect("equal")
@@ -675,7 +681,7 @@ def fig5_11_case_scree():
     for x, v in zip(xs, cum):
         ax.text(x + 0.08, v - 4.6, f"{v:.1f}", fontsize=8.2, color=C_ORANGE)
     ax.axhline(80, color=C_RED, ls="--", lw=1.2)
-    ax.text(7.9, 81.5, "80% 标准", color=C_RED, fontsize=9, ha="right")
+    ax.text(4.5, 81.5, "80% 标准", color=C_RED, fontsize=9, ha="center")
     ax.axhline(1 * 100 / 8, color="#999999", ls=":", lw=1)
     ax.text(1.06, 100 / 8 + 1.6, "特征值=1（贡献率 12.5%）", color="#777777", fontsize=8.2)
     ax.set_xticks(xs)
@@ -704,9 +710,15 @@ def fig5_12_case_loading():
         for j in range(8):
             ax.plot([0, M[j, 0]], [0, M[j, 1]], color=C_PURPLE, lw=1.4, alpha=0.75)
             ax.scatter(M[j, 0], M[j, 1], s=42, c=C_PURPLE, zorder=3)
-            dx = 0.07 if M[j, 0] >= 0 else -0.07
-            ha = "left" if M[j, 0] >= 0 else "right"
-            ax.text(M[j, 0] + dx, M[j, 1] + 0.03, VAR_NAMES[j], fontsize=8.6, ha=ha)
+            offsets = [(0.08, 0.08), (0.08, -0.16), (-0.08, 0.10), (-0.08, -0.16),
+                       (0.08, 0.08), (0.08, -0.16), (-0.08, 0.10), (-0.08, -0.16)]
+            dx, dy = offsets[j]
+            ax.annotate(VAR_NAMES[j], xy=(M[j, 0], M[j, 1]),
+                        xytext=(dx, dy), textcoords="offset points",
+                        fontsize=8.6, ha="left" if dx > 0 else "right",
+                        va="bottom" if dy > 0 else "top",
+                        bbox=dict(boxstyle="round,pad=0.08", fc="white",
+                                  ec="none", alpha=0.8), zorder=4)
         ax.set_xlim(-1.12, 1.12)
         ax.set_ylim(-0.62, 1.14)
         ax.set_aspect("equal")
