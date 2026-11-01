@@ -339,9 +339,7 @@ const b = yml.indexOf(BEGIN), e = yml.indexOf(END);
 if (b >= 0 && e > b) {
   yml = yml.slice(0, b) + block + yml.slice(e + END.length);
 } else if (b < 0 && e < 0) {
-  const m = yml.match(/^ {2}- 插图脚本:.*$/m);
-  if (!m) { console.error('!! mkdocs.yml 中找不到插入锚点「- 插图脚本:」'); process.exit(1); }
-  yml = yml.replace(m[0], `  - MLX 实时脚本:\n      - 总览: mlx/index.md\n${block}\n${m[0]}`);
+  console.error('!! mkdocs.yml 中缺少 MLX NAV BEGIN/END 标记，请先在 nav 的「MLX 实时脚本」小节恢复标记'); process.exit(1);
 } else {
   console.error('!! mkdocs.yml 中 MLX NAV 标记不成对'); process.exit(1);
 }

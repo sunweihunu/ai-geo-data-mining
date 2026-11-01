@@ -37,7 +37,7 @@
 
 ## 配套代码与数据
 
-各章节的 MATLAB / Python 示例代码与示例数据保存在本仓库 [code/](https://github.com/sunweihunu/ai-geo-data-mining/tree/main/code) 目录，按 `Chapter1`–`Chapter11`、`Chapter21`–`Chapter24` 组织，每章附有 README 说明。
+各章节插图的最终图片保存在本仓库 [docs/figs/](https://github.com/sunweihunu/ai-geo-data-mining/tree/main/docs/figs) 目录，按章节组织（`ch01`–`ch24`）；生成插图的脚本与示例数据不在本仓库公开。
 
 随书各章的**原始参考代码**（第04–10章，共 139 个脚本与数据文件）已做成在线浏览页：每个脚本可直接查看完整源码、逐文件下载或整章打包下载，见顶部导航「参考代码」。
 

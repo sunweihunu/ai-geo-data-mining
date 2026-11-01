@@ -6,3 +6,6 @@ _site/
 
 # 本地笔记（不入库）
 本地MkDocs使用帮助.md
+
+# 插图脚本与数据：存放在私人仓库 ai-geo-data-mining-scripts（本目录下的嵌套 git 仓库）
+code/

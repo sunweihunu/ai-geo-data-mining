@@ -215,7 +215,6 @@ nav:
           - SVM_R5: mlx/SVM_V1/SVM_R5.md
           - SVM_R6: mlx/SVM_V1/SVM_R6.md
       # === MLX NAV END ===
-  - 插图脚本: https://github.com/sunweihunu/ai-geo-data-mining/tree/main/code
 
 markdown_extensions:
   - abbr
