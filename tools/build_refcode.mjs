@@ -88,7 +88,24 @@ function decodeText(buf) {
   catch { return { text: gbkDec.decode(buf), enc: 'gbk' }; }
 }
 
-/** 取文件开头的第一个连续注释块：首行为标题，其余为说明 */
+/** 分隔符字符：= - _ ~ * · — –（匹配时另加空白） */
+const SEP_CHARS = '=_\\-_~*·—–';
+/** 纯分隔线：去掉行首 % 后，整行只由分隔符字符与空白组成且总长度 ≥ 6 */
+const RE_PURE_SEP = new RegExp(`^[${SEP_CHARS}\\s]{6,}$`);
+/** 横幅分隔线：两端各有一段 ≥3 个同种分隔符的行，如 ====== 文本 ====== */
+const RE_BANNER_SEP = new RegExp(`^\\s*([${SEP_CHARS}])\\1{2,}[\\s\\S]*\\1{2,}\\s*$`);
+/** 装饰性分隔线：纯分隔线；或分隔符字符占一半以上的横幅线（正文被 ==== 包裹的装饰行，
+ *  如「====== 注释中英文对照，供阅读比较======」；而标题文本占主体的横幅如
+ *  「====== Find Nearest Neighbors ======」分隔符仅约三成，不受影响） */
+function isDecoLine(s) {
+  if (s.length < 6) return false;
+  if (RE_PURE_SEP.test(s)) return true;
+  if (!RE_BANNER_SEP.test(s)) return false;
+  const n = (s.match(new RegExp(`[${SEP_CHARS}]`, 'g')) ?? []).length;
+  return n * 2 >= s.length;
+}
+
+/** 取文件开头的第一个连续注释块：首行为标题，其余为说明（装饰性分隔线不作标题/说明候选） */
 function extractMeta(text) {
   const lines = text.split(/\r?\n/);
   let start = -1;
@@ -98,7 +115,8 @@ function extractMeta(text) {
   if (start < 0) return { title: '', desc: '', lines: lines.length };
   const block = [];
   for (let i = start; i < lines.length && /^\s*%/.test(lines[i]); i++) {
-    block.push(lines[i].replace(/^\s*%+\s?/, '').trim());
+    const content = lines[i].replace(/^\s*%+\s?/, '').trim();
+    if (!isDecoLine(content)) block.push(content);
   }
   while (block.length && !block[block.length - 1]) block.pop();
   const title = block.shift() ?? '';
@@ -238,6 +256,41 @@ const CHAPTERS = [
       { title: '辅助函数与数据文件', re: /./, noCode: (f) => !f.name.endsWith('.m') },
     ],
   },
+  {
+    id: 'ch11', zip: 'DeepL_V2.zip', label: '深度学习', book: '第11章 深度学习',
+    picks: [
+      { re: /^Cam_.*\.m$/i },
+      // Img_ 与 img_ 是两组不同前缀，只能用大小写敏感的正则区分
+      { re: /^Img_.*\.m$/ },
+      { re: /^img_.*\.m$/ },
+      { re: /^seq_.*\.m$/i },
+      { re: /^processTurboFanData.*\.m$/i },
+      { re: /^half\.m$/i },
+      { re: /\.txt$/, rename: '附加功能安装说明（webcam与预训练网络）.txt', zipSub: /^DeepL_V2\.zip\/[^/]+\.txt$/ },
+    ],
+    groups: [
+      { title: '摄像头实时分类（Cam：AlexNet / GoogLeNet / VGG-19）', re: /^Cam_/i },
+      { title: '预训练网络图像分类与迁移学习（Img：GoogLeNet）', re: /^Img_/ },
+      { title: '自建 CNN：手写数字分类 / 旋转角回归 / CIFAR-10 残差网络（img）', re: /^img_/ },
+      { title: 'LSTM 序列分类与回归（seq：日语元音 / 人体活动 / 水痘时序 / 涡扇 RUL）', re: /^seq_/i },
+      { title: '辅助函数与说明文件（涡扇数据读取等）', re: /^processTurboFan|^half\.m$|\.txt$/i },
+    ],
+    // 嵌套的大体积数据 zip 不摊开进页面，原样提供下载
+    extraDownloads: [
+      { entry: 'CMAPSSData.zip', out: 'CMAPSSData.zip', label: '下载 CMAPSS 涡扇发动机退化仿真数据集 CMAPSSData.zip（约 11 MB）' },
+    ],
+    note: [
+      '本章脚本需 **Deep Learning Toolbox**。`Cam_*` 需 **MATLAB Support Package for USB Webcams**；`Cam_*` / `Img_*` 首次运行会提示安装对应**预训练网络支持包**（AlexNet / GoogLeNet / VGG-19）——点击报错提示中带下划线的“附加功能”链接按流程安装即可，手动安装方法见 `Cam_Alexnet.m` 末尾注释与 `附加功能安装说明` 文件。',
+      '`img_*` 与 `seq_LSTM_Class_V1.m` / `seq_LSTM_Reg_V1.m` 使用 MATLAB 自带示例数据，无需额外下载。',
+      '`seq_LSTM_Reg_V2_seq.m` 与 `half.m` 需要上方 **CMAPSSData.zip**：放到脚本同目录，脚本运行时自动解压到临时文件夹读取（内含 FD001–FD004 四个子集与数据集论文）。`half.m` 是该示例的**测试评估段**：先完整运行 `seq_LSTM_Reg_V2_seq.m`，再运行 `half.m`。',
+    ].join('\n'),
+    descOverrides: {
+      'half.m': {
+        title: '涡扇发动机 RUL 预测 · 测试评估段',
+        desc: '`seq_LSTM_Reg_V2_seq.m` 的下半段：读取测试序列、逐时间步预测剩余使用寿命并计算 RMSE。需先完整运行该脚本（工作区中已有 net、idxConstant、mu、sig、thr），再运行本文件。',
+      },
+    },
+  },
 ];
 
 /* ---------------- 主流程 ---------------- */
@@ -276,9 +329,9 @@ for (const ch of CHAPTERS) {
     }
   }
 
-  // 2) 元信息与分组
+  // 2) 元信息与分组（descOverrides 可手工修订个别文件的标题/说明）
   const files = staged
-    .map((s) => ({ ...s, ...extractMeta(decodeText(s.buf).text), ext: s.name.split('.').pop().toLowerCase() }))
+    .map((s) => ({ ...s, ...extractMeta(decodeText(s.buf).text), ...(ch.descOverrides?.[s.name] ?? {}), ext: s.name.split('.').pop().toLowerCase() }))
     .sort((a, b) => a.name.localeCompare(b.name, 'zh', { numeric: true }));
   for (const f of files) {
     f.group = ch.groups.find((g) => g.re.test(f.name)) ?? { title: '其他', noCode: false };
@@ -291,6 +344,15 @@ for (const ch of CHAPTERS) {
   const zipName = `${ch.id}_${ch.label}_参考代码.zip`;
   fs.writeFileSync(path.join(DL, zipName), makeZip(files.map((f) => ({ name: `${ch.id}/${f.name}`, data: f.buf }))));
 
+  // 3.5) 章级附加数据下载（如嵌套的大体积数据 zip，原样字节复制）
+  for (const x of ch.extraDownloads ?? []) {
+    const abuf = fs.readFileSync(path.join(ARCHIVES, ch.zip));
+    const ent = readZipEntries(abuf).find((e) => e.name === x.entry);
+    if (!ent) { console.warn(`  ! ${ch.zip} 中找不到 ${x.entry}，跳过`); continue; }
+    fs.writeFileSync(path.join(DL, x.out), ent.data);
+    console.log(`  ${ch.id} 附加下载: ${x.out}（${(ent.data.length / 1e6).toFixed(1)} MB）`);
+  }
+
   // 4) 生成章节页
   const rel = (f) => `src/${ch.id}/${f.name}`;
   const fence = (code) => {
@@ -302,7 +364,15 @@ for (const ch of CHAPTERS) {
   md.push(`# ${ch.book} · 参考代码`, '');
   md.push(`> 对应书稿《人工智能与地理数据挖掘》**${ch.book}**。共 ${files.length} 个文件（MATLAB 脚本 ${nM} 个、数据文件 ${files.length - nM} 个），来自随书配套代码 ${ch.zip}。`, '');
   md.push(`[⬇ 打包下载 ${zipName}](downloads/${encodeURIComponent(zipName)}){ .md-button }　单文件下载见各节与文件总览。`, '');
+  for (const x of ch.extraDownloads ?? []) {
+    md.push(`[⬇ ${x.label}](downloads/${encodeURIComponent(x.out)}){ .md-button }`, '');
+  }
   md.push(`!!! tip`, '', `    原始文件编码不一（GBK 与 UTF-8 各半），此处已**统一转为 UTF-8**；运行时把 MATLAB「当前文件夹」切到对应目录，直接运行任一脚本即可。多数脚本依赖 Statistics and Machine Learning Toolbox。`, '');
+  if (ch.note) {
+    md.push(`!!! note "本章运行环境与支持包"`, '');
+    for (const line of ch.note.split('\n')) md.push(`    ${line}`);
+    md.push('');
+  }
   md.push(`## 文件总览`, '');
   md.push('| 文件 | 标题 | 行数 |', '|------|------|-----:|');
   for (const f of files) {
@@ -355,7 +425,7 @@ for (const ch of CHAPTERS) {
   idx.push(`| ${ch.book} | ${n} | [浏览](./${ch.id}.md) | [${z}](downloads/${encodeURIComponent(z)}) |`);
 }
 idx.push('', '## 使用说明', '');
-idx.push('1. **运行环境**：MATLAB R2014b 及以上；多数脚本依赖 Statistics and Machine Learning Toolbox（`pca`、`fitcknn`、`fitcsvm`、`fitctree`、`fitcdiscr`、`linkage`、`kmeans` 等）。第09章 `ANN_01–27` 使用较旧的神经网络工具箱函数（`newff`、`trainlm`），在较新版本中仍可用。');
+idx.push('1. **运行环境**：MATLAB R2014b 及以上；多数脚本依赖 Statistics and Machine Learning Toolbox（`pca`、`fitcknn`、`fitcsvm`、`fitctree`、`fitcdiscr`、`linkage`、`kmeans` 等）。第09章 `ANN_01–27` 使用较旧的神经网络工具箱函数（`newff`、`trainlm`），在较新版本中仍可用。第11章需 **Deep Learning Toolbox**：`Cam_*` / `Img_*` 首次运行会提示安装预训练网络与摄像头支持包，按提示操作即可；`seq_LSTM_Reg_V2_seq` 另需先下载 C-MAPSS 数据集（见该章页面）。');
 idx.push('2. **运行方法**：下载后把 MATLAB「当前文件夹」切换到脚本所在目录，打开脚本直接运行；需要数据的脚本会自动加载同目录的数据文件（或 `fisheriris` 等内置数据集）。');
 idx.push('3. **编码说明**：原始参考代码中 GBK 与 UTF-8 编码各占一半，本站所有文本已统一转为 UTF-8；脚本内容未做任何改动。');
 idx.push('4. **按钮说明**：「复制代码」一键复制完整脚本；「在 MATLAB Online 中打开」会在 [MATLAB Online](https://matlab.mathworks.com/) 中克隆本站 GitHub 仓库并打开当前脚本（需登录 MathWorks 账号，仓库发布到 GitHub 后生效）；「下载」保存原文件。');

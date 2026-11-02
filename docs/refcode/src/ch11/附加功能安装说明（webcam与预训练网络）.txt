@@ -1,0 +1,16 @@
+% 首次使用与训练模型会报错
+% 需要安装 webcam 和 对应预训练网络（如alexnet）的 附加功能，
+
+% 在反馈窗口的报错提示中
+% 对于每个函数都会显示一条带链接的消息，点击打下划线的“附加功能”进行安装
+% 帮助您使用附加功能资源管理器下载免费的附加功能。
+
+% 在弹出的安装窗口中，
+% 建议点"安装"；
+% 再次运行m文件即可
+
+% 手动安装比较繁琐
+% 在点开的安装窗口点"下载"，再在Win Shell命令窗口中
+% 根据自己电脑上的下载和Matlab安装文件夹，执行类似下面语句进行安装
+% cd C:\Program Files\MATLAB\R2021b\bin\win64
+% install_supportsoftware.exe -archives C:\Users\sunwei29\Downloads\MathWorks\SupportPackages\R2021b\

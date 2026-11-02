@@ -38,7 +38,13 @@ const FOLDERS = [
   { id: 'DecisionTree_v2', label: '决策树（CART）', chapter: '第08章 决策树', sub: '' },
   { id: 'ANN', label: '人工神经网络（ANN）', chapter: '第09章 人工神经网络', sub: '' },
   { id: 'SVM_V1', label: '支持向量机（SVM）', chapter: '第10章 支持向量机', sub: '' },
+  { id: 'DeepL_V2', label: '深度学习（DeepL）', chapter: '第11章 深度学习', sub: '' },
 ];
+
+/** 个别脚本自动提取的标题可读性差，按 .mlx 文件名人工覆盖（仅限此处，勿按内容硬编码） */
+const titleOverrides = {
+  'half.mlx': '涡扇发动机 RUL 预测 · 测试评估段',
+};
 
 /* ---------------- zip 读取（仅读单一条目）与打包 ---------------- */
 
@@ -168,7 +174,15 @@ function parseParagraphs(docBuf) {
   return paras;
 }
 
-/** 从段落中取展示标题与说明：优先 title 段落，否则取首段代码开头连续的注释行 */
+/** 纯装饰性分隔线：去掉行首 % 后只由分隔字符与空白组成且总长度 ≥ 6（如 % ============）；
+ *  以及两侧各由 ≥12 个分隔字符包夹的长横幅行（如 cart_exp04/08 的
+ *  % ====== 注释中英文对照 ======，两侧各 16 个 =）——均为装饰性分隔注释，不作标题。
+ *  短包夹（两侧 <12）通常是「====== 标题 ======」式带框标题，保留（如 knn_sip1/2） */
+const isDecorative = (c) =>
+  /^[=\-_*~·—–\s]{6,}$/.test(c) ||
+  /^[=\-_*~·—–\s]{12,}[\s\S]*[=\-_*~·—–\s]{12,}$/.test(c);
+
+/** 从段落中取展示标题与说明：优先 title 段落，否则取首段代码开头连续的注释行（跳过装饰性分隔线） */
 function extractMeta(paras) {
   const titlePara = paras.find((p) => p.style === 'title' && p.text.trim());
   const firstCode = paras.find((p) => p.style === 'code' && p.text.trim());
@@ -180,7 +194,7 @@ function extractMeta(paras) {
   const comments = [];
   for (let i = start; i < lines.length && /^\s*%/.test(lines[i]); i++) {
     const c = lines[i].replace(/^\s*%+\s?/, '').trim();
-    if (c) comments.push(c);
+    if (c && !isDecorative(c)) comments.push(c);
   }
   return { title: comments[0] ?? '', desc: comments.slice(1, 3).join(' ') };
 }
@@ -225,10 +239,11 @@ for (const folder of FOLDERS) {
     if (name.toLowerCase().endsWith('.mlx')) {
       const paras = parseParagraphs(readEntry(buf, 'matlab/document.xml') ?? Buffer.alloc(0));
       if (!paras.some((p) => p.style === 'code')) console.warn(`  !! ${folder.id}/${name} 未提取到代码段`);
-      const { title, desc } = extractMeta(paras);
+      const meta = extractMeta(paras);
+      const title = titleOverrides[name] ?? meta.title;
       const codeLines = paras.filter((p) => p.style === 'code')
         .reduce((a, p) => a + p.text.split(/\r?\n/).length, 0);
-      files.push({ name, buf, paras, title, desc, codeLines, size: buf.length });
+      files.push({ name, buf, paras, title, desc: meta.desc, codeLines, size: buf.length });
     } else {
       datas.push({ name, buf, size: buf.length });
     }
@@ -323,7 +338,7 @@ for (const folder of FOLDERS) {
   ov.push(`| [${folder.label}](./${encPath(`${folder.id}/index.md`)}) | ${folder.chapter} | ${n} | [MLX_${folder.id}.zip](downloads/${encodeURIComponent(`MLX_${folder.id}.zip`)}) |`);
 }
 ov.push('', '## 使用说明', '');
-ov.push('1. **运行环境**：实时脚本需 MATLAB R2016a 及以上版本；多数脚本依赖 Statistics and Machine Learning Toolbox，第09章 `ANN_01–27` 使用较旧的神经网络工具箱函数（`newff`、`trainlm` 等），较新版本中仍可用。');
+ov.push('1. **运行环境**：实时脚本需 MATLAB R2016a 及以上版本；多数脚本依赖 Statistics and Machine Learning Toolbox，第09章 `ANN_01–27` 使用较旧的神经网络工具箱函数（`newff`、`trainlm` 等），较新版本中仍可用。第11章（DeepL_V2）需 **Deep Learning Toolbox**，`Cam_*` / `Img_*` 首次运行会提示安装预训练网络与摄像头支持包；`seq_LSTM_Reg_V2_seq` 需 C-MAPSS 数据集（可在「参考代码」板块第11章页面下载 CMAPSSData.zip）。');
 ov.push('2. **三种操作**：「在 MATLAB Online 中打开」在本站仓库推送 GitHub 后生效（需登录 MathWorks 账号）；「复制代码」把脚本全部代码复制到剪贴板；「下载」保存原始 .mlx 文件，在本地 MATLAB 中直接打开。');
 ov.push('3. **网页摘录说明**：页面展示脚本中的代码与文字说明；运行输出（命令行结果与图窗）保存在 .mlx 内部，不随网页展示，打开原文件即可看到。早期脚本中的中文注释在网页展示时已做编码还原，原始文件未做任何改动。');
 ov.push('4. **与「参考代码」板块的关系**：本板块的实时脚本与[参考代码](../refcode/)中的 .m 脚本同源（如 `ANN_01_Lin.mlx` 与 `ANN_01_Lin.m`），.mlx 版本保留原讲义排版，适合对照书稿阅读。');

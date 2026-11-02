@@ -9,11 +9,11 @@
 | [cart_exp01.mlx](../DecisionTree_v2/cart_exp01.md) | 导入鸢尾花数据集 | 35 | 67.3 KB |
 | [cart_exp02.mlx](../DecisionTree_v2/cart_exp02.md) | Optimize Classification Tree | 42 | 151.0 KB |
 | [cart_exp03.mlx](../DecisionTree_v2/cart_exp03.md) | Cross Validate a Regression Tree | 31 | 14.6 KB |
-| [cart_exp04.mlx](../DecisionTree_v2/cart_exp04.md) | ================ 注释中英文对照，供阅读比较================ | 29 | 167.8 KB |
+| [cart_exp04.mlx](../DecisionTree_v2/cart_exp04.md) | 优化回归树 | 29 | 167.8 KB |
 | [cart_exp05.mlx](../DecisionTree_v2/cart_exp05.md) | Construct and display a full classification tree for Fisher' | 24 | 86.2 KB |
 | [cart_exp06.mlx](../DecisionTree_v2/cart_exp06.md) | Load the carsmall data set. Consider Horsepower and Weight a | 25 | 156.8 KB |
 | [cart_exp07.mlx](../DecisionTree_v2/cart_exp07.md) | 检查每个子树的分类错误 | 52 | 82.4 KB |
-| [cart_exp08.mlx](../DecisionTree_v2/cart_exp08.md) | ================ 注释中英文对照，供阅读比较================ | 76 | 124.4 KB |
+| [cart_exp08.mlx](../DecisionTree_v2/cart_exp08.md) | 控制树的深度 | 76 | 124.4 KB |
 | [cart_exp09.mlx](../DecisionTree_v2/cart_exp09.md) | 选择合适的树深 | 38 | 125.9 KB |
 | [cart_exp10.mlx](../DecisionTree_v2/cart_exp10.md) | 无偏预测变量重要性估计 | 57 | 23.3 KB |
 | [cart_exp11.mlx](../DecisionTree_v2/cart_exp11.md) | 分类差额(margin)是真实类别的分类评分与错误类别的最大分类评分之间的差值。 | 35 | 20.3 KB |

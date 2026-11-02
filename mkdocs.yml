@@ -55,6 +55,24 @@ nav:
       - 第22章 地学应用二：气象篇: ch22.md
       - 第23章 地学应用三：土地篇: ch23.md
       - 第24章 地学应用四：地球系统篇: ch24.md
+  - 小作业习题:
+      - 总览: hw/index.md
+      - 小作业1 降维: hw/hw06-pca.md
+      - 小作业2 聚类分析: hw/hw01-clustering.md
+      - 小作业3 线性模型: hw/hw07-lda.md
+      - 小作业4 k最近邻: hw/hw02-knn.md
+      - 小作业5 决策树: hw/hw03-cart.md
+      - 小作业6 支持向量机: hw/hw04-svm.md
+      - 小作业7 神经网络: hw/hw05-ann.md
+  - 大作业案例:
+      - 总纲: cases/index.md
+      - 附录A 水文 · 降雨径流多尺度预报: cases/hw01.md
+      - 附录B 气候 · 极端气候事件预测与可解释性: cases/hw02.md
+      - 附录C 地貌 · 滑坡敏感性制图: cases/hw03.md
+      - 附录D 土壤 · 土壤属性遥感反演与数字制图: cases/hw04.md
+      - 附录E 植被 · 气候变化对NDVI/EVI季相的影响: cases/hw05.md
+      - 附录F 动物 · 物种分布建模与生物多样性: cases/hw06.md
+      - 附录G 期末大作业 · 城市热岛时空格局与缓解策略: cases/final.md
   - 课程PPT:
       - 总览: ppt/index.md
       - 第01章 绪论: ppt/ch01.md
@@ -85,6 +103,7 @@ nav:
       - 第08章 决策树: refcode/ch08.md
       - 第09章 人工神经网络: refcode/ch09.md
       - 第10章 支持向量机: refcode/ch10.md
+      - 第11章 深度学习: refcode/ch11.md
   - MLX 实时脚本:
       - 总览: mlx/index.md
       # === MLX NAV BEGIN（由 tools/build_mlx.mjs 生成，勿手改） ===
@@ -214,6 +233,27 @@ nav:
           - SVM_R4: mlx/SVM_V1/SVM_R4.md
           - SVM_R5: mlx/SVM_V1/SVM_R5.md
           - SVM_R6: mlx/SVM_V1/SVM_R6.md
+      - 深度学习（DeepL）:
+          - mlx/DeepL_V2/index.md
+          - Cam_Alexnet: mlx/DeepL_V2/Cam_Alexnet.md
+          - Cam_GoogLeNet_V1: mlx/DeepL_V2/Cam_GoogLeNet_V1.md
+          - Cam_GoogLeNet_V2: mlx/DeepL_V2/Cam_GoogLeNet_V2.md
+          - Cam_GoogLeNet_V3: mlx/DeepL_V2/Cam_GoogLeNet_V3.md
+          - Cam_GoogLeNet: mlx/DeepL_V2/Cam_GoogLeNet.md
+          - Cam_vgg19: mlx/DeepL_V2/Cam_vgg19.md
+          - half: mlx/DeepL_V2/half.md
+          - img_CNN_Class_V1: mlx/DeepL_V2/img_CNN_Class_V1.md
+          - img_CNN_Reg_V1: mlx/DeepL_V2/img_CNN_Reg_V1.md
+          - Img_GoogLeNet_V1: mlx/DeepL_V2/Img_GoogLeNet_V1.md
+          - Img_GoogLeNet_V2: mlx/DeepL_V2/Img_GoogLeNet_V2.md
+          - Img_GoogLeNet_V3_ReTrain: mlx/DeepL_V2/Img_GoogLeNet_V3_ReTrain.md
+          - img_ResidualNet_class: mlx/DeepL_V2/img_ResidualNet_class.md
+          - processTurboFanDataTest: mlx/DeepL_V2/processTurboFanDataTest.md
+          - processTurboFanDataTrain: mlx/DeepL_V2/processTurboFanDataTrain.md
+          - seq_LSTM_Class_V1: mlx/DeepL_V2/seq_LSTM_Class_V1.md
+          - seq_LSTM_Class_V2_seq: mlx/DeepL_V2/seq_LSTM_Class_V2_seq.md
+          - seq_LSTM_Reg_V1: mlx/DeepL_V2/seq_LSTM_Reg_V1.md
+          - seq_LSTM_Reg_V2_seq: mlx/DeepL_V2/seq_LSTM_Reg_V2_seq.md
       # === MLX NAV END ===
 
 markdown_extensions:

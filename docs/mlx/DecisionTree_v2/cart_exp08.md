@@ -8,9 +8,9 @@
 
     本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
-**================ 注释中英文对照，供阅读比较================**
+**控制树的深度**
 
-控制树的深度 您可以使用 MaxNumSplits、MinLeafSize 或 MinParentSize 名称-值对参数。
+您可以使用 MaxNumSplits、MinLeafSize 或 MinParentSize 名称-值对参数。 fitctree 默认生长深度决策树。
 
 ## 脚本内容
 
