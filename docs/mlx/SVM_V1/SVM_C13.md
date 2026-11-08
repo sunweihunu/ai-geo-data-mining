@@ -1,12 +1,12 @@
 # SVM_C13.mlx
 
-「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 29.5 KB · 代码 82 行
+「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 29.5 KB · 代码 82 行 · 图窗 2
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C13.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/SVM_V1/SVM_C13.mlx" download>下载 SVM_C13.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C13.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/SVM_V1/SVM_C13.mlx" download>下载 SVM_C13.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **使用线性支持向量机分析图像**
 
@@ -60,6 +60,8 @@ h.YDir = 'normal';
 title(sprintf('Quadrant %d',Y(end)))
 ```
 
+<img src="../SVM_C13_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
 ## 训练 ECOC 模型
 
 使用 25% 的留出样本，并指定训练和留出样本索引。
@@ -75,12 +77,22 @@ oosIdx = test(CVP);               % Test sample indices
 t = templateSVM('SaveSupportVectors',true);
 MdlSV = fitcecoc(X(isIdx,:),Y(isIdx),'Learners',t);
 isLoss = resubLoss(MdlSV)   % isLoss = 0
+```
+
+<pre class="mlx-out">isLoss = 0</pre>
+
+```matlab
 % MdlSV 是经过训练的 ClassificationECOC 多类模型。它存储每个二类学习器的训练数据和支持向量。对于大型数据集，如图像分析中的数据集，该模型会消耗大量内存。
 
 % 确定 ECOC 模型消耗的磁盘空间量。
 
 infoMdlSV = whos('MdlSV');
 mbMdlSV = infoMdlSV.bytes/1.049e6  % mbMdlSV = 763.6150
+```
+
+<pre class="mlx-out">mbMdlSV = 763.6163</pre>
+
+```matlab
 % 该模型消耗 763.6 MB。
 ```
 
@@ -94,6 +106,12 @@ CMdl = compact(Mdl);
 info = whos('Mdl','CMdl');
 [bytesCMdl,bytesMdl] = info.bytes;
 memReduction = 1 - [bytesMdl bytesCMdl]/infoMdlSV.bytes
+```
+
+<pre class="mlx-out">memReduction = 1x2
+    0.0626    0.9996</pre>
+
+```matlab
 % memReduction = 1×2
 %     0.0626    0.9996
 
@@ -114,7 +132,17 @@ clear Mdl MdlSV
 
 ```matlab
 oosLoss = loss(CMdl,X(oosIdx,:),Y(oosIdx))
+```
+
+<pre class="mlx-out">oosLoss = 0</pre>
+
+```matlab
 oosLoss = 0
+```
+
+<pre class="mlx-out">oosLoss = 0</pre>
+
+```matlab
 yHat = predict(CMdl,X(oosIdx,:));
 nVec = 1:size(X,1);
 oosIdx = nVec(oosIdx);
@@ -128,6 +156,10 @@ for j = 1:9
     title(sprintf('Quadrant: %d',yHat(j)))
 end
 text(-1.33*d,4.5*d + 1,'Predictions','FontSize',17)
+```
 
+<img src="../SVM_C13_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 % 该模型不会对任何留出样本观测值进行误分类。
 ```

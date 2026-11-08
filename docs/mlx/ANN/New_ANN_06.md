@@ -1,12 +1,12 @@
 # New_ANN_06.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 50.8 KB · 代码 38 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 50.8 KB · 代码 38 行 · 图窗 2
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_06.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_06.mlx" download>下载 New_ANN_06.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_06.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_06.mlx" download>下载 New_ANN_06.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **问题：估计体脂率**
 
@@ -26,8 +26,17 @@
 % 请注意，X 和 T 都有 252 列。这表示 252 个体型（输入）和相关体脂率（目标）。
 % 输入矩阵 X 有十三行，表示十三个属性。目标矩阵 T 只有一行，因为每个示例只需要一个输出，即体脂率。
 size(X)  % ans =    13   252
+```
+
+<pre class="mlx-out">ans = 1x2
+    13   252</pre>
+
+```matlab
 size(T)  % ans =     1   252
 ```
+
+<pre class="mlx-out">ans = 1x2
+     1   252</pre>
 
 ## 设定网络结构，以便使用神经网络拟合函数
 
@@ -42,13 +51,25 @@ net = fitnet(15);
 view(net)
 ```
 
+<img src="../New_ANN_06_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
 ## 训练网络
 
 现在网络已准备就绪，可以开始训练。样本自动分为训练集、验证集和测试集。训练集用于对网络进行训练。只要网络针对验证集持续改进，训练就会继续。测试集提供完全独立的网络准确度测量。 神经网络训练工具显示正在接受训练的网络和用于训练该网络的算法。它还显示训练过程中的训练状态以及停止训练的条件（以绿色突出显示）。 底部的按钮用于打开有用的绘图，这些图可以在训练期间和训练后打开。算法名称和绘图按钮旁边的链接可打开有关这些主题的文档。
 
 ```matlab
 [net,tr] = train(net,X,T);
+```
+
+<img src="../New_ANN_06_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 nntraintool
+```
+
+<pre class="mlx-out">Unrecognized function or variable 'nntraintool'.</pre>
+
+```matlab
 nntraintool('close')
 
 % 要查看在训练过程中网络性能的改善情况，请点击训练工具中的 Performance 按钮，或调用 PLOTPERFORM。

@@ -1,12 +1,12 @@
 # SVM_C11.mlx
 
-「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 66.8 KB · 代码 92 行
+「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 66.8 KB · 代码 92 行 · 图窗 4
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C11.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/SVM_V1/SVM_C11.mlx" download>下载 SVM_C11.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C11.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/SVM_V1/SVM_C11.mlx" download>下载 SVM_C11.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **使用贝叶斯优化来优化 SVM 分类器拟合**
 
@@ -41,8 +41,11 @@ plot(grnpop(:,1),grnpop(:,2),'go')
 hold on
 plot(redpop(:,1),redpop(:,2),'ro')
 hold off
+```
 
+<img src="../SVM_C11_media/figure_0.png" alt="图窗 1" loading="lazy" />
 
+```matlab
 % 由于一些红色基点靠近绿色基点，因此很难仅基于位置对数据点进行分类。
 % 生成每个类的 100 个数据点。
 
@@ -58,8 +61,11 @@ plot(grnpts(:,1),grnpts(:,2),'go')
 hold on
 plot(redpts(:,1),redpts(:,2),'ro')
 hold off
+```
 
+<img src="../SVM_C11_media/figure_1.png" alt="图窗 2" loading="lazy" />
 
+```matlab
 % 为分类准备数据
 %
 % 将数据放入一个矩阵中，并创建向量 grp，该向量标记每个点的类。
@@ -86,12 +92,104 @@ opts = struct('Optimizer','bayesopt','ShowPlots',true,'CVPartition',c,...
     'AcquisitionFunctionName','expected-improvement-plus');
 svmmod = fitcsvm(cdata,grp,'KernelFunction','rbf',...
     'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',opts)
+```
 
+<pre class="mlx-out">|====================================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   | BoxConstraint|  KernelScale |  Standardize |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |              |
+|====================================================================================================================|
+|    1 | Best   |       0.195 |     0.26771 |       0.195 |       0.195 |       193.54 |     0.069073 |        false |
+|    2 | Accept |       0.345 |    0.061657 |       0.195 |     0.20398 |       43.991 |       277.86 |        false |
+|    3 | Accept |       0.365 |    0.073293 |       0.195 |     0.20784 |    0.0056595 |     0.042141 |        false |
+|    4 | Accept |        0.61 |    0.098857 |       0.195 |     0.31714 |       49.333 |    0.0010514 |         true |
+|    5 | Best   |         0.1 |    0.067007 |         0.1 |     0.10005 |       996.27 |       1.3081 |        false |
+|    6 | Accept |        0.13 |    0.065167 |         0.1 |     0.10003 |       25.398 |       1.7076 |        false |
+|    7 | Best   |       0.085 |    0.065081 |       0.085 |     0.08521 |        930.3 |      0.66262 |        false |
+|    8 | Accept |        0.35 |    0.058341 |       0.085 |    0.085172 |     0.012972 |        983.4 |         true |
+|    9 | Best   |       0.075 |    0.074074 |       0.075 |    0.077959 |       871.26 |      0.40617 |        false |
+|   10 | Accept |        0.08 |     0.06847 |       0.075 |    0.077975 |       974.28 |      0.45314 |        false |
+|   11 | Accept |       0.235 |    0.082562 |       0.075 |    0.077907 |       920.57 |        6.482 |         true |
+|   12 | Accept |       0.305 |    0.061687 |       0.075 |    0.077922 |    0.0010077 |       1.0212 |         true |
+|   13 | Best   |        0.07 |    0.076149 |        0.07 |    0.073603 |       991.16 |      0.37801 |        false |
+|   14 | Accept |       0.075 |    0.067727 |        0.07 |    0.073191 |       989.88 |      0.24951 |        false |
+|   15 | Accept |       0.245 |    0.077885 |        0.07 |    0.073276 |       988.76 |       9.1309 |        false |
+|   16 | Accept |        0.07 |    0.072384 |        0.07 |    0.071416 |       957.65 |      0.31271 |        false |
+|   17 | Accept |        0.35 |    0.063501 |        0.07 |    0.071421 |    0.0010579 |       33.692 |         true |
+|   18 | Accept |       0.085 |    0.055484 |        0.07 |    0.071274 |       48.536 |      0.32107 |        false |
+|   19 | Accept |        0.07 |    0.065233 |        0.07 |    0.070587 |       742.56 |      0.30798 |        false |
+|   20 | Accept |        0.61 |    0.068249 |        0.07 |    0.070796 |       865.48 |    0.0010165 |        false |
+|====================================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   | BoxConstraint|  KernelScale |  Standardize |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |              |
+|====================================================================================================================|
+|   21 | Accept |         0.1 |    0.060353 |        0.07 |    0.070715 |       970.87 |      0.14635 |         true |
+|   22 | Accept |       0.095 |    0.061954 |        0.07 |     0.07087 |       914.88 |      0.46353 |         true |
+|   23 | Accept |        0.07 |    0.070482 |        0.07 |    0.070473 |       982.01 |       0.2792 |        false |
+|   24 | Accept |        0.51 |    0.068451 |        0.07 |    0.070515 |    0.0010005 |     0.014749 |         true |
+|   25 | Accept |       0.345 |    0.056307 |        0.07 |    0.070533 |    0.0010063 |       972.18 |        false |
+|   26 | Accept |       0.315 |    0.054542 |        0.07 |     0.07057 |       947.71 |       152.95 |         true |
+|   27 | Accept |        0.35 |    0.054216 |        0.07 |    0.070605 |    0.0010028 |        43.62 |        false |
+|   28 | Accept |        0.61 |    0.071196 |        0.07 |    0.070598 |    0.0010405 |    0.0010258 |        false |
+|   29 | Accept |       0.555 |    0.076465 |        0.07 |    0.070173 |       993.56 |     0.010502 |         true |
+|   30 | Accept |        0.07 |    0.071987 |        0.07 |    0.070158 |       965.73 |      0.25363 |         true |
+
+__________________________________________________________
+Optimization completed.
+MaxObjectiveEvaluations of 30 reached.
+Total function evaluations: 30
+Total elapsed time: 11.9137 seconds
+Total objective function evaluation time: 2.2365
+
+Best observed feasible point:
+    BoxConstraint    KernelScale    Standardize
+    _____________    ___________    ___________
+
+       991.16          0.37801         false   
+
+Observed objective function value = 0.07
+Estimated objective function value = 0.072292
+Function evaluation time = 0.076149
+
+Best estimated feasible point (according to models):
+    BoxConstraint    KernelScale    Standardize
+    _____________    ___________    ___________
+
+       957.65          0.31271         false   
+
+Estimated objective function value = 0.070158
+Estimated function evaluation time = 0.070465</pre>
+
+<img src="../SVM_C11_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+<pre class="mlx-out">svmmod = 
+  ClassificationSVM
+                         ResponseName: 'Y'
+                CategoricalPredictors: []
+                           ClassNames: [-1 1]
+                       ScoreTransform: 'none'
+                      NumObservations: 200
+    HyperparameterOptimizationResults: [1x1 BayesianOptimization]
+                                Alpha: [66x1 double]
+                                 Bias: -0.0911
+                     KernelParameters: [1x1 struct]
+                       BoxConstraints: [200x1 double]
+                      ConvergenceInfo: [1x1 struct]
+                      IsSupportVector: [200x1 logical]
+                               Solver: 'SMO'
+
+  Properties, Methods</pre>
+
+```matlab
 % 计算优化模型的损失。
 
 lossnew = kfoldLoss(fitcsvm(cdata,grp,'CVPartition',c,'KernelFunction','rbf',...
     'BoxConstraint',svmmod.HyperparameterOptimizationResults.XAtMinObjective.BoxConstraint,...
     'KernelScale',svmmod.HyperparameterOptimizationResults.XAtMinObjective.KernelScale))
+```
+
+<pre class="mlx-out">lossnew = 0.0700</pre>
+
+```matlab
 % lossnew = 0.0650
 % 该损失与“观测的目标函数值”下优化输出中报告的损失相同。
 %
@@ -113,3 +211,5 @@ legend(h,{'-1','+1','Support Vectors'},'Location','Southeast');
 axis equal
 hold off
 ```
+
+<img src="../SVM_C11_media/figure_3.png" alt="图窗 4" loading="lazy" />

@@ -1,12 +1,12 @@
 # New_ANN_09.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 5.0 KB · 代码 35 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 5.0 KB · 代码 35 行 · 运行输出 3
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_09.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_09.mlx" download>下载 New_ANN_09.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_09.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_09.mlx" download>下载 New_ANN_09.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **早停法**
 
@@ -25,9 +25,25 @@
 % 可使用四个函数将数据划分为训练集、验证集和测试集。它们是 dividerand（默认值）、divideblock、divideint 和 divideind。您可以使用以下属性访问或更改网络的划分函数：
 
 net.divideFcn
+```
+
+<pre class="mlx-out">ans = 'dividerand'</pre>
+
+```matlab
 % 其中每个函数都采用自定义其行为的参数。这些值会被存储，且可以通过以下网络属性进行更改：
 
 net.divideParam
+```
+
+<pre class="mlx-out">ans = 
+ 
+    Function Parameters for 'dividerand'
+ 
+    Training Ratio trainRatio: 0.7
+    Validation Ratio valRatio: 0.15
+    Test Ratio      testRatio: 0.15</pre>
+
+```matlab
 % 索引数据划分 (divideind)
 % 创建一个简单的测试问题。对于完整的数据集，以 0.01 的步长生成有 201 个输入点的含噪正弦波，输入点范围为 −1 至 1：
 
@@ -36,6 +52,12 @@ t = sin(2*pi*p)+0.1*randn(size(p));
 % 按索引划分数据，以便将连续样本依次分配给训练集、验证集和测试集：
 
 trainInd = 1:3:201
+```
+
+<pre class="mlx-out">trainInd = 1x67
+     1     4     7    10    13    16    19    22    25    28    31    34    37    40    43    46    49    52    55    58    61    64    67    70    73    76    79    82    85    88    91    94    97   100   103   106   109   112   115   118   121   124   127   130   133   136   139   142   145   148</pre>
+
+```matlab
 valInd = 2:3:201;
 testInd = 3:3:201;
 [trainP,valP,testP] = divideind(p,trainInd,valInd,testInd);

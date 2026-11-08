@@ -1,12 +1,12 @@
 # ANN_22_BP.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 31.2 KB · 代码 17 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 31.2 KB · 代码 17 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_22_BP.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/ANN_22_BP.mlx" download>下载 ANN_22_BP.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_22_BP.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/ANN_22_BP.mlx" download>下载 ANN_22_BP.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **国家类型判别的BP网络（变量除以平均值）**
 
@@ -21,13 +21,33 @@ P=[1.0777  1.0464  1.0900  1.0723  0.9960  1.0219  1.0328  0.9088  0.9715  0.963
                                             %输入变量
 T=[1 1 1 1 1 1 0 0 0 0 0 0 0 0];            %目标输出
 net=newff(minmax(P),[2,3,1],{'logsig','tansig','purelin'},'trainlm');
+```
+
+<pre class="mlx-out">Warning: NEWFF used in an obsolete way.
+          See help for NEWFF to update calls to the new argument list.</pre>
+
+```matlab
                                             %创建一个隐含层包括6个神经元的BP网络
 net.trainParam.epochs=500;                  %最大学习次数500次
 net.trainParam.goal=0.0001;                 %训练误差0.0001，小于次数可以终止学习
 net=train(net,P,T);                         %训练网络
+```
+
+<img src="../ANN_22_BP_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 Y=sim(net,P);Y                              %训练样本的仿真结果
+```
+
+<pre class="mlx-out">Y = 1x14
+1.0056    0.9909    1.0058    0.9988    0.9947    1.0040   -0.0028    0.0199   -0.0026    0.0177   -0.0159   -0.0035    0.0011   -0.0079</pre>
+
+```matlab
 P_test=[1.0723 	1.0655 	0.9565 	0.9265
 1.0784 	1.0555 	1.0664 	0.9019
 1.7624 	1.1894 	0.4818 	0.2649];            %输入待判样品信号
 Yt=sim(net,P_test);Yt                       %待判样品的仿真结果
 ```
+
+<pre class="mlx-out">Yt = 1x4
+1.0251    1.1244    0.0090    0.0007</pre>

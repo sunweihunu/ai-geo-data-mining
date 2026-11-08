@@ -1,12 +1,12 @@
 # New_ANN_04.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 188.4 KB · 代码 145 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 188.4 KB · 代码 145 行 · 图窗 4
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_04.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_04.mlx" download>下载 New_ANN_04.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_04.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_04.mlx" download>下载 New_ANN_04.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **训练示例**
 
@@ -21,6 +21,11 @@ clear
 load bodyfat_dataset
 net = feedforwardnet(20);
 [net,tr] = train(net,bodyfatInputs,bodyfatTargets);
+```
+
+<img src="../New_ANN_04_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 请注意，您不需要发出 configure 命令，因为配置是由 train 函数自动完成的。
 % 训练期间将出现训练窗口，如下图所示。（如果您不想在训练期间显示此窗口，
 % 可以将参数 net.trainParam.showWindow 设置为 false。如果您要在命令行中显示训练信息，可以将参数 net.trainParam.showCommandLine 设置为 true。）
@@ -59,6 +64,11 @@ net = feedforwardnet(20);
 
 ```matlab
 a = net(bodyfatInputs(:,5))
+```
+
+<pre class="mlx-out">a = 30.1477</pre>
+
+```matlab
 % a =   27.3740
 % 如果尝试此命令，输出可能会有所不同，具体取决于网络初始化时随机数生成器的状态。下面，调用网络对象来计算体脂数据集中所有输入向量的并发集合的输出。这是批量模式的仿真，其中所有输入向量都放在一个矩阵中。这比一次提交一个向量要高效得多。
 
@@ -78,6 +88,41 @@ a = net(bodyfatInputs);
 % 首先检查训练记录 tr，这是训练函数返回的第二个参数。
 
 tr
+```
+
+<pre class="mlx-out">tr = struct with fields:
+        trainFcn: 'trainlm'
+      trainParam: [1x1 struct]
+      performFcn: 'mse'
+    performParam: [1x1 struct]
+        derivFcn: 'defaultderiv'
+       divideFcn: 'dividerand'
+      divideMode: 'sample'
+     divideParam: [1x1 struct]
+        trainInd: [3 4 5 7 8 10 11 14 15 16 17 18 19 20 21 22 23 26 28 29 30 31 32 34 36 37 38 39 41 42 43 44 48 49 51 52 53 57 59 61 62 65 67 68 69 70 71 72 73 74 75 76 77 79 80 81 82 84 85 87 88 90 91 92 93 94 95 96 97 98 99 100 103 … ] (1x176 double)
+          valInd: [1 9 12 13 33 35 40 45 47 54 56 58 63 78 86 89 101 102 114 115 118 119 121 130 134 135 146 148 159 176 180 184 185 194 203 220 230 237]
+         testInd: [2 6 24 25 27 46 50 55 60 64 66 83 104 112 113 133 142 150 151 154 157 163 165 170 174 177 178 179 181 215 217 229 232 234 235 238 245 249]
+            stop: 'Training finished: Met validation criterion'
+      num_epochs: 11
+       trainMask: {[NaN NaN 1 1 1 NaN 1 1 NaN 1 1 NaN NaN 1 1 1 1 1 1 1 1 1 1 NaN NaN 1 NaN 1 1 1 1 1 NaN 1 NaN 1 1 1 1 NaN 1 1 1 1 NaN NaN NaN 1 1 NaN 1 1 1 NaN NaN NaN 1 NaN 1 NaN 1 1 NaN NaN 1 NaN 1 1 1 1 1 1 1 1 1 1 1 NaN 1 1 1 1 … ] (1x252 double)}
+         valMask: {[1 NaN NaN NaN NaN NaN NaN NaN 1 NaN NaN 1 1 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 1 NaN 1 NaN NaN NaN NaN 1 NaN NaN NaN NaN 1 NaN 1 NaN NaN NaN NaN NaN NaN 1 NaN 1 NaN 1 NaN … ] (1x252 double)}
+        testMask: {[NaN 1 NaN NaN NaN 1 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 1 1 NaN 1 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 1 NaN NaN NaN 1 NaN NaN NaN NaN 1 NaN NaN … ] (1x252 double)}
+      best_epoch: [5]
+            goal: [0]
+          states: {'epoch'  'time'  'perf'  'vperf'  'tperf'  'mu'  'gradient'  'val_fail'}
+           epoch: [0 1 2 3 4 5 6 7 8 9 10 11]
+            time: [1.7140 2.1370 2.1470 2.1550 2.1630 2.1700 2.1750 2.1790 2.1820 2.1850 2.1890 2.1930]
+            perf: [1.7520e+03 511.3802 461.0307 295.8867 57.0587 16.6855 9.8946 8.2309 7.4693 5.0229 4.9491 3.2477]
+           vperf: [1.6033e+03 514.3472 531.6000 237.4190 54.0535 29.1003 31.7194 34.8035 42.6497 42.3494 49.4836 52.1421]
+           tperf: [1.7022e+03 355.0605 393.3084 224.5975 55.2058 34.0430 27.0153 24.9306 29.4370 26.4833 32.2289 30.0311]
+              mu: [1.0000e-03 1.0000e-03 1.0000e-03 1.0000e-03 0.0100 0.0100 0.0100 0.0100 0.0100 0.0100 0.0100 0.1000]
+        gradient: [7.4299e+03 1.8201e+03 2.2615e+03 2.1851e+03 768.4514 73.9152 137.1969 124.7322 97.9654 93.4640 53.4780 32.6157]
+        val_fail: [0 0 1 0 0 0 1 2 3 4 5 6]
+       best_perf: [16.6855]
+      best_vperf: [29.1003]
+      best_tperf: [34.0430]</pre>
+
+```matlab
 % tr = struct with fields:
 %         trainFcn: 'trainlm'
 %       trainParam: [1x1 struct]
@@ -122,6 +167,11 @@ tr
 % 您可以通过 plotperf 命令，使用训练记录来绘制性能进度图：
 
 plotperf(tr)
+```
+
+<img src="../New_ANN_04_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 % Figure Training Record contains an axes. The axes with title Performance is 6.3064
 % contains 4 objects of type line.
 % These objects represent Test, Validation, Train.
@@ -146,6 +196,11 @@ vTarg = bodyfatTargets(tr.valInd);
 tsTarg = bodyfatTargets(tr.testInd);
 figure;
 plotregression(trTarg, trOut, 'Train', vTarg, vOut, 'Validation', tsTarg, tsOut, 'Testing')
+```
+
+<img src="../New_ANN_04_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+```matlab
 % Figure Regression (plotregression) contains 3 axes.
 % Axes 1 with title Train: R=0.91107 contains 3 objects of type line.
 % These objects represent Y = T, Fit, Data.
@@ -173,6 +228,11 @@ plotregression(trTarg, trOut, 'Train', vTarg, vOut, 'Validation', tsTarg, tsOut,
 ```matlab
 net = init(net);
 net = train(net, bodyfatInputs, bodyfatTargets);
+```
+
+<img src="../New_ANN_04_media/figure_3.png" alt="图窗 4" loading="lazy" />
+
+```matlab
 % 作为另一种方法，您可以将隐藏神经元的数量增加到 20 个以上。
 % 隐藏层中的神经元数量越多，网络的灵活度就越高，因为网络可以优化更多参数。
 % 请逐渐增加层大小。% 如果将隐含层设置得太大，可能会导致问题的特征不清晰，

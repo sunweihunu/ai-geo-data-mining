@@ -1,12 +1,12 @@
 # New_ANN_32.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 71.5 KB · 代码 44 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 71.5 KB · 代码 44 行 · 图窗 3
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_32.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_32.mlx" download>下载 New_ANN_32.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_32.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_32.mlx" download>下载 New_ANN_32.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **脚本假设输入向量已加载到工作区中。要显示命令行操作，**
 
@@ -30,6 +30,11 @@ net = selforgmap([dimension1 dimension2]);
 % 训练网络。SOM 网络使用默认的批量 SOM 算法进行训练。
 
 [net,tr] = train(net,inputs);
+```
+
+<img src="../New_ANN_32_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 在训练期间，训练窗口会打开并显示训练进度。要随时中断训练，请点击 Stop Training。
 
 
@@ -38,13 +43,20 @@ outputs = net(inputs);
 % 查看网络图。
 
 view(net)
+```
 
+<img src="../New_ANN_32_media/figure_1.png" alt="图窗 2" loading="lazy" />
 
+```matlab
 % 对于 SOM 训练，与每个神经元关联的权重向量都会朝着成为输入向量簇中心的方向移动。此外，拓扑中彼此相邻的神经元也应在输入空间中相互靠近，因此可以在网络拓扑的两个维度中可视化高维输入空间。默认的 SOM 拓扑是六边形的；要进行查看，请输入以下命令。
 
 figure
 plotsomtop(net)
+```
 
+<img src="../New_ANN_32_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+```matlab
 %
 % 在此图中，每个六边形表示一个神经元。网格为 10×10，因此在此网络中总共有 100 个神经元。
 % 每个输入向量中有四个元素，因此输入空间是四维的。权重向量（簇中心）在此空间内。

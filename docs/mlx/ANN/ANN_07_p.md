@@ -1,12 +1,12 @@
 # ANN_07_p.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 32.0 KB · 代码 25 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 32.0 KB · 代码 25 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_07_p.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/ANN_07_p.mlx" download>下载 ANN_07_p.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_07_p.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/ANN_07_p.mlx" download>下载 ANN_07_p.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **国家类型的自适应分类(变量数值统一到0.1到10之间)**
 
@@ -32,10 +32,24 @@ for a=1:15                                  %指定迭代次数为15次
     handle=plotpc(net.iw{1},net.b{1},handle);
     drawnow;                                %添加分类界面
 end;
+```
+
+<img src="../ANN_07_p_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 Y                                           %输出结果
+```
+
+<pre class="mlx-out">Y = 1x14
+     1     1     1     1     1     1     1     1     1     1     1     1     1     1</pre>
+
+```matlab
 Q=[78.7 78.2 70.2 68.0
 99.0 96.9 97.9 82.8
 20659 13943	5648 3105];                     %输入待判样品信号
 P_test=Q./s(:,ones(length(Q),1));           %待判样品信号的规范化
 y=sim(net,P_test);y                         %待判样品的仿真结果
 ```
+
+<pre class="mlx-out">y = 1x4
+     0     0     0     0</pre>

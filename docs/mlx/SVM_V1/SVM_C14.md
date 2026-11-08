@@ -1,12 +1,12 @@
 # SVM_C14.mlx
 
-「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 136.4 KB · 代码 128 行
+「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 136.4 KB · 代码 128 行 · 图窗 6
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C14.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/SVM_V1/SVM_C14.mlx" download>下载 SVM_C14.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C14.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/SVM_V1/SVM_C14.mlx" download>下载 SVM_C14.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **使用 bayesopt 优化交叉验证分类器**
 
@@ -40,7 +40,11 @@ plot(grnpop(:,1),grnpop(:,2),'go')
 hold on
 plot(redpop(:,1),redpop(:,2),'ro')
 hold off
+```
 
+<img src="../SVM_C14_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 由于一些红色基点靠近绿色基点，因此仅根据位置很难对数据点进行分类。
 % 生成每个类的 100 个数据点。
 % Since some red base points are close to green base points,
@@ -60,6 +64,8 @@ hold on
 plot(redpts(:,1),redpts(:,2),'ro')
 hold off
 ```
+
+<img src="../SVM_C14_media/figure_1.png" alt="图窗 2" loading="lazy" />
 
 ## 准备分类数据
 
@@ -104,11 +110,111 @@ minfn = @(z)kfoldLoss(fitcsvm(cdata,grp,'CVPartition',c,...
 ```matlab
 results = bayesopt(minfn,[sigma,box],'IsObjectiveDeterministic',true,...
     'AcquisitionFunctionName','expected-improvement-plus')
+```
 
+<pre class="mlx-out">|=====================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   |        sigma |          box |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |
+|=====================================================================================================|
+|    1 | Best   |        0.61 |    0.078152 |        0.61 |        0.61 |   0.00013375 |        13929 |
+|    2 | Best   |       0.345 |    0.091827 |       0.345 |       0.345 |        24526 |        1.936 |
+|    3 | Accept |        0.61 |    0.099195 |       0.345 |       0.345 |    0.0026459 |   0.00084929 |
+|    4 | Accept |       0.345 |    0.051495 |       0.345 |       0.345 |       3506.3 |   6.7427e-05 |
+|    5 | Accept |       0.345 |    0.056167 |       0.345 |       0.345 |       9135.2 |       571.87 |
+|    6 | Accept |       0.345 |    0.057698 |       0.345 |       0.345 |        99701 |        10223 |
+|    7 | Best   |       0.295 |     0.05351 |       0.295 |       0.295 |       455.88 |       9957.4 |
+|    8 | Best   |        0.24 |     0.69781 |        0.24 |        0.24 |        31.56 |        99389 |
+|    9 | Accept |        0.24 |      0.9007 |        0.24 |        0.24 |       10.451 |        64429 |
+|   10 | Accept |        0.35 |    0.059988 |        0.24 |        0.24 |       17.331 |   1.0264e-05 |
+|   11 | Best   |        0.23 |     0.61787 |        0.23 |        0.23 |       16.005 |        90155 |
+|   12 | Best   |         0.1 |     0.09615 |         0.1 |         0.1 |      0.36562 |        80878 |
+|   13 | Accept |       0.115 |    0.063693 |         0.1 |         0.1 |       0.1793 |        68459 |
+|   14 | Accept |       0.105 |    0.064091 |         0.1 |         0.1 |       0.2267 |        95421 |
+|   15 | Best   |       0.095 |    0.051956 |       0.095 |       0.095 |      0.28999 |    0.0058227 |
+|   16 | Best   |       0.075 |    0.054433 |       0.075 |       0.075 |      0.30554 |       8.9017 |
+|   17 | Accept |       0.085 |    0.049803 |       0.075 |       0.075 |      0.41122 |       4.4476 |
+|   18 | Accept |       0.085 |     0.05144 |       0.075 |       0.075 |      0.25565 |       7.8038 |
+|   19 | Accept |       0.075 |    0.050594 |       0.075 |       0.075 |      0.32869 |       18.076 |
+|   20 | Accept |       0.085 |    0.051998 |       0.075 |       0.075 |      0.32442 |       5.2118 |
+|=====================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   |        sigma |          box |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |
+|=====================================================================================================|
+|   21 | Accept |         0.3 |    0.053173 |       0.075 |       0.075 |       1.3592 |    0.0098067 |
+|   22 | Accept |        0.12 |    0.054056 |       0.075 |       0.075 |      0.17515 |   0.00070913 |
+|   23 | Accept |       0.175 |    0.058164 |       0.075 |       0.075 |       0.1252 |     0.010749 |
+|   24 | Accept |       0.105 |     0.05638 |       0.075 |       0.075 |       1.1664 |        31.13 |
+|   25 | Accept |         0.1 |    0.056555 |       0.075 |       0.075 |      0.57465 |       2013.8 |
+|   26 | Accept |        0.12 |    0.053356 |       0.075 |       0.075 |      0.42922 |   1.1602e-05 |
+|   27 | Accept |        0.12 |    0.055207 |       0.075 |       0.075 |      0.42956 |   0.00027218 |
+|   28 | Accept |       0.095 |    0.057458 |       0.075 |       0.075 |       0.4806 |       13.452 |
+|   29 | Accept |       0.105 |    0.071769 |       0.075 |       0.075 |      0.19755 |       943.87 |
+|   30 | Accept |       0.205 |    0.058836 |       0.075 |       0.075 |       3.5051 |       93.492 |
+
+__________________________________________________________
+Optimization completed.
+MaxObjectiveEvaluations of 30 reached.
+Total function evaluations: 30
+Total elapsed time: 16.6231 seconds
+Total objective function evaluation time: 3.8735
+
+Best observed feasible point:
+     sigma      box  
+    _______    ______
+
+    0.30554    8.9017
+
+Observed objective function value = 0.075
+Estimated objective function value = 0.075
+Function evaluation time = 0.054433
+
+Best estimated feasible point (according to models):
+     sigma      box  
+    _______    ______
+
+    0.32869    18.076
+
+Estimated objective function value = 0.075
+Estimated function evaluation time = 0.054116</pre>
+
+<img src="../SVM_C14_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+<img src="../SVM_C14_media/figure_3.png" alt="图窗 4" loading="lazy" />
+
+<pre class="mlx-out">results = 
+  BayesianOptimization with properties:
+
+                      ObjectiveFcn: @(z)kfoldLoss(fitcsvm(cdata,grp,'CVPartition',c,'KernelFunction','rbf','BoxConstraint',z.box,'KernelScale',z.sigma))
+              VariableDescriptions: [1x2 optimizableVariable]
+                           Options: [1x1 struct]
+                      MinObjective: 0.0750
+                   XAtMinObjective: [1x2 table]
+             MinEstimatedObjective: 0.0750
+          XAtMinEstimatedObjective: [1x2 table]
+           NumObjectiveEvaluations: 30
+                  TotalElapsedTime: 16.6231
+                         NextPoint: [1x2 table]
+                            XTrace: [30x2 table]
+                    ObjectiveTrace: [30x1 double]
+                  ConstraintsTrace: []
+                     UserDataTrace: {30x1 cell}
+      ObjectiveEvaluationTimeTrace: [30x1 double]
+                IterationTimeTrace: [30x1 double]
+                        ErrorTrace: [30x1 double]
+                  FeasibilityTrace: [30x1 logical]
+       FeasibilityProbabilityTrace: [30x1 double]
+               IndexOfMinimumTrace: [30x1 double]
+             ObjectiveMinimumTrace: [30x1 double]
+    EstimatedObjectiveMinimumTrace: [30x1 double]</pre>
+
+```matlab
 % 从 XAtMinEstimatedObjective 属性或使用 bestPoint 函数获取最佳估计可行点。 默认情况下，bestPoint 函数使用“min-visited-upper-confidence-interval”标准。 有关详细信息，请参阅 bestPoint 的 Criterion 名称-值参数。
 % Obtain the best estimated feasible point from the XAtMinEstimatedObjective property or by using the bestPoint function. By default, the bestPoint function uses the 'min-visited-upper-confidence-interval' criterion. For details, see the Criterion name-value argument of bestPoint.
 
 results.XAtMinEstimatedObjective
+```
+
+```matlab
 % ans=1×2 table
 %      sigma      box
 %     _______    ______
@@ -116,6 +222,9 @@ results.XAtMinEstimatedObjective
 %     0.32869    18.076
 
 z = bestPoint(results)
+```
+
+```matlab
 % z=1×2 table
 %      sigma      box
 %     _______    ______
@@ -149,6 +258,8 @@ contour(x1Grid,x2Grid,reshape(scores(:,2),size(x1Grid)),[0 0],'k');
 legend(h,{'-1','+1','Support Vectors'},'Location','Southeast');
 ```
 
+<img src="../SVM_C14_media/figure_4.png" alt="图窗 5" loading="lazy" />
+
 ## 评估新数据的准确性
 
 生成和分类新的测试数据点。 Evaluate Accuracy on New Data Generate and classify new test data points.
@@ -168,6 +279,11 @@ v = predict(SVMModel,newData);
 % Compute the misclassification rates on the test data set.
 
 L = loss(SVMModel,newData,grpData)
+```
+
+<pre class="mlx-out">L = 0.3500</pre>
+
+```matlab
 % L = 0.3500
 ```
 
@@ -193,3 +309,5 @@ legend(h,{'-1 (training)','+1 (training)','Support Vectors', ...
     'Location','Southeast');
 hold off
 ```
+
+<img src="../SVM_C14_media/figure_5.png" alt="图窗 6" loading="lazy" />

@@ -1,12 +1,12 @@
 # ANN_08_p.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 88.8 KB · 代码 39 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 88.8 KB · 代码 39 行 · 图窗 2
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_08_p.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/ANN_08_p.mlx" download>下载 ANN_08_p.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_08_p.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/ANN_08_p.mlx" download>下载 ANN_08_p.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **国家类型的自适应分类(原始数据)**
 
@@ -29,11 +29,26 @@ for a=1:290                                 %指定迭代次数为290次
     handle=plotpc(net.iw{1},net.b{1},handle);
     drawnow;                                %添加分类界面
 end;
+```
+
+<img src="../ANN_08_p_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 Y                                           %输出自适应结果
+```
+
+<pre class="mlx-out">Y = 1x14
+     1     1     1     1     1     1     1     1     1     1     0     1     1     1</pre>
+
+```matlab
 P_test=S';                                  %调用待判样品数据
 y=sim(net,P_test);y                         %待判样品的仿真结果
+```
 
+<pre class="mlx-out">y = 1x4
+     0     0     0     0</pre>
 
+```matlab
 %层次聚类：重心法&欧氏距离
 S=['合肥';'武汉';'长沙';'桂林';'温州';'成都'];
 X=[15.7  970   2209  -20.6  1.9
@@ -50,6 +65,19 @@ Z=linkage(D,'centroid');                    %根据重心法聚类
 H=dendrogram(Z,'labels',S);                 %画出聚类谱系图并添加样品标签
 xlabel('City');                             %谱系图的横轴标签
 ylabel('Scale');                            %谱系图的纵轴标签
+```
+
+<img src="../ANN_08_p_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 C=cophenet(Z,D);                            %计算Cophenetic相关系数
 T=cluster(Z,2)                              %指定分类数目
 ```
+
+<pre class="mlx-out">T = 6x1
+     1
+     1
+     2
+     2
+     2
+     2</pre>

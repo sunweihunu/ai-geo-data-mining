@@ -1,12 +1,12 @@
 # SVM_R5.mlx
 
-「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 3.9 KB · 代码 33 行
+「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 3.9 KB · 代码 33 行 · 运行输出 2
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_R5.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/SVM_V1/SVM_R5.mlx" download>下载 SVM_R5.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_R5.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/SVM_V1/SVM_R5.mlx" download>下载 SVM_R5.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **手动计算交叉验证损失**
 
@@ -41,11 +41,21 @@ CVMdl = fitrtree(X,Y,'CrossVal','on');
 % Compute the 10-fold cross-validation MSE by using kfoldLoss.
 
 L = kfoldLoss(CVMdl)
+```
+
+<pre class="mlx-out">L = 29.4963</pre>
+
+```matlab
 % L = 29.4963
 % 使用交叉验证的回归模型预测响应 yfit。计算 yfit 和真实响应 CVMdl.Y 之间的均方误差。计算出的 MSE 与 kfoldLoss 返回的损失值相匹配。
 % Predict the responses yfit by using the cross-validated regression model. Compute the mean squared error between yfit and the true responses CVMdl.Y. The computed MSE matches the loss value returned by kfoldLoss.
 
 yfit = kfoldPredict(CVMdl);
 mse = mean((yfit - CVMdl.Y).^2)
+```
+
+<pre class="mlx-out">mse = 29.4963</pre>
+
+```matlab
 % mse = 29.4963
 ```

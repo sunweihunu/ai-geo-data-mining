@@ -1,12 +1,12 @@
 # ANN_24_C.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 21.0 KB · 代码 15 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 21.0 KB · 代码 15 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_24_C.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/ANN_24_C.mlx" download>下载 ANN_24_C.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_24_C.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/ANN_24_C.mlx" download>下载 ANN_24_C.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **福冈与中国六城市的相似性比较（变量除以标准差）**
 
@@ -23,9 +23,22 @@ P=[14.1865 14.7286 15.5418 16.9876 16.1744 14.7286
 net=newc([0 1;0 1;0 1;0 1;0 1],2);          %创建五变量二分类的竞争型网络
 net.trainParam.epochs=1000;                 %指定最大训练次数
 net=train(net,P);                           %训练网络
+```
+
+<img src="../ANN_24_C_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 Y=sim(net,P);                               %数值仿真结果
 Yc=vec2ind(Y)                               %给出分类向量
+```
+
+<pre class="mlx-out">Yc = 1x6
+     2     2     1     1     1     2</pre>
+
+```matlab
 Q=[14.6383 4.3525 6.2591 -1.2590 2.7148]';  %输入福冈的信号
 y_test=sim(net,Q);                          %福冈数值仿真
 yc_test=vec2ind(y_test)                     %福冈归类结果
 ```
+
+<pre class="mlx-out">yc_test = 1</pre>

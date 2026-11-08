@@ -1,12 +1,12 @@
 # SVM_R3.mlx
 
-「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 5.2 KB · 代码 48 行
+「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 5.2 KB · 代码 48 行 · 运行输出 3
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_R3.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/SVM_V1/SVM_R3.mlx" download>下载 SVM_R3.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_R3.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/SVM_V1/SVM_R3.mlx" download>下载 SVM_R3.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **训练支持向量机回归模型**
 
@@ -50,7 +50,28 @@ Tbl.Properties.VariableNames = varnames;
 rng default  % For reproducibility
 Mdl = fitrsvm(Tbl,'Rings','KernelFunction','gaussian','KernelScale','auto',...
     'Standardize',true)
+```
 
+<pre class="mlx-out">Mdl = 
+  RegressionSVM
+           PredictorNames: {'Sex'  'Length'  'Diameter'  'Height'  'Whole_weight'  'Shucked_weight'  'Viscera_weight'  'Shell_weight'}
+             ResponseName: 'Rings'
+    CategoricalPredictors: 1
+        ResponseTransform: 'none'
+                    Alpha: [3635x1 double]
+                     Bias: 10.8144
+         KernelParameters: [1x1 struct]
+                       Mu: [0 0 0 0.5240 0.4079 0.1395 0.8287 0.3594 0.1806 0.2388]
+                    Sigma: [1 1 1 0.1201 0.0992 0.0418 0.4904 0.2220 0.1096 0.1392]
+          NumObservations: 4177
+           BoxConstraints: [4177x1 double]
+          ConvergenceInfo: [1x1 struct]
+          IsSupportVector: [4177x1 logical]
+                   Solver: 'SMO'
+
+  Properties, Methods</pre>
+
+```matlab
 % 命令行窗口显示 Mdl 是经过训练的 RegressionSVM 模型并显示属性列表。
 % 使用点表示法显示 Mdl 的属性。例如，检查以确认模型是否收敛以及完成了多少次迭代。
 % The Command Window shows that Mdl is a trained RegressionSVM model
@@ -60,7 +81,18 @@ Mdl = fitrsvm(Tbl,'Rings','KernelFunction','gaussian','KernelScale','auto',...
 % how many iterations it completed.
 
 conv = Mdl.ConvergenceInfo.Converged
+```
+
+<pre class="mlx-out">conv = logical
+   1</pre>
+
+```matlab
 iter = Mdl.NumIterations  % iter = 2759
+```
+
+<pre class="mlx-out">iter = 2759</pre>
+
+```matlab
 % 返回结果表明模型在 2759 次迭代后收敛。
 % The returned results indicate that the model converged after 2759 iterations.
 ```

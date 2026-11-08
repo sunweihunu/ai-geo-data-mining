@@ -1,12 +1,12 @@
 # New_ANN_08.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 33.1 KB · 代码 44 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 33.1 KB · 代码 44 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_08.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_08.mlx" download>下载 New_ANN_08.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_08.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_08.mlx" download>下载 New_ANN_08.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **多个神经网络**
 
@@ -42,6 +42,22 @@ for i = 1:numNN
   fprintf('Training %d/%d\n', i, numNN)
   nets{i} = train(net, x1, t1);
 end
+```
+
+<pre class="mlx-out">Training 1/10
+Training 2/10
+Training 3/10
+Training 4/10
+Training 5/10
+Training 6/10
+Training 7/10
+Training 8/10
+Training 9/10
+Training 10/10</pre>
+
+<img src="../New_ANN_08_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 接下来，基于第二个数据集对每个网络进行测试，得到单一网络性能和平均输出性能。
 
 perfs = zeros(1, numNN);
@@ -53,8 +69,19 @@ for i = 1:numNN
   y2Total = y2Total + y2;
 end
 perfs
+```
+
+<pre class="mlx-out">perfs = 1x10
+  292.2297   69.3599   72.9425   34.9048   52.0254   32.8272   54.0522   29.4749   41.7044   54.0018</pre>
+
+```matlab
 y2AverageOutput = y2Total / numNN;
 perfAveragedOutputs = mse(nets{1}, t2, y2AverageOutput)
+```
+
+<pre class="mlx-out">perfAveragedOutputs = 26.7045</pre>
+
+```matlab
 % 平均输出的均方误差可能低于大多数单一网络的性能，但未必是全部。它可能会更好地泛化应用于其他新数据。
 
 % 对于一些高难度问题，可以训练 100 个网络，并对任一输入取其输出的平均值。

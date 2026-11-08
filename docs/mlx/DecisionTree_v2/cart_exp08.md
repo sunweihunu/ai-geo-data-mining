@@ -1,12 +1,12 @@
 # cart_exp08.mlx
 
-「决策树（CART）」目录 · 对应书稿 **第08章 决策树** · 124.4 KB · 代码 76 行
+「决策树（CART）」目录 · 对应书稿 **第08章 决策树** · 124.4 KB · 代码 76 行 · 图窗 3
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DecisionTree_v2/cart_exp08.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/DecisionTree_v2/cart_exp08.mlx" download>下载 cart_exp08.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DecisionTree_v2/cart_exp08.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/DecisionTree_v2/cart_exp08.mlx" download>下载 cart_exp08.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **控制树的深度**
 
@@ -66,9 +66,18 @@ figure;
 % 横轴是分支个数，这里是14 15 16 17
 % 纵轴是树的个数，这里是1，3，3，3个
 histogram(mdlDefaultNumSplits)
+```
 
+<img src="../cart_exp08_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 查看第一课树是MdlDefault.Trained{1}
 view(MdlDefault.Trained{1},'Mode','graph')
+```
+
+<img src="../cart_exp08_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 % The average number of splits is around 15.
 
 % ============= Model Set 2 ： Mdl7 ===========
@@ -83,12 +92,25 @@ view(MdlDefault.Trained{1},'Mode','graph')
 % 'CrossVal','on'打开以后会训练生成多个树，默认是10折交叉检验，所以是10个树
 Mdl7 = fitctree(X,Y,'MaxNumSplits',7,'CrossVal','on');
 view(Mdl7.Trained{1},'Mode','graph') % 把第一个树拿出来看看
+```
 
+<img src="../cart_exp08_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+```matlab
 % 比较2套模型（每个是10个模型）的交叉验证分类错误。
 % Compare the cross-validation classification errors of the models.
 classErrorDefault = kfoldLoss(MdlDefault)
-classError7 = kfoldLoss(Mdl7)
+```
 
+<pre class="mlx-out">classErrorDefault = 0.1168</pre>
+
+```matlab
+classError7 = kfoldLoss(Mdl7)
+```
+
+<pre class="mlx-out">classError7 = 0.1311</pre>
+
+```matlab
 % 整体上，Mdl7 的复杂性要低得多，而且性能仅比 MdlDefault 稍差。
 % Mdl7 is much less complex and performs only slightly worse than MdlDefault.
 ```

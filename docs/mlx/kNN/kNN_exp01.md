@@ -1,12 +1,12 @@
 # kNN_exp01.mlx
 
-「k 最近邻（kNN）」目录 · 对应书稿 **第07章 k最近邻（kNN）模型** · 55.6 KB · 代码 78 行
+「k 最近邻（kNN）」目录 · 对应书稿 **第07章 k最近邻（kNN）模型** · 55.6 KB · 代码 78 行 · 图窗 4
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/kNN/kNN_exp01.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/kNN/kNN_exp01.mlx" download>下载 kNN_exp01.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/kNN/kNN_exp01.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/kNN/kNN_exp01.mlx" download>下载 kNN_exp01.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **分类查询数据**
 
@@ -32,10 +32,23 @@ gscatter(x(:,1),x(:,2),species)
 legend('Location','best')
 ```
 
+<img src="../kNN_exp01_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
 ## Step 2: 准备一个 Kd 树最近邻搜索器模型。
 
 ```matlab
 Mdl = KDTreeSearcher(x)
+```
+
+<pre class="mlx-out">Mdl = 
+  KDTreeSearcher with properties:
+
+       BucketSize: 50
+         Distance: 'euclidean'
+    DistParameter: []
+                X: [150x2 double]</pre>
+
+```matlab
 % Mdl 是一个 KDTreeSearcher 模型。
 % 默认情况下，它用于搜索邻居的距离度量是欧几里得距离。
 ```
@@ -53,10 +66,28 @@ line(newpoint(1),newpoint(2),'marker','x','color','k',...
 [n,d] = knnsearch(Mdl,newpoint,'k',10);
 line(x(n,1),x(n,2),'color',[.5 .5 .5],'marker','o',...
     'linestyle','none','markersize',10)
+```
 
+<img src="../kNN_exp01_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 % knnsearch 似乎只找到了最近的八个邻居。事实上，这个特定的数据集包含重复的值。
 x(n,:)
+```
 
+<pre class="mlx-out">ans = 10x2
+    5.0000    1.5000
+    4.9000    1.5000
+    4.9000    1.5000
+    5.1000    1.5000
+    5.1000    1.6000
+    4.8000    1.4000
+    5.0000    1.7000
+    4.7000    1.4000
+    4.7000    1.4000
+    4.7000    1.5000</pre>
+
+```matlab
 % 重新画图，使轴相等，以便计算出的距离与绘图轴上的表观距离相等，然后放大以更好地查看邻居。
 figure;
 gscatter(x(:,1),x(:,2),species)  % 重新画图
@@ -68,10 +99,32 @@ axis square
 
 % 显示点坐标
 fprintf('\n%s\n','1个数据点坐标如下');
+```
+
+<pre class="mlx-out">1个数据点坐标如下</pre>
+
+```matlab
 disp(newpoint);
+```
+
+<pre class="mlx-out">    5.0000    1.4500</pre>
+
+```matlab
 % 找出 10 个邻居的类别。
 fprintf('\n%s\n','kNN计算的该点的占每类比例')
+```
+
+<pre class="mlx-out">kNN计算的该点的占每类比例</pre>
+
+```matlab
 tabulate(species(n))
+```
+
+<pre class="mlx-out">       Value    Count   Percent
+   virginica        2     20.00%
+  versicolor        8     80.00%</pre>
+
+```matlab
 % 使用基于 10 个最近邻点的多数票的规则，您可以将此新点归类为杂色点。
 
 
@@ -83,6 +136,8 @@ h = rectangle('position',[ctr,diameter,diameter],...
     'curvature',[1 1]);
 h.LineStyle = ':';
 ```
+
+<img src="../kNN_exp01_media/figure_2.png" alt="图窗 3" loading="lazy" />
 
 ## Step 4: 对三个新点进行分类
 
@@ -98,16 +153,56 @@ line(x(n2,1),x(n2,2),'color',[.5 .5 .5],'marker','o',...
     'linestyle','none','markersize',10)
 line(newpoint2(:,1),newpoint2(:,2),'marker','x','color','k',...
     'markersize',10,'linewidth',2,'linestyle','none')
+```
 
+<img src="../kNN_exp01_media/figure_3.png" alt="图窗 4" loading="lazy" />
+
+```matlab
 % 显示点坐标
 fprintf('\n%s\n','三个数据点坐标如下')
+```
+
+<pre class="mlx-out">三个数据点坐标如下</pre>
+
+```matlab
 disp(newpoint2);
+```
+
+<pre class="mlx-out">    5.0000    1.4500
+    6.0000    2.0000
+    2.7500    0.7500</pre>
+
+```matlab
 % 为每个新点找出 10 个最近邻的类别。
 fprintf('\n%s\n','kNN计算的每个点的占每类比例')
-tabulate(species(n2(1,:)))
-tabulate(species(n2(2,:)))
-tabulate(species(n2(3,:)))
+```
 
+<pre class="mlx-out">kNN计算的每个点的占每类比例</pre>
+
+```matlab
+tabulate(species(n2(1,:)))
+```
+
+<pre class="mlx-out">       Value    Count   Percent
+   virginica        2     20.00%
+  versicolor        8     80.00%</pre>
+
+```matlab
+tabulate(species(n2(2,:)))
+```
+
+<pre class="mlx-out">      Value    Count   Percent
+  virginica       10    100.00%</pre>
+
+```matlab
+tabulate(species(n2(3,:)))
+```
+
+<pre class="mlx-out">       Value    Count   Percent
+  versicolor        7     70.00%
+      setosa        3     30.00%</pre>
+
+```matlab
 % 给出具体的分类
 cc={};
 for nn=1:3
@@ -116,5 +211,14 @@ for nn=1:3
     cc=[cc; c1(b,1)]; % 存到cc
 end
 fprintf('\n%s\n','kNN计算的每个点的最后类别')
+```
+
+<pre class="mlx-out">kNN计算的每个点的最后类别</pre>
+
+```matlab
 disp(cc)
 ```
+
+<pre class="mlx-out">    {'versicolor'}
+    {'virginica' }
+    {'versicolor'}</pre>

@@ -1,12 +1,12 @@
 # SVM_C3.mlx
 
-「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 58.2 KB · 代码 36 行
+「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 58.2 KB · 代码 36 行 · 图窗 2
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C3.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/SVM_V1/SVM_C3.mlx" download>下载 SVM_C3.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C3.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/SVM_V1/SVM_C3.mlx" download>下载 SVM_C3.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **使用自定义核训练 SVM 分类器**
 
@@ -26,6 +26,8 @@
 clear
 SVM_Data1
 ```
+
+<img src="../SVM_C3_media/figure_0.png" alt="图窗 1" loading="lazy" />
 
 ## 使用 sigmoid 核函数训练 SVM 分类器。标准化数据是一种良好的做法。
 
@@ -52,13 +54,21 @@ contour(x1Grid,x2Grid,reshape(scores1(:,2),size(x1Grid)),[0 0],'k');
 title('Scatter Diagram with the Decision Boundary')
 legend({'-1','1','Support Vectors'},'Location','Best');
 hold off
+```
 
+<img src="../SVM_C3_media/figure_1.png" alt="图窗 2" loading="lazy" />
 
+```matlab
 % 您可以调整核参数，尝试改进决策边界的形状。这也可能降低样本内的误分类率，
 % 但您应首先确定样本外的误分类率。
 % 使用 10 折交叉验证确定样本外的误分类率。
 CVMdl1 = crossval(Mdl1);
 misclass1 = kfoldLoss(CVMdl1)
+```
+
+<pre class="mlx-out">misclass1 = 0.1350</pre>
+
+```matlab
 % misclass1 =    0.1350
 % 样本外的误分类率为 13.5%。
 ```

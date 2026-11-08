@@ -1,12 +1,12 @@
 # ANN_05_p.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 30.7 KB · 代码 22 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 30.7 KB · 代码 22 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_05_p.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/ANN_05_p.mlx" download>下载 ANN_05_p.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_05_p.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/ANN_05_p.mlx" download>下载 ANN_05_p.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **国家类型的自适应分类(变量除以标准差)**
 
@@ -28,11 +28,36 @@ for a=1:25                                  %指定迭代次数为25次
     [net,Y,e]=adapt(net,P,T);               %调用自适应函数训练网络
     handle=plotpc(net.iw{1},net.b{1},handle);drawnow;%添加分类界面
 end;
+```
+
+<img src="../ANN_05_p_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 Y                                           %输出训练样品的分类结果
+```
+
+<pre class="mlx-out">Y = 1x14
+     0     0     0     0     0     0     0     0     0     0     0     0     0     0</pre>
+
+```matlab
 P_test=[17.4615 17.3506 15.5756 15.0875
 8.0905 7.9189 8.0006 6.7666
 2.2418 1.5130 0.6129 0.3369];               %输入判样品信号
 y=sim(net,P_test);y                         %待判样品的仿真分类结果
+```
+
+<pre class="mlx-out">y = 1x4
+     1     1     1     1</pre>
+
+```matlab
 w=net.iw{1,1}                               %输出权数向量
+```
+
+<pre class="mlx-out">w = 1x3
+   62.4587   12.0638  157.1369</pre>
+
+```matlab
 b=net.b{1}                                  %输出阈值
 ```
+
+<pre class="mlx-out">b = -4</pre>

@@ -1,12 +1,12 @@
 # ANN_19_BP.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 31.3 KB · 代码 27 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 31.3 KB · 代码 27 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_19_BP.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/ANN_19_BP.mlx" download>下载 ANN_19_BP.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_19_BP.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/ANN_19_BP.mlx" download>下载 ANN_19_BP.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **通勤方式选择的BP网络（类比于logistic回归）**
 
@@ -22,15 +22,62 @@ P=[18 21 23	23 28 31 36	42 46 48 55	56 58 18 20	25 27 28 30	32 33 33 38	41 45 48
 T=[0 0 1 1 1 0 1 1 1 0 1 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 1 1];
                                             %目标输出
 net=newff(minmax(P),[1,1],{'logsig','purelin'},'trainlm');
+```
+
+<pre class="mlx-out">Warning: NEWFF used in an obsolete way.
+          See help for NEWFF to update calls to the new argument list.</pre>
+
+```matlab
                                             %创建一个隐含层包括4个神经元的BP网络
 net.trainParam.epochs=2000;                 %最大学习次数
 net.trainParam.goal=0.0001;                 %训练误差0.0001，小于次数可以终止学习
 net=train(net,P,T);                         %训练网络
+```
+
+<img src="../ANN_19_BP_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 Y=sim(net,P)';Y                             %训练样本的仿真结果
+```
+
+<pre class="mlx-out">Y = 28x1
+    0.0000
+   -0.0000
+    0.6500
+    0.6500
+    0.6500
+    0.6500
+    0.6500
+    0.6500
+    0.6500
+    0.6500</pre>
+
+```matlab
 w1=net.iw{1}                                %输出第一层权数向量
+```
+
+<pre class="mlx-out">w1 = 1x3
+   18.8799   -1.9764   -0.4097</pre>
+
+```matlab
 b1=net.b{1}                                 %输出第一层阈值
+```
+
+<pre class="mlx-out">b1 = -5.7352</pre>
+
+```matlab
 w2=net.lw{2}                                %输出第二层权数向量
+```
+
+<pre class="mlx-out">w2 = 0.6500</pre>
+
+```matlab
 b2=net.b{2}                                 %输出第二层阈值
+```
+
+<pre class="mlx-out">b2 = -5.5913e-10</pre>
+
+```matlab
 for i=1:length(Y)                           %将仿真结果转换为0-1表示
     if Y(i)>=0.5
         y(i)=1;
@@ -39,5 +86,13 @@ for i=1:length(Y)                           %将仿真结果转换为0-1表示
     end
 end
 y                                           %输出第二层的结果
+```
+
+<pre class="mlx-out">y = 1x28
+     0     0     1     1     1     1     1     1     1     1     1     1     1     0     0     0     0     0     1     1     0     1     1     1     1     1     1     1</pre>
+
+```matlab
 r=1-sum(abs(y-T))/length(Y)                 %计算预测正确率
 ```
+
+<pre class="mlx-out">r = 0.7500</pre>

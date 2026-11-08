@@ -1,12 +1,12 @@
 # cart_exp10.mlx
 
-「决策树（CART）」目录 · 对应书稿 **第08章 决策树** · 23.3 KB · 代码 57 行
+「决策树（CART）」目录 · 对应书稿 **第08章 决策树** · 23.3 KB · 代码 57 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DecisionTree_v2/cart_exp10.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/DecisionTree_v2/cart_exp10.mlx" download>下载 cart_exp10.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DecisionTree_v2/cart_exp10.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/DecisionTree_v2/cart_exp10.mlx" download>下载 cart_exp10.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **无偏预测变量重要性估计**
 
@@ -34,9 +34,23 @@ X = table(Acceleration,Cylinders,Displacement,Horsepower,Mfg,...
 % 显示分类变量中表示的类别数。
 % Display the number of categories represented in the categorical variables.
 numCylinders = numel(categories(Cylinders))
-numMfg = numel(categories(Mfg))
-numModelYear = numel(categories(Model_Year))
+```
 
+<pre class="mlx-out">numCylinders = 3</pre>
+
+```matlab
+numMfg = numel(categories(Mfg))
+```
+
+<pre class="mlx-out">numMfg = 28</pre>
+
+```matlab
+numModelYear = numel(categories(Model_Year))
+```
+
+<pre class="mlx-out">numModelYear = 3</pre>
+
+```matlab
 % 因为只有 Cylinders 和 Model_Year 有 3 个类别，标准 CART，predictor-splitting
 % 算法更喜欢在两个连续的变量上拆分。
 % Because there are 3 categories only in Cylinders and Model_Year,
@@ -69,7 +83,11 @@ h = gca;
 h.XTickLabel = Mdl.PredictorNames;
 h.XTickLabelRotation = 45;
 h.TickLabelInterpreter = 'none';
+```
 
+<img src="../cart_exp10_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 本例中，排量是最重要的预测因素，其次是马力。
 % In this case, Displacement is the most important predictor, followed by Horsepower.
 ```

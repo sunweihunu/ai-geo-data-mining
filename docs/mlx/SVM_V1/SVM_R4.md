@@ -1,12 +1,12 @@
 # SVM_R4.mlx
 
-「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 4.9 KB · 代码 30 行
+「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 4.9 KB · 代码 30 行 · 运行输出 4
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_R4.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/SVM_V1/SVM_R4.mlx" download>下载 SVM_R4.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_R4.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/SVM_V1/SVM_R4.mlx" download>下载 SVM_R4.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **Cross-Validate SVM Regression Model**
 
@@ -39,7 +39,37 @@ Y = MPG;
 
 ```matlab
 MdlLin = fitrsvm(X,Y,'Standardize',true,'KFold',5)
+```
+
+<pre class="mlx-out">MdlLin = 
+  RegressionPartitionedSVM
+    CrossValidatedModel: 'SVM'
+         PredictorNames: {'x1'  'x2'}
+           ResponseName: 'Y'
+        NumObservations: 94
+                  KFold: 5
+              Partition: [1x1 cvpartition]
+      ResponseTransform: 'none'
+
+  Properties, Methods</pre>
+
+```matlab
 MdlGau = fitrsvm(X,Y,'Standardize',true,'KFold',5,'KernelFunction','gaussian')
+```
+
+<pre class="mlx-out">MdlGau = 
+  RegressionPartitionedSVM
+    CrossValidatedModel: 'SVM'
+         PredictorNames: {'x1'  'x2'}
+           ResponseName: 'Y'
+        NumObservations: 94
+                  KFold: 5
+              Partition: [1x1 cvpartition]
+      ResponseTransform: 'none'
+
+  Properties, Methods</pre>
+
+```matlab
 % MdlLin 和 MdlGau 是 RegressionPartitionedSVM 交叉验证模型。
 % 每个模型的 Trained 属性是 CompactRegressionSVM 模型的 5×1 元胞数组。
 % 单元格中的模型存储 4 次观察的训练结果，并保留 1 次观察结果。
@@ -53,8 +83,18 @@ MdlGau = fitrsvm(X,Y,'Standardize',true,'KFold',5,'KernelFunction','gaussian')
 % the generalization error is the out-of-sample mean-squared error.
 
 mseLin = kfoldLoss(MdlLin)
+```
+
+<pre class="mlx-out">mseLin = 17.2987</pre>
+
+```matlab
 % mseLin = 17.4417
 mseGau = kfoldLoss(MdlGau)
+```
+
+<pre class="mlx-out">mseGau = 16.6000</pre>
+
+```matlab
 % mseGau = 16.7355
 ```
 

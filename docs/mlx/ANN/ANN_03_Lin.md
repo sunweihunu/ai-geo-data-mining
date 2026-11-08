@@ -1,12 +1,12 @@
 # ANN_03_Lin.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 46.2 KB · 代码 22 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 46.2 KB · 代码 22 行 · 图窗 2
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_03_Lin.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/ANN_03_Lin.mlx" download>下载 ANN_03_Lin.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_03_Lin.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/ANN_03_Lin.mlx" download>下载 ANN_03_Lin.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **线性网络——多输入-单输出（交通运输业的影响因素）**
 
@@ -24,7 +24,18 @@ T=y;                                        %输出变量不变
 net=newlin(minmax(P),1,0,0.01);             %构建一个单输出线性网络
 net.trainParam.epochs=20000;                %指定最大训练次数
 net=train(net,P,T);                         %网络训练
+```
+
+<img src="../ANN_03_Lin_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 Y=sim(net,P)                                %仿真并输出结果
+```
+
+<pre class="mlx-out">Y = 1x18
+    3.4046    3.6176    3.2474    3.5528    3.5681    3.7517    3.5556    3.5820    4.3223    4.8282    4.9744    4.9033    5.8411    6.2658    7.4306    9.5945   10.7001   12.9299</pre>
+
+```matlab
 figure;                                     %保留误差曲线图
 t=1:length(Y);                              %定义时序
 plot(t,T,'r+');                             %绘制输出变量散点图
@@ -33,6 +44,19 @@ ylabel('Y');                                %纵轴标签（运输业产值）
 hold on                                     %保持图形
 plot(t,Y,'b-');                             %在散点图中添加仿真曲线
 hold off                                    %结束绘图
+```
+
+<img src="../ANN_03_Lin_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 w=net.iw{1,1}                               %输出权数向量
+```
+
+<pre class="mlx-out">w = 1x3
+    2.2130   -0.1607    3.6278</pre>
+
+```matlab
 b=net.b{1}                                  %输出阈值
 ```
+
+<pre class="mlx-out">b = -1.0044</pre>

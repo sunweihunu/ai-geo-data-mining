@@ -1,12 +1,12 @@
 # New_ANN_21.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 119.0 KB · 代码 72 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 119.0 KB · 代码 72 行 · 图窗 4
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_21.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_21.mlx" download>下载 New_ANN_21.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_21.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_21.mlx" download>下载 New_ANN_21.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **问题描述：肿瘤分类问题**
 
@@ -54,6 +54,11 @@ net.divideParam.testRatio  = 15/100;
 % 要训练网络，请输入以下命令：
 
 [net,tr] = train(net,inputs,targets);
+```
+
+<img src="../New_ANN_21_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 在训练过程中，与函数拟合时一样，训练窗口将打开。
 % 此窗口显示训练进度。要随时中断训练，请点击 Stop Training。
 
@@ -63,20 +68,42 @@ net.divideParam.testRatio  = 15/100;
 outputs = net(inputs);
 errors = gsubtract(targets,outputs);
 performance = perform(net,targets,outputs)  % performance =    0.0307
+```
 
+<pre class="mlx-out">performance = 0.0354</pre>
+
+```matlab
 % 通过使用训练记录中的测试索引，还可以只针对测试集计算网络性能。
 
 tInd = tr.testInd;
 tstOutputs = net(inputs(:,tInd));
 tstPerform = perform(net,targets(:,tInd),tstOutputs)  % tstPerform =    0.0257
+```
 
+<pre class="mlx-out">tstPerform = 0.0456</pre>
+
+```matlab
 % 查看网络图。
 view(net)
+```
+
+<img src="../New_ANN_21_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 % 绘制训练、验证和测试性能图。
 figure, plotperform(tr)
+```
+
+<img src="../New_ANN_21_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+```matlab
 % 使用 plotconfusion 函数绘制混淆矩阵。它显示最终经过训练的网络发生的各种类型的误差。
 figure, plotconfusion(targets,outputs)
+```
 
+<img src="../New_ANN_21_media/figure_3.png" alt="图窗 4" loading="lazy" />
+
+```matlab
 % 对角线单元格显示正确分类的案例数，非对角线单元格显示误分类的案例数。
 % 右下角的蓝色单元格显示正确分类的案例的总百分比（绿色）和误分类的案例的总百分比（红色）。
 % 结果表明识别效果非常好。如果您需要更准确的结果，可以尝试下列方法之一：

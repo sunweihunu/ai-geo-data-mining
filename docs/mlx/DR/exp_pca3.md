@@ -1,12 +1,12 @@
 # exp_pca3.mlx
 
-「降维（DR）」目录 · 对应书稿 **第05章 降维** · 27.4 KB · 代码 36 行
+「降维（DR）」目录 · 对应书稿 **第05章 降维** · 27.4 KB · 代码 36 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DR/exp_pca3.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/DR/exp_pca3.mlx" download>下载 exp_pca3.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DR/exp_pca3.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/DR/exp_pca3.mlx" download>下载 exp_pca3.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **计算主成分解释的变异性百分比。显示主成分空间中的数据表示。**
 
@@ -28,8 +28,21 @@ load imports-85
 [coeff,score,latent,tsquared,explained] = pca(X(:,3:15));
 
 explained
+```
 
+<pre class="mlx-out">explained = 13x1
+   64.3429
+   35.4484
+    0.1550
+    0.0379
+    0.0078
+    0.0048
+    0.0013
+    0.0011
+    0.0005
+    0.0002</pre>
 
+```matlab
 % 前三个成分解释所有变异性的 99.95%。
 %
 % 可视化前三个主成分的空间中的数据表示。
@@ -39,7 +52,11 @@ axis equal
 xlabel('1st Principal Component')
 ylabel('2nd Principal Component')
 zlabel('3rd Principal Component')
+```
 
+<img src="../exp_pca3_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 数据在第一主成分轴上具有最大变异性。在第一个轴的所有可能选择中，
 % 这是有可能得到的最大方差。在剩余可供第二主成分轴使用的所有可能选择中，
 % 该选择具有最大变异性。第三主成分轴具有第三大变异性，

@@ -1,12 +1,12 @@
 # SVM_C12.mlx
 
-「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 27.4 KB · 代码 66 行
+「支持向量机（SVM）」目录 · 对应书稿 **第10章 支持向量机** · 27.4 KB · 代码 66 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C12.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/SVM_V1/SVM_C12.mlx" download>下载 SVM_C12.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/SVM_V1/SVM_C12.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/SVM_V1/SVM_C12.mlx" download>下载 SVM_C12.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **绘制 SVM 分类模型的后验概率区域**
 
@@ -31,9 +31,23 @@ SVMModel = fitcsvm(X,y,'ClassNames',{'setosa','versicolor'});
 
 rng(1); % For reproducibility
 [SVMModel,ScoreParameters] = fitPosterior(SVMModel);
+```
+
+<pre class="mlx-out">Warning: Classes are perfectly separated. The optimal score-to-posterior transformation is a step function.</pre>
+
+```matlab
 % Warning: Classes are perfectly separated.
 % The optimal score-to-posterior transformation is a step function.
 ScoreParameters
+```
+
+<pre class="mlx-out">ScoreParameters = struct with fields:
+                        Type: 'step'
+                  LowerBound: -0.8431
+                  UpperBound: 0.6897
+    PositiveClassProbability: 0.5000</pre>
+
+```matlab
 % ScoreParameters = struct with fields:
 %                         Type: 'step'
 %                   LowerBound: -0.8431
@@ -73,6 +87,11 @@ sv = X(SVMModel.IsSupportVector,:);
 plot(sv(:,1),sv(:,2),'yo','MarkerSize',15,'LineWidth',2);
 axis tight
 hold off
+```
+
+<img src="../SVM_C12_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % Figure contains an axes.
 % The axes contains 4 objects of type contour, line.
 % These objects represent setosa, versicolor.

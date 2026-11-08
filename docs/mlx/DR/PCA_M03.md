@@ -1,12 +1,12 @@
 # PCA_M03.mlx
 
-「降维（DR）」目录 · 对应书稿 **第05章 降维** · 46.4 KB · 代码 70 行
+「降维（DR）」目录 · 对应书稿 **第05章 降维** · 46.4 KB · 代码 70 行 · 图窗 3
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DR/PCA_M03.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/DR/PCA_M03.mlx" download>下载 PCA_M03.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DR/PCA_M03.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/DR/PCA_M03.mlx" download>下载 PCA_M03.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **主成分分析（第三套方法）**
 
@@ -28,6 +28,11 @@ figure(1);                                 %创建第一个图形窗口
 pareto(per);                               %将贡献率绘制成直方图
 xlabel('Component number');                %横轴标签(成分数)
 ylabel('Eigenvalue');                      %纵轴标签(特征值)
+```
+
+<img src="../PCA_M03_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 lambda=diag(eigv);                         %用特征值构成对角阵
 C=sqrtm(lambda);                           %将对角矩阵对角线元素化为平方根
 A=-E*C;                                    %计算载荷矩阵(转换为负值)
@@ -45,11 +50,21 @@ plot(H(:,1),H(:,2),'rO');                  %打印二维载荷散点图
 xlabel('PC axis1')                         %横轴标签(主轴1)
 ylabel('PC axis2')                         %纵轴标签(主轴2)
 text(H(:,1),H(:,2),varname,'FontSize',9,'Color','r');  %静态标注变量（原为交互式gname）
+```
+
+<img src="../PCA_M03_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 figure(3);                                 %创建第三个图形窗口
 plot(Fe(:,1),Fe(:,2),'b+');                %打印二维主成分散点图
 xlabel('PC1 score')                        %横轴标签(第一主成分得分)
 ylabel('PC2 score')                        %纵轴标签(第二主成分得分)
 text(Fe(:,1),Fe(:,2),casename,'FontSize',9);  %静态标注城市（原为交互式gname）
+```
+
+<img src="../PCA_M03_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+```matlab
 R=cov(X);                                  %计算并输出协方差矩阵
 Rp=H*H';                                   %计算再生相关矩阵
 Re=R-Rp;                                   %计算相关矩阵的残差矩阵
@@ -76,6 +91,12 @@ figure;
 TScore=[-3.5172	-2.3298	-2.2177	-2.2147	-1.9264	-1.6067	-1.5683	-1.4484	-1.4196	-1.4027	-1.1842	-0.9379	-0.6806	-0.4274	-0.4216	-0.2609	-0.1601	0.0423	0.1993	0.3765	0.5967	1.1034	1.1589	1.8626	1.9415	1.9735	1.9992	2.464	2.69	2.7117	4.6045];
 T=[6.5426	6.7736	13.9607	5.0502	2.7991	2.5131	5.1351	3.2219	1.2612	1.4518	1.04	9.5635	2.2586	0.893	1.6468	0.3455	0.3404	1.0211	0.3453	0.4826	1.7876	0.6665	0.9099	3.7042	4.9977	4.0072	5.2497	7.7893	5.1263	15.7572];
 plot(TScore,T, 'ro');
+```
+
+<pre class="mlx-out">Error using plot
+Specify the coordinates as vectors or matrices of the same size, or as a vector and a matrix that share the same length in at least one dimension.</pre>
+
+```matlab
 xlabel('TScore');
 ylabel('T');
 hold on

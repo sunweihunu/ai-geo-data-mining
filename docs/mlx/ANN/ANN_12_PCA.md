@@ -1,12 +1,12 @@
 # ANN_12_PCA.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 82.6 KB · 代码 32 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 82.6 KB · 代码 32 行 · 图窗 4
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_12_PCA.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/ANN_12_PCA.mlx" download>下载 ANN_12_PCA.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/ANN_12_PCA.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/ANN_12_PCA.mlx" download>下载 ANN_12_PCA.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **福冈甜橘引种的主成分分析**
 
@@ -31,18 +31,46 @@ plot(F(:,1),F(:,2),'b+');                   %二维二维主成分散点图
 xlabel('PC1 score')                         %横轴标签(第一主成分得分)
 ylabel('PC2 score')                         %纵轴标签(第二主成分得分)
 text(F(:,1),F(:,2),CN,'FontSize',9);        %静态标注各城市（原为交互式gname，批量运行时无法交互）
+```
+
+<img src="../ANN_12_PCA_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 figure                                      %保持主成分得分图
 %基于主成分分析建立神经网络模型
 P=F(1:length(F)-1,:)';                      %利用主成分得分构建输入信号
 Q=F(length(F),:)';                          %基于主成分得分的待判样品信息
 T=[1 1 0 0 0 0];                            %基于主成分得分的目标输出
 plotpv(P,T);                                %画出中国六城市两大类别的散点图
+```
+
+<img src="../ANN_12_PCA_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 net=newp(minmax(P),1);                      %创建一个感知器网络
 net.trainParam.epochs=100;                  %指定最大训练次数
 net=train(net,P,T);                         %网络训练
+```
+
+<img src="../ANN_12_PCA_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+```matlab
 Yp=sim(net,P)                               %训练样品的预报结果
+```
+
+<pre class="mlx-out">Yp = 1x6
+     1     1     0     0     0     0</pre>
+
+```matlab
 Y=sim(net,Q)                                %待判样品的归类结果
+```
+
+<pre class="mlx-out">Y = 1</pre>
+
+```matlab
 figure                                      %保持网络训练过程图
 plotpv([P Q],[T Y]);                        %画出城市二类别散点图
 handle=plotpc(net.iw{1,1},net.b{1});        %添加分界线
 ```
+
+<img src="../ANN_12_PCA_media/figure_3.png" alt="图窗 4" loading="lazy" />

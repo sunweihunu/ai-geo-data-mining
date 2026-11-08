@@ -1,12 +1,12 @@
 # cart_exp07.mlx
 
-「决策树（CART）」目录 · 对应书稿 **第08章 决策树** · 82.4 KB · 代码 52 行
+「决策树（CART）」目录 · 对应书稿 **第08章 决策树** · 82.4 KB · 代码 52 行 · 图窗 2
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DecisionTree_v2/cart_exp07.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/DecisionTree_v2/cart_exp07.mlx" download>下载 cart_exp07.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/DecisionTree_v2/cart_exp07.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/DecisionTree_v2/cart_exp07.mlx" download>下载 cart_exp07.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **检查每个子树的分类错误**
 
@@ -47,6 +47,11 @@ Mdl = fitctree(meas(idxTrn,:),species(idxTrn));
 % 查看分类树。
 % View the classification tree.
 view(Mdl,'Mode','graph');
+```
+
+<img src="../cart_exp07_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 分类树有四个修剪级别。
 % 级别 0 是完整的、未修剪的树
 % 级别 3 只是根节点（即没有分裂）
@@ -61,7 +66,14 @@ Examine the training sample classification error for each subtree (or pruning le
 ```matlab
 m = max(Mdl.PruneList) - 1;
 trnLoss = resubLoss(Mdl,'SubTrees',0:m)
+```
 
+<pre class="mlx-out">trnLoss = 3x1
+    0.0267
+    0.0533
+    0.3067</pre>
+
+```matlab
 % 完整的、未修剪的树错误分类了大约 2.7% 的训练观察结果。
 % 修剪到 1 级的树错误分类了大约 5.3% 的训练观察结果。
 % 修剪到 2 级（即树桩）的树错误分类了大约 30.6% 的训练观察结果。
@@ -83,6 +95,14 @@ Examine the validation sample classification error at each level excluding the h
 
 ```matlab
 valLoss = loss(Mdl,meas(idxVal,:),species(idxVal),'SubTrees',0:m)
+```
+
+<pre class="mlx-out">valLoss = 3x1
+    0.0369
+    0.0237
+    0.3067</pre>
+
+```matlab
 % 完整的、未修剪的树错误分类了大约 3.7% 的验证观察。
 % 修剪到 1 级的树错误分类了大约 2.4% 的验证观察。
 % 修剪到 2 级（即树桩）的树错误分类了大约 30.7% 的验证观察。
@@ -103,3 +123,5 @@ To balance model complexity and out-of-sample performance, consider pruning Mdl 
 pruneMdl = prune(Mdl,'Level',1);
 view(pruneMdl,'Mode','graph')
 ```
+
+<img src="../cart_exp07_media/figure_1.png" alt="图窗 2" loading="lazy" />

@@ -1,12 +1,12 @@
 # New_ANN_33.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 46.5 KB · 代码 73 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 46.5 KB · 代码 73 行 · 图窗 2
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_33.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_33.mlx" download>下载 New_ANN_33.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_33.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_33.mlx" download>下载 New_ANN_33.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **鸢尾花聚类**
 
@@ -47,6 +47,9 @@ x = iris_dataset;
 size(x) % ans =     4   150
 ```
 
+<pre class="mlx-out">ans = 1x2
+     4   150</pre>
+
 ## 使用神经网络进行聚类
 
 下一步是创建一个用于学习聚类的神经网络。 使用 selforgmap 创建自组织映射，通过选择每个层维度中的神经元数量来对样本进行所需详细程度的分类。 对于此示例，我们将尝试具有以 8×8 六边形网格排列的 64 个神经元的二维层。通常，使用更多神经元可以获得更多细节，而使用更多维度则可对更复杂特征空间的拓扑进行建模。 输入大小为 0，因为网络尚未配置成与我们的输入数据相匹配。这将在训练网络时进行。
@@ -54,16 +57,27 @@ size(x) % ans =     4   150
 ```matlab
 net = selforgmap([8 8]);
 view(net)
+```
 
+<img src="../New_ANN_33_media/figure_0.png" alt="图窗 1" loading="lazy" />
 
+```matlab
 % 现在网络已准备好使用 train 进行优化。
 % 神经网络训练工具显示正在接受训练的网络和用于训练该网络的算法。它还显示训练过程中的训练状态以及停止训练的条件（以绿色突出显示）。
 % 底部的按钮用于打开有用的绘图，这些图可以在训练期间和训练后打开。算法名称和绘图按钮旁边的链接可打开有关这些主题的文档。
 
 [net,tr] = train(net,x);
+```
+
+<img src="../New_ANN_33_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 nntraintool
+```
 
+<pre class="mlx-out">Unrecognized function or variable 'nntraintool'.</pre>
 
+```matlab
 nntraintool('close')
 % 这里使用自组织映射计算每个训练输入的类向量。这些分类涵盖了已知花朵所填充的特征空间，
 % 它们现在可用于对新花朵进行相应分类。网络输出将是一个 64×150 矩阵，

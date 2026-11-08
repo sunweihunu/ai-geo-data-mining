@@ -1,12 +1,12 @@
 # New_ANN_02.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 201.9 KB · 代码 39 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 201.9 KB · 代码 39 行 · 图窗 6
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_02.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_02.mlx" download>下载 New_ANN_02.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_02.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_02.mlx" download>下载 New_ANN_02.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **问题：假设您有一家健康诊所的数据。您想要设计一个网络，**
 
@@ -37,21 +37,50 @@ net.divideParam.testRatio = 15/100;
 
 % Train the Network
 [net,tr] = train(net,inputs,targets);
+```
 
+<img src="../New_ANN_02_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % Test the Network
 outputs = net(inputs);
 errors = gsubtract(outputs,targets);
 performance = perform(net,targets,outputs)
+```
 
+<pre class="mlx-out">performance = 15.8563</pre>
+
+```matlab
 % 看网络 View the Network
 view(net)
+```
 
+<img src="../New_ANN_02_media/figure_1.png" alt="图窗 2" loading="lazy" />
+
+```matlab
 % 画图查看网络性能
 % Plots
 % Uncomment these lines to enable various plots.
 figure; plotperform(tr)
+```
+
+<img src="../New_ANN_02_media/figure_2.png" alt="图窗 3" loading="lazy" />
+
+```matlab
 figure; plottrainstate(tr)
+```
+
+<img src="../New_ANN_02_media/figure_3.png" alt="图窗 4" loading="lazy" />
+
+```matlab
 % figure; plotfit(net,inputs,targets)
 figure; plotregression(targets,outputs)
+```
+
+<img src="../New_ANN_02_media/figure_4.png" alt="图窗 5" loading="lazy" />
+
+```matlab
 figure; ploterrhist(errors)
 ```
+
+<img src="../New_ANN_02_media/figure_5.png" alt="图窗 6" loading="lazy" />

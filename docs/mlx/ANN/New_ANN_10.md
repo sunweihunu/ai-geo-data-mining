@@ -1,12 +1,12 @@
 # New_ANN_10.mlx
 
-「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 35.3 KB · 代码 33 行
+「人工神经网络（ANN）」目录 · 对应书稿 **第09章 人工神经网络** · 35.3 KB · 代码 33 行 · 图窗 1
 
-<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_10.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../src/ANN/New_ANN_10.mlx" download>下载 New_ANN_10.mlx</a></p>
+<p class="refcode-actions"><a class="md-button" href="https://matlab.mathworks.com/open/github/v1?repo=sunweihunu/ai-geo-data-mining&file=docs/mlx/src/ANN/New_ANN_10.mlx" target="_blank" rel="noopener">在 MATLAB Online 中打开 ↗</a> <button class="md-button mlxcopy" type="button">复制代码</button> <a class="md-button" href="../../src/ANN/New_ANN_10.mlx" download>下载 New_ANN_10.mlx</a></p>
 
 !!! tip "MATLAB 实时脚本（.mlx）"
 
-    本页是该实时脚本内代码与文字的网页摘录（运行输出与图窗不随网页展示）。「复制代码」复制脚本全部代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
+    本页展示脚本内的文字说明与代码，并嵌入由 MATLAB `export` 命令从 .mlx 导出的运行结果——命令行输出与图窗均取自作者在实时脚本中保存的内容。「复制代码」仅复制脚本代码，「下载」保存原始 .mlx 文件，「在 MATLAB Online 中打开」在本站仓库推送到 GitHub 后生效。
 
 **自动正则化 (trainbr)**
 
@@ -30,6 +30,11 @@ x = -1:0.05:1;
 t = sin(2*pi*x) + 0.1*randn(size(x));
 net = feedforwardnet(20,'trainbr');
 net = train(net,x,t);
+```
+
+<img src="../New_ANN_10_media/figure_0.png" alt="图窗 1" loading="lazy" />
+
+```matlab
 % 该算法的一个特点是，它可以度量网络实际上在使用多少个网络参数（权重和偏置）。
 % 在本例中，最终经过训练的网络使用 1-20-1 网络中的 61 个总权重和偏置中的大约 12 个参数
 % （由打印输出中的 #Par 指示）。不管网络中的参数个数变得多大，此实际参数个数应保持大致相同。
